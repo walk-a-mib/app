@@ -19,55 +19,94 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <Button
+                <ImageButton
+                    android:id="@+id/imgBtn1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Button1"
-                    android:id="@+id/button1"
-                    android:layout_marginEnd="10dp" />
-                <Button
+                    android:src="@drawable/microwave"
+                    android:background="@drawable/roundstyle"
+                    android:backgroundTint="#333"
+                    android:layout_marginEnd="10dp"
+                    android:padding="3dp" />
+                <ImageButton
+                    android:id="@+id/imgBtn2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Button2"
-                    android:id="@+id/button2"
-                    android:layout_marginEnd="10dp" />
+                    android:src="@drawable/microwave"
+                    android:background="@drawable/roundstyle"
+                    android:backgroundTint="#333"
+                    android:layout_marginEnd="10dp"
+                    android:padding="3dp" />
 
-                <Button
+                <ImageButton
+                    android:id="@+id/imgBtn3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Button3"
-                    android:id="@+id/button3"
-                    android:layout_marginEnd="10dp" />
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/roundstyle"
+                    android:backgroundTint="#333"
+                    android:padding="3dp"
+                    android:src="@drawable/microwave" />
+
+                <ImageButton
+                    android:id="@+id/imgBtn4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Button4"
-                    android:id="@+id/button4"
-                    android:layout_marginEnd="10dp" />
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/roundstyle"
+                    android:backgroundTint="#333"
+                    android:padding="3dp"
+                    android:src="@drawable/microwave" />
+
+                <ImageButton
+                    android:id="@+id/imgBtn5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Button5"
-                    android:id="@+id/button5"
-                    android:layout_marginEnd="10dp" />
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/roundstyle"
+                    android:backgroundTint="#333"
+                    android:padding="3dp"
+                    android:src="@drawable/microwave" />
+
+                <ImageButton
+                    android:id="@+id/imgBtn6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Button6"
-                    android:id="@+id/button6"
-                    android:layout_marginEnd="10dp" />
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/roundstyle"
+                    android:backgroundTint="#333"
+                    android:padding="3dp"
+                    android:src="@drawable/microwave" />
+
+                <ImageButton
+                    android:id="@+id/imgBtn7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Button7"
-                    android:id="@+id/button7"
-                    android:layout_marginEnd="10dp" />
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/roundstyle"
+                    android:backgroundTint="#333"
+                    android:padding="3dp"
+                    android:src="@drawable/microwave" />
+
+                <ImageButton
+                    android:id="@+id/imgBtn8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Button8"
-                    android:id="@+id/button8"
-                    android:layout_marginEnd="10dp" />
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/roundstyle"
+                    android:backgroundTint="#333"
+                    android:padding="3dp"
+                    android:src="@drawable/microwave" />
+
+                <ImageButton
+                    android:id="@+id/imgBtn9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/roundstyle"
+                    android:backgroundTint="#333"
+                    android:padding="3dp"
+                    android:src="@drawable/microwave" />
             </LinearLayout>
 
         </HorizontalScrollView>
