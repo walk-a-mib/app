@@ -1,8 +1,10 @@
 package com.example.walk_a_mib
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.ImageView
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
@@ -10,10 +12,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val imgBtn1 = findViewById<ImageButton>(R.id.imgBtn1)
-//
-//        imgBtn1.setOnClickListener {
-//            Snackbar.make(imgBtn1, "Lorem ipsum dolor sit amet", Snackbar.LENGTH_LONG).show()
-//        }
+        val settings = findViewById<ImageView>(R.id.settings)
+
+        settings.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+            overridePendingTransition(
+                R.anim.slide_in_top,
+                R.anim.slide_out_bottom
+            )
+        }
     }
 }
