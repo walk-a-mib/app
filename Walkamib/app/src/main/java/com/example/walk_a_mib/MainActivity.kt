@@ -10,10 +10,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val imgBtn1 = findViewById<ImageButton>(R.id.imgBtn1)
-
-        imgBtn1.setOnClickListener {
-            Snackbar.make(imgBtn1, "Lorem ipsum dolor sit amet", Snackbar.LENGTH_LONG).show()
-        }
+//        val imgBtn1 = findViewById<ImageButton>(R.id.imgBtn1)
+//
+//        imgBtn1.setOnClickListener {
+//            Snackbar.make(imgBtn1, "Lorem ipsum dolor sit amet", Snackbar.LENGTH_LONG).show()
+//        }
     }
 }
