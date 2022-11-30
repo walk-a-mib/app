@@ -1,223 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/colorPrimary"
-    android:padding="20dp">
+    xmlns:tools="http://schemas.android.com/tools">
+      <RelativeLayout
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:app="http://schemas.android.com/apk/res-auto"
+          xmlns:tools="http://schemas.android.com/tools"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@color/colorPrimary"
+          android:padding="20dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/greetingBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="5dp">
-        <TextView
-            android:id="@+id/greeting"
-            android:layout_width="wrap_content"
-            android:layout_height="40sp"
-            android:fontFamily="@font/montserrat"
-            android:includeFontPadding="false"
-            android:text="@string/greeting"
-            android:textColor="@color/colorSecondary"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:includeFontPadding="false"
-            android:text="Max"
-            android:textColor="@color/colorSecondary"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/greeting"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <ImageView
-            android:id="@+id/settings"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_toEndOf="@+id/name"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/settings"
-            app:tint="@color/colorSecondary"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <RelativeLayout
-        android:id="@+id/destination"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/greetingBox"
-        android:layout_marginTop="25dp"
-        android:clickable="true"
-        android:focusable="true">
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/dove_andiamo"
-            android:textColorHint="@color/colorPrimary"
-            android:textColor="@color/colorPrimary"
-            android:fontFamily="@font/montserrat"
-            android:background="@drawable/custom_input"
-            android:inputType="text"
-            android:textCursorDrawable="@drawable/color_cursor" />
-
-
-        <ImageButton
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/arrow_right"
-            android:text="Button"
-            app:tint="@color/colorPrimary"/>
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/destination"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-
-
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/greetingBox"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="40"
-            android:backgroundTint="@color/colorSecondary"
-            app:cardCornerRadius="15dp">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:id="@+id/greeting"
+                android:layout_width="wrap_content"
+                android:layout_height="40sp"
+                android:fontFamily="@font/montserrat"
+                android:includeFontPadding="false"
+                android:text="@string/greeting"
+                android:textColor="@color/colorSecondary"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:includeFontPadding="false"
+                android:text="Max"
+                android:textColor="@color/colorSecondary"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/greeting"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <ImageView
+                android:id="@+id/settings"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/settings"
+                app:tint="@color/colorSecondary"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RelativeLayout
+            android:id="@+id/destination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/greetingBox"
+            android:layout_marginTop="25dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <EditText
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/destination"
-                android:layout_marginTop="10dp"
-                android:scrollbars="none"
-                android:padding="15dp">
+                android:hint="@string/dove_andiamo"
+                android:textColorHint="@color/colorPrimary"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/custom_input"
+                android:inputType="text"
+                android:textCursorDrawable="@drawable/color_cursor" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+
+            <ImageButton
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/arrow_right"
+                android:text="Button"
+                app:tint="@color/colorPrimary"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/destination"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="40"
+                android:backgroundTint="@color/colorSecondary"
+                app:cardCornerRadius="15dp">
+
+                <HorizontalScrollView
+                    android:id="@+id/horizontalScrollView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_below="@id/destination"
+                    android:layout_marginTop="10dp"
+                    android:padding="15dp"
+                    android:scrollbars="none">
 
-                    <ImageButton
-                        android:id="@+id/imgBtn1"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/microwave"
-                        android:background="@drawable/roundstyle"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:layout_marginEnd="10dp"
-                        android:padding="3dp"
-                        app:tint="@color/colorSecondary" />
-                    <ImageButton
-                        android:id="@+id/imgBtn2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/microwave"
-                        android:background="@drawable/roundstyle"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:layout_marginEnd="10dp"
-                        android:padding="3dp"
-                        app:tint="@color/colorSecondary" />
+                        android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/imgBtn3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/roundstyle"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:padding="3dp"
-                        android:src="@drawable/microwave"
-                        app:tint="@color/colorSecondary" />
+                        <ImageButton
+                            android:id="@+id/imgBtn1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/rounded_input"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:padding="3dp"
+                            android:src="@drawable/microwave"
+                            app:tint="@color/colorSecondary" />
 
-                    <ImageButton
-                        android:id="@+id/imgBtn4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/roundstyle"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:padding="3dp"
-                        android:src="@drawable/microwave"
-                        app:tint="@color/colorSecondary" />
+                        <ImageButton
+                            android:id="@+id/imgBtn2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/rounded_input"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:padding="3dp"
+                            android:src="@drawable/microwave"
+                            app:tint="@color/colorSecondary" />
 
-                    <ImageButton
-                        android:id="@+id/imgBtn5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/microwave"
-                        android:background="@drawable/roundstyle"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:layout_marginEnd="10dp"
-                        android:padding="3dp"
-                        app:tint="@color/colorSecondary" />
+                        <ImageButton
+                            android:id="@+id/imgBtn3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/rounded_input"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:padding="3dp"
+                            android:src="@drawable/microwave"
+                            app:tint="@color/colorSecondary" />
 
-                    <ImageButton
-                        android:id="@+id/imgBtn6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/roundstyle"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:padding="3dp"
-                        android:src="@drawable/microwave"
-                        app:tint="@color/colorSecondary" />
+                        <ImageButton
+                            android:id="@+id/imgBtn4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/rounded_input"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:padding="3dp"
+                            android:src="@drawable/microwave"
+                            app:tint="@color/colorSecondary" />
 
-                    <ImageButton
-                        android:id="@+id/imgBtn9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/microwave"
-                        android:background="@drawable/roundstyle"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:layout_marginEnd="10dp"
-                        android:padding="3dp"
-                        app:tint="@color/colorSecondary" />
+                        <ImageButton
+                            android:id="@+id/imgBtn5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/rounded_input"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:padding="3dp"
+                            android:src="@drawable/microwave"
+                            app:tint="@color/colorSecondary" />
 
-                    <ImageButton
-                        android:id="@+id/imgBtn8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/roundstyle"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:padding="3dp"
-                        android:src="@drawable/microwave"
-                        app:tint="@color/colorSecondary" />
-                </LinearLayout>
-            </HorizontalScrollView>
+                        <ImageButton
+                            android:id="@+id/imgBtn6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/rounded_input"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:padding="3dp"
+                            android:src="@drawable/microwave"
+                            app:tint="@color/colorSecondary" />
 
-        </androidx.cardview.widget.CardView>
+                        <ImageButton
+                            android:id="@+id/imgBtn9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/rounded_input"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:padding="3dp"
+                            android:src="@drawable/microwave"
+                            app:tint="@color/colorSecondary" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="25dp"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/colorSecondary" />
-    </LinearLayout>
+                        <ImageButton
+                            android:id="@+id/imgBtn8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/rounded_input"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:padding="3dp"
+                            android:src="@drawable/microwave"
+                            app:tint="@color/colorSecondary" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+            </androidx.cardview.widget.CardView>
+
+            <!--        <androidx.cardview.widget.CardView-->
+    <!--            android:layout_width="150dp"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:layout_marginTop="15dp"-->
+    <!--            android:layout_marginBottom="5dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            app:cardCornerRadius="25dp"-->
+    <!--            android:layout_gravity="center"-->
+    <!--            android:backgroundTint="@color/colorSecondary" />-->
+
+        </LinearLayout>
+    </RelativeLayout>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <FrameLayout
+            android:id="@+id/sheet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_bottom_sheet"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <ImageView
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_baseline_remove_24"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center|top"
+                android:backgroundTint="@color/colorPrimary"/>
+
+        </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </RelativeLayout>
