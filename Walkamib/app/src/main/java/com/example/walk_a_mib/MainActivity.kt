@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val settings = findViewById<ImageView>(R.id.settings)
+        val settings = findViewById<CardView>(R.id.settings)
         settings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
             overridePendingTransition(
@@ -25,8 +26,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         BottomSheetBehavior.from(sheet).apply {
-            peekHeight = 200
+            peekHeight = 175
             this.state = BottomSheetBehavior.STATE_COLLAPSED
         }
+
     }
 }
