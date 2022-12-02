@@ -3,9 +3,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    TODO: trovare i colori della versione Light (per ora ho fatto solo la dark)
-
-    <color name="colorPrimary">#FFEEE5DC</color> <!-- colore testo, cardview -->
-    <color name="colorPrimaryDark">#B8A99B</color> <!-- colore dell'area in alto del cellulare -->
+    <color name="colorPrimary">#D9D0CA</color> <!-- colore testo, cardview -->
+    <color name="colorPrimaryDark">#9D8C7C</color> <!-- colore dell'area in alto del cellulare -->
     <color name="colorSecondary">#FF3F495D</color> <!-- colore testo, cardview -->
+    <color name="colorSecondaryAlt">#515D75</color>
+    <color name="colorTertiary">#F4F0EF</color> <!-- colore bottomsheet -->
+
+    <!--    palette 2-->
+    <color name="p2_colorPrimary">#7FA6B7</color>
+    <color name="p2_colorPrimaryDark">#32546D</color>
+    <color name="p2_colorSecondary">#F7EDEC</color>
+    <color name="p2_colorTertiary">#F2485B</color>
 </resources>

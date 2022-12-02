@@ -116,6 +116,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="40"
                 android:backgroundTint="@color/colorSecondary"
+                app:cardElevation="0dp"
                 app:cardCornerRadius="15dp">
 
                 <HorizontalScrollView
@@ -264,7 +265,7 @@
                     android:layout_height="8dp"
                     android:layout_gravity="center"
                     android:background="@drawable/rounded_style"
-                    android:backgroundTint="@color/colorPrimary" />
+                    android:backgroundTint="@color/colorSecondaryAlt" />
 
             </androidx.cardview.widget.CardView>
 
@@ -279,7 +280,7 @@
                     android:layout_height="wrap_content"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                     android:textSize="24sp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorSecondaryAlt" />
 
             </androidx.core.widget.NestedScrollView>
 
