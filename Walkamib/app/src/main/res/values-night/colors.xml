@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF3F495D</color>
-    <color name="colorPrimaryDark">#2C3442</color>
-    <color name="colorSecondary">#FFEEE5DC</color>
-    <color name="colorSecondaryAlt">#CEC0B0</color>
-    <color name="colorTertiary">#1B2430</color>
+
+<!--    <color name="colorPrimary">#373A3C</color>-->
+<!--    <color name="colorPrimaryDark">#252626</color>-->
+<!--    <color name="colorSecondary">#FCFCFC</color>-->
+<!--    <color name="colorBottomSheet">#D9D0D0</color>-->
+<!--    <color name="colorTertiary">#733547</color>-->
+
+
+    <color name="colorPrimary">#5D2938</color>
+    <color name="colorPrimaryDark">#4D1F2D</color>
+    <color name="colorSecondary">#38151F</color>
+    <color name="colorText">#D9D0D0</color>
+    <color name="colorTextInput">#D9D0D0</color>
+
+<!--    <color name="colorPrimary">#FF3F495D</color>-->
+<!--    <color name="colorPrimaryDark">#2C3442</color>-->
+<!--    <color name="colorSecondary">#FFEEE5DC</color>-->
+<!--    <color name="colorSecondaryAlt">#CEC0B0</color>-->
+<!--    <color name="colorTertiary">#1B2430</color>-->
 </resources>
