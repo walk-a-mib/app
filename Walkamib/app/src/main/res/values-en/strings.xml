@@ -3,4 +3,7 @@
     <string name="app_name">Walk-a-mib</string>
     <string name="greeting">Hey,</string>
     <string name="dove_andiamo">WHERE DO WE GO?</string>
+    <string name="straight">Continues straight</string>
+    <string name="turn_left">Turn left</string>
+    <string name="turn_right">Turn right</string>
 </resources>

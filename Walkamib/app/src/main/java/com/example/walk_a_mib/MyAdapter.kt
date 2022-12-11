@@ -18,7 +18,8 @@ class MyAdapter(private val routeList : ArrayList<Route>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = routeList[position]
         holder.titleSvg.setImageResource(currentItem.titleSvg)
-        holder.textView.text = currentItem.description
+        holder.textViewDescription.text = currentItem.description
+        holder.textViewDistance.text = currentItem.distance
     }
 
     override fun getItemCount(): Int {
@@ -27,8 +28,8 @@ class MyAdapter(private val routeList : ArrayList<Route>) :
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val titleSvg : ImageView = itemView.findViewById(R.id.title_svg)
-        val textView : TextView = itemView.findViewById(R.id.description)
-
+        val textViewDescription : TextView = itemView.findViewById(R.id.description)
+        val textViewDistance : TextView = itemView.findViewById(R.id.distance)
     }
 
 }
