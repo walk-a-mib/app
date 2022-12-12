@@ -3,33 +3,30 @@ package com.example.walk_a_mib
 import android.animation.LayoutTransition
 import android.content.Intent
 import android.content.res.Resources
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_main.*
 
+// allows us to convert px in dp and vice versa
+fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
+fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
+val BOTTOMSHEET_HEIGHT = 65.toPx()
 
 class MainActivity : AppCompatActivity() {
 
+
+
     private lateinit var newRecyclerView : RecyclerView
     private lateinit var newArrayList : ArrayList<Route>
-    lateinit var svgId : Array<Int>
-    lateinit var description: Array<String>
-    lateinit var distance: Array<String>
-
-    // allows us to convert px in dp and vice versa
-    fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
-    fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
+    private lateinit var svgId : Array<Int>
+    private lateinit var description: Array<String>
+    private lateinit var distance: Array<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,22 +48,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         BottomSheetBehavior.from(sheet).apply {
-            peekHeight = 60.toPx()
+            peekHeight = BOTTOMSHEET_HEIGHT
             this.isHideable = true
             this.state = BottomSheetBehavior.STATE_HIDDEN
+            bottomsheetMaterialCardView.layoutParams.height = BOTTOMSHEET_HEIGHT
         }
 
         imgBtn1.setOnClickListener {
             if(BottomSheetBehavior.from(sheet).state != BottomSheetBehavior.STATE_COLLAPSED) {
                 BottomSheetBehavior.from(sheet).apply {
-                    peekHeight = 60.toPx()
+                    peekHeight = BOTTOMSHEET_HEIGHT
                     this.state = BottomSheetBehavior.STATE_COLLAPSED
                 }
             }
         }
 
         // this line of code below allows us to modify margins
-        var param = mapLayout.layoutParams as ViewGroup.MarginLayoutParams
+        val param = mapLayout.layoutParams as ViewGroup.MarginLayoutParams
 
         // this line of code below allows changes to be animated
         mapLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
@@ -75,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when(newState) {
                     BottomSheetBehavior.STATE_COLLAPSED -> {
-                        param.bottomMargin = 60.toPx()
+                        param.bottomMargin = BOTTOMSHEET_HEIGHT
                         mapLayout.layoutParams = param
                     }
 
