@@ -59,10 +59,10 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_gravity="center|end"
                     app:srcCompat="@drawable/settings"
                     app:tint="@color/colorText" />
             </androidx.cardview.widget.CardView>
@@ -78,13 +78,14 @@
             android:focusable="true">
 
             <EditText
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/dove_andiamo"
                 android:textColorHint="@color/colorTextInput"
                 android:textColor="@color/colorTextInput"
                 android:fontFamily="@font/montserrat"
                 android:background="@drawable/custom_input"
+                android:textSize="17sp"
                 android:inputType="text"
                 android:textCursorDrawable="@drawable/color_cursor" />
 
@@ -120,123 +121,185 @@
                 app:cardElevation="0dp"
                 app:cardCornerRadius="15dp">
 
-                <HorizontalScrollView
-                    android:id="@+id/horizontalScrollView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mapLayout"
-                    android:layout_marginTop="10dp"
-                    android:padding="15dp"
-                    android:scrollbars="none"
-                    android:overScrollMode="never">
+                    android:layout_height="match_parent">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+                    <HorizontalScrollView
+                        android:id="@+id/horizontalScrollView"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:overScrollMode="never"
+                        android:padding="15dp"
+                        android:scrollbars="none"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageButton
-                            android:id="@+id/imgBtn1"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:background="@drawable/rounded_style"
-                            android:backgroundTint="@color/colorTextInput"
-                            android:padding="3dp"
-                            android:src="@drawable/microwave"
-                            app:tint="@color/colorSecondary" />
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:id="@+id/imgBtn1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:background="@drawable/rounded_style"
+                                android:backgroundTint="@color/colorTextInput"
+                                android:paddingStart="9dp"
+                                android:paddingTop="4dp"
+                                android:paddingEnd="9dp"
+                                android:paddingBottom="4dp"
+                                android:src="@drawable/cibo"
+                                app:tint="@color/colorSecondary" />
+
+                            <ImageButton
+                                android:id="@+id/imgBtn2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:background="@drawable/rounded_style"
+                                android:backgroundTint="@color/colorTextInput"
+                                android:padding="3dp"
+                                android:src="@drawable/microwave"
+                                app:tint="@color/colorSecondary" />
+
+                            <ImageButton
+                                android:id="@+id/imgBtn3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:background="@drawable/rounded_style"
+                                android:backgroundTint="@color/colorTextInput"
+                                android:padding="3dp"
+                                android:src="@drawable/microwave"
+                                app:tint="@color/colorSecondary" />
+
+                            <ImageButton
+                                android:id="@+id/imgBtn4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:background="@drawable/rounded_style"
+                                android:backgroundTint="@color/colorTextInput"
+                                android:padding="3dp"
+                                android:src="@drawable/microwave"
+                                app:tint="@color/colorSecondary" />
+
+                            <ImageButton
+                                android:id="@+id/imgBtn5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:background="@drawable/rounded_style"
+                                android:backgroundTint="@color/colorTextInput"
+                                android:padding="3dp"
+                                android:src="@drawable/microwave"
+                                app:tint="@color/colorSecondary" />
+
+                            <ImageButton
+                                android:id="@+id/imgBtn6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:background="@drawable/rounded_style"
+                                android:backgroundTint="@color/colorTextInput"
+                                android:padding="3dp"
+                                android:src="@drawable/microwave"
+                                app:tint="@color/colorSecondary" />
+
+                            <ImageButton
+                                android:id="@+id/imgBtn9"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:background="@drawable/rounded_style"
+                                android:backgroundTint="@color/colorTextInput"
+                                android:padding="3dp"
+                                android:src="@drawable/microwave"
+                                app:tint="@color/colorSecondary" />
+
+                            <ImageButton
+                                android:id="@+id/imgBtn8"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:background="@drawable/rounded_style"
+                                android:backgroundTint="@color/colorTextInput"
+                                android:padding="3dp"
+                                android:src="@drawable/microwave"
+                                app:tint="@color/colorSecondary" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layers"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:animateLayoutChanges="true">
 
                         <ImageButton
-                            android:id="@+id/imgBtn2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:background="@drawable/rounded_style"
-                            android:backgroundTint="@color/colorTextInput"
-                            android:padding="3dp"
-                            android:src="@drawable/microwave"
-                            app:tint="@color/colorSecondary" />
+                            android:id="@+id/zoomIn"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@drawable/zoom_in_style"
+                            android:src="@drawable/zoom_in_arrow"
+                            app:layout_constraintBottom_toTopOf="@+id/layerNumber"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/colorText" />
+
+                        <TextView
+                            android:id="@+id/layerNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center"
+                            android:text="1"
+                            android:textColor="@color/colorText"
+                            android:textSize="24sp"
+                            app:layout_constraintBottom_toTopOf="@+id/zoomOut"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/zoomIn" />
 
                         <ImageButton
-                            android:id="@+id/imgBtn3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:background="@drawable/rounded_style"
-                            android:backgroundTint="@color/colorTextInput"
-                            android:padding="3dp"
-                            android:src="@drawable/microwave"
-                            app:tint="@color/colorSecondary" />
+                            android:id="@+id/zoomOut"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@drawable/zoom_out_style"
+                            android:src="@drawable/zoom_out_arrow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/layerNumber"
+                            app:tint="@color/colorText" />
 
-                        <ImageButton
-                            android:id="@+id/imgBtn4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:background="@drawable/rounded_style"
-                            android:backgroundTint="@color/colorTextInput"
-                            android:padding="3dp"
-                            android:src="@drawable/microwave"
-                            app:tint="@color/colorSecondary" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <ImageButton
-                            android:id="@+id/imgBtn5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:background="@drawable/rounded_style"
-                            android:backgroundTint="@color/colorTextInput"
-                            android:padding="3dp"
-                            android:src="@drawable/microwave"
-                            app:tint="@color/colorSecondary" />
-
-                        <ImageButton
-                            android:id="@+id/imgBtn6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:background="@drawable/rounded_style"
-                            android:backgroundTint="@color/colorTextInput"
-                            android:padding="3dp"
-                            android:src="@drawable/microwave"
-                            app:tint="@color/colorSecondary" />
-
-                        <ImageButton
-                            android:id="@+id/imgBtn9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:background="@drawable/rounded_style"
-                            android:backgroundTint="@color/colorTextInput"
-                            android:padding="3dp"
-                            android:src="@drawable/microwave"
-                            app:tint="@color/colorSecondary" />
-
-                        <ImageButton
-                            android:id="@+id/imgBtn8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:background="@drawable/rounded_style"
-                            android:backgroundTint="@color/colorTextInput"
-                            android:padding="3dp"
-                            android:src="@drawable/microwave"
-                            app:tint="@color/colorSecondary" />
-                    </LinearLayout>
-                </HorizontalScrollView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </RelativeLayout>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
         <LinearLayout
+            android:id="@+id/sheet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/sheet"
+            android:background="@drawable/rounded_bottom_sheet"
             android:orientation="vertical"
             android:paddingBottom="20dp"
-            android:background="@drawable/rounded_bottom_sheet"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <LinearLayout
@@ -244,12 +307,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/bottomsheet_style">
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/bottomsheetMaterialCardView"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    app:cardElevation="0dp"
-                    android:backgroundTint="@android:color/transparent">
+                    android:backgroundTint="@android:color/transparent"
+                    app:cardElevation="0dp">
+
                     <View
                         android:id="@+id/imageView"
                         android:layout_width="100dp"
@@ -265,34 +330,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="never"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:paddingStart="20dp"
-                android:paddingEnd="20dp">
+                android:paddingEnd="20dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <LinearLayout
-                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/recyclerView" />
+                        android:layout_height="match_parent" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
                         android:text="Blablabla 1"
-                        android:textSize="40sp"
-                        android:layout_marginBottom="20dp"/>
+                        android:textSize="40sp" />
 
                     <TextView
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dummy_text"
-                        android:textSize="24sp"
-                        android:textColor="@color/colorText" />
+                        android:textColor="@color/colorText"
+                        android:textSize="24sp" />
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>

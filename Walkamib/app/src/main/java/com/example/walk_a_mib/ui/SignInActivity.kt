@@ -1,12 +1,13 @@
-package com.example.walk_a_mib
+package com.example.walk_a_mib.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.example.walk_a_mib.R
 
-class SettingsActivity : AppCompatActivity() {
+class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        setContentView(R.layout.activity_signin)
     }
 
     override fun finish() {

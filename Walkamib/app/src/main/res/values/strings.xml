@@ -6,4 +6,15 @@
     <string name="straight">Continua dritto</string>
     <string name="turn_left">Svolta a sinistra</string>
     <string name="turn_right">Svolta a destra</string>
+    <string name="walk_at_mib" translatable="false">WALK\n@MIB</string>
+    <string name="sign_in">Accedi</string>
+    <string name="email">pinco.pallino@gmail.com</string>
+    <string name="password">PasswordSuperSicura123!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="confirm_password">Conferma password</string>
+    <string name="forgot_password">Password dimenticata?</string>
+    <string name="sign_up_link">Non hai un account? Registrati</string>
+    <string name="sign_in_link">Hai già un account? Accedi</string>
+    <string name="sign_up">Registrati</string>
 </resources>

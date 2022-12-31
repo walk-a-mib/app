@@ -13,8 +13,9 @@
 <!--    #490614 bottomsheet -->
 
     <color name="colorPrimary">#FCFCFC</color>
-    <color name="colorPrimaryDark">#D1AEAE</color>
+    <color name="colorPrimaryDark">#401d27</color>
     <color name="colorSecondary">#733547</color>
+    <color name="colorSecondaryLight">#914E61</color>
     <color name="colorText">#733547</color>
     <color name="colorTextInput">#FCFCFC</color>
     <color name="light_color">#D9D0D0</color>

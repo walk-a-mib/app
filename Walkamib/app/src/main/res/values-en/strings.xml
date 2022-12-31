@@ -6,4 +6,12 @@
     <string name="straight">Continues straight</string>
     <string name="turn_left">Turn left</string>
     <string name="turn_right">Turn right</string>
+    <string name="sign_in">Sign In</string>
+    <string name="email">john.doe@gmail.com</string>
+    <string name="password">SuperSafePassword123!</string>
+    <string name="sign_up_link">Don\'t have an account? Sign Up</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in_link">Already have an account? Sign In</string>
 </resources>

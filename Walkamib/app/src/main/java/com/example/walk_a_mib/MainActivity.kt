@@ -4,21 +4,18 @@ import android.animation.LayoutTransition
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.content.res.Resources
-import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
-import android.view.WindowManager
-import android.view.WindowMetrics
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.walk_a_mib.ui.SettingsActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-
+import com.example.walk_a_mib.ui.SignInActivity
 
 // allows us to convert px in dp and vice versa
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
@@ -62,9 +59,10 @@ class MainActivity : AppCompatActivity() {
 
         // this line of code below allows us to modify margins
         val param = mapLayout.layoutParams as ViewGroup.MarginLayoutParams
-
-        // this line of code below allows changes to be animated
+//        param.bottomMargin = BOTTOMSHEET_HEIGHT
+        // these lines of code below allows changes to be animated
         mapLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        layers.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 
         imgBtn1.setOnClickListener {
             if(BottomSheetBehavior.from(sheet).state != BottomSheetBehavior.STATE_COLLAPSED) {
@@ -80,6 +78,15 @@ class MainActivity : AppCompatActivity() {
                     start()
                 }
             }
+        }
+
+        imgBtn2.setOnClickListener {
+            startActivity(Intent(this, SignInActivity::class.java))
+
+            overridePendingTransition(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left
+            )
         }
 
         BottomSheetBehavior.from(sheet).addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
@@ -98,34 +105,37 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
-                val currentHeight = rootContainer.height - bottomSheet.height
-                val bottomSheetShiftDown = currentHeight - bottomSheet.top
-                val screenHeight = getScreenHeight()
-
-                greeting.text = (screenHeight - bottomSheet.top).toString()
-
-                param.bottomMargin = screenHeight - bottomSheet.top
-                mapLayout.layoutParams = param
+                if(slideOffset < 0) {
+                    param.bottomMargin = rootContainer.height - bottomSheet.top
+                    mapLayout.layoutParams = param
+                }
             }
         })
 
        setUpRoutes() // adds elements inside RecyclerView
-    }
 
-    private fun getScreenHeight() : Int {
-        val displayMetrics = DisplayMetrics()
-        lateinit var screenHeight : Any
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val windowMetrics = windowManager.currentWindowMetrics
-            val insets = windowMetrics.windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
-            return windowManager.currentWindowMetrics.bounds.height() - insets.top - insets.bottom
+        zoomIn.setOnClickListener {
+            Snackbar.make(rootContainer, "Zoom In", Snackbar.LENGTH_SHORT).show()
+        }
 
-        } else {
-            windowManager.defaultDisplay.getMetrics(displayMetrics)
-            return displayMetrics.heightPixels
+        zoomOut.setOnClickListener {
+            Snackbar.make(rootContainer, "Zoom Out", Snackbar.LENGTH_SHORT).show()
         }
     }
+
+//    private fun getScreenHeight() : Int {
+//        val displayMetrics = DisplayMetrics()
+//        lateinit var screenHeight : Any
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            val windowMetrics = windowManager.currentWindowMetrics
+//            val insets = windowMetrics.windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
+//            return windowManager.currentWindowMetrics.bounds.height() - insets.top - insets.bottom
+//
+//        } else {
+//            windowManager.defaultDisplay.getMetrics(displayMetrics)
+//            return displayMetrics.heightPixels
+//        }
+//    }
 
     private fun setUpRoutes() {
         svgId = arrayOf(
