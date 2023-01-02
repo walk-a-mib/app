@@ -40,11 +40,14 @@ class LoginFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_sign_in, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         sign_in_btn.setOnClickListener {
             Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_mainActivity)
+
+            activity?.finish()
         }
 
         sign_up_btn.setOnClickListener {

@@ -12,14 +12,10 @@ class SignInActivity : AppCompatActivity() {
 
     override fun finish() {
         super.finish()
-//        overridePendingTransition(
-//            R.anim.slide_in_bottom,
-//            R.anim.slide_out_top
-//        )
 
-        overridePendingTransition(
-            R.anim.slide_in_left,
-            R.anim.slide_out_right
-        )
+//        overridePendingTransition(
+//            R.anim.slide_in_right,
+//            R.anim.slide_out_left
+//        )
     }
 }

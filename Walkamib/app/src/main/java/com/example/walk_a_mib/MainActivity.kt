@@ -7,15 +7,18 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebViewClient
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.walk_a_mib.ui.SettingsActivity
+import com.example.walk_a_mib.ui.SignInActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import com.example.walk_a_mib.ui.SignInActivity
+
 
 // allows us to convert px in dp and vice versa
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
@@ -34,6 +37,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        webview.webViewClient = WebViewClient()
+        webview.loadUrl("https://fuckingmap.bss.design/")
+
+        val webSettings = webview.settings
+        webSettings.javaScriptEnabled = true
 
         val settings = findViewById<CardView>(R.id.settings)
         settings.setOnClickListener {
@@ -121,9 +130,15 @@ class MainActivity : AppCompatActivity() {
         zoomOut.setOnClickListener {
             Snackbar.make(rootContainer, "Zoom Out", Snackbar.LENGTH_SHORT).show()
         }
+
+        onBackPressedDispatcher.addCallback(this /* lifecycle owner */) {
+            if (webview.canGoBack()) {
+                webview.goBack()
+            }
+        }
     }
 
-//    private fun getScreenHeight() : Int {
+    //    private fun getScreenHeight() : Int {
 //        val displayMetrics = DisplayMetrics()
 //        lateinit var screenHeight : Any
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

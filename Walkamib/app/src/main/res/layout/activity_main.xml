@@ -125,6 +125,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <WebView
+                        android:id="@+id/webview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
                     <HorizontalScrollView
                         android:id="@+id/horizontalScrollView"
                         android:layout_width="match_parent"
@@ -290,8 +295,7 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/sheet"
