@@ -24,7 +24,7 @@ class Node() : Parcelable {
     @Expose
     var label: String = ""
 
-    //var type: Int = 0
+    var type: Int = 0
 
     //manca l'altro id
 
@@ -59,7 +59,7 @@ class Node() : Parcelable {
     constructor(parcel: Parcel) : this() {
         id = parcel.readString()!!
         label = parcel.readString()!!
-        //type = parcel.readInt()
+        type = parcel.readInt()
         name = parcel.readString()
         description = parcel.readString()
         position = parcel.readParcelable(Coordinate::class.java.classLoader)!!
@@ -116,7 +116,7 @@ class Node() : Parcelable {
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(label)
-        //parcel.writeInt(type)
+        parcel.writeInt(type)
         //parcel.writeInt(id)
         parcel.writeString(name)
         parcel.writeString(description)
