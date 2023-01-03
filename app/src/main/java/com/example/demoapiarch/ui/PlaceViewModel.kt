@@ -16,7 +16,9 @@ class PlaceViewModel(var placeRepository: IPlaceRepository) : ViewModel() {
     }
 
     fun fetchPlace(placeId: String, lastUpdate: Long) {
-        place.value = placeRepository.fetchPlace(placeId, lastUpdate)?.value
+        val s = placeRepository.fetchPlace(placeId, lastUpdate)
+        place.value = s?.value //placeRepository.fetchPlace(placeId, lastUpdate)?.value
+        Log.d("MAIN", s?.value.toString())
     }
 
     //fun getPlace(placeId: String, lastUpdate: Long) { //: MutableLiveData<PlaceResult>? {
