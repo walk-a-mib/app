@@ -33,8 +33,7 @@ class MAct : AppCompatActivity() {
         val btn = findViewById<Button>(R.id.gobtn)
 
 
-
-        val placeObserver = Observer<PlaceResult> { result ->
+        val nameObserver = Observer<PlaceResult> { result ->
             if (result.isSuccess()) {
                 val res = (result as PlaceResult.Success).placeResponse.place.toString()
                 Log.d("MAIN", "ACTUALLY FUCKING WORKS " + res)
@@ -42,19 +41,26 @@ class MAct : AppCompatActivity() {
                 Log.d("MAIN", "FUCK NO")
             }
         }
-        placeViewModel.place.observe(this, placeObserver)
+
+        placeViewModel.place.observe(this, nameObserver)
 
 
-        var places = arrayOf("fff7e512-2dbc-4bd1-8936-def34a43369d", "ec375f55-e25b-42d7-a536-b95de0a2aeaf")
+
+        var places = arrayOf("fff7e512-2dbc-4bd1-8936-def34a43369d", "ec375f55-e25b-42d7-a536-b95de0a2aeaf", "498d873b-7da9-4d5b-a6ac-9d5fa29db83d")
         var counter : Int = 0;
 
 
         btn.setOnClickListener {
             //val res = placeViewModel.getPlace("ec375f55-e25b-42d7-a536-b95de0a2aeaf", 1000)
-            if (counter <= 1)
-                placeViewModel.fetchPlace(places[counter++], 1000)
+            var pl = places[counter]
+            Log.d("MAIN", "CALLED: " + pl)
+            Log.d("MAIN", "COUNTER: " + counter)
+            if (counter <= 2)
+                placeViewModel.fetchPlace(pl, 1000)
 
-            counter %= 2
+
+            counter++
+            counter %= 3
             //val r = (res as PlaceResult.Success).placeResponse.place.toString()
             //Log.d("MAIN", r)
         }

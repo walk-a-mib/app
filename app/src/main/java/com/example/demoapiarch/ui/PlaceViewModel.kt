@@ -9,7 +9,11 @@ import com.example.demoapiarch.repository.IPlaceRepository
 
 class PlaceViewModel(var placeRepository: IPlaceRepository) : ViewModel() {
     val TAG: String = PlaceViewModel::class.java.simpleName
-    var place: MutableLiveData<PlaceResult> = MutableLiveData<PlaceResult>()
+
+    //var place: MutableLiveData<PlaceResult> = MutableLiveData<PlaceResult>().apply { postValue(PlaceResult())}
+    val place: MutableLiveData<PlaceResult> by lazy {
+        MutableLiveData<PlaceResult>()
+    }
 
     fun fetchPlace(placeId: String, lastUpdate: Long) {
         place.value = placeRepository.fetchPlace(placeId, lastUpdate)?.value
