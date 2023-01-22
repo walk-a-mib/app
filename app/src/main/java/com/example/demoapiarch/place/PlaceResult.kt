@@ -9,6 +9,8 @@ open class PlaceResult {
     class Error(val message: String?) : PlaceResult()
 
     override fun toString(): String {
-        return "itsme"
+        if (isSuccess())
+            return (this as Success).placeResponse.place.toString()
+        return ""
     }
 }

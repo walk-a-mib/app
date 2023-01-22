@@ -18,7 +18,6 @@ class PlaceRemoteDataSource(val apiKey: String) : BasePlaceRemoteDataSource() {
 
         placeResponseCall.enqueue(object : Callback<PlaceApiResponse> {
             override fun onResponse(call: Call<PlaceApiResponse>, response: Response<PlaceApiResponse>) {
-                Log.d("PRDS","Response: ${Gson().toJson(response.body())}" ) //Gson().toJson(response.body())
                 if (response.isSuccessful &&
                     !(response.body()?.status.equals("error"))) {
                         placeCallback?.onSuccessFromRemote(
@@ -29,10 +28,10 @@ class PlaceRemoteDataSource(val apiKey: String) : BasePlaceRemoteDataSource() {
             }   //response.body()
 
             override fun onFailure(call: Call<PlaceApiResponse>, t: Throwable) {
-                Log.d("PRDS", t.message.toString())
                 placeCallback?.onFailureFromRemote(Exception(RETROFIT_ERROR));
             }
 
         })
+
     }
 }

@@ -6,13 +6,17 @@ import com.example.demoapiarch.database.PlaceRoomDatabase
 import com.example.demoapiarch.domain.Node
 
 class PlaceLocalDataSource(val placeRoomDatabase: PlaceRoomDatabase) : BasePlaceLocalDataSource() {
-    val placeDao: PlaceDao? = placeRoomDatabase.placeDao()
+    val placeDao: PlaceDao = placeRoomDatabase.placeDao()
 
     override fun getPlace(id: String) {
         PlaceRoomDatabase.databaseWriteExecutor.execute {
-            placeCallback?.onSuccessFromLocal(
-                placeDao?.getPlace(id)!!
-            )
+            var place = placeDao.getPlace(id)
+            if (place != null)
+                placeCallback?.onSuccessFromLocal(
+                    place!!
+                )
+            else
+                Log.d("MAIN", "GOING REMOTE")
         }
     }
 
