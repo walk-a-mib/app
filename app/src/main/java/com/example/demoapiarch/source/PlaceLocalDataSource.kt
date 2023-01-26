@@ -10,13 +10,10 @@ class PlaceLocalDataSource(val placeRoomDatabase: PlaceRoomDatabase) : BasePlace
 
     override fun getPlace(id: String) {
         PlaceRoomDatabase.databaseWriteExecutor.execute {
-            var place = placeDao.getPlace(id)
-            if (place != null)
-                placeCallback?.onSuccessFromLocal(
-                    place!!
-                )
-            else
-                Log.d("MAIN", "GOING REMOTE")
+            placeCallback?.onSuccessFromLocal(
+                id, placeDao.getPlace(id)
+            )
+
         }
     }
 
@@ -27,7 +24,7 @@ class PlaceLocalDataSource(val placeRoomDatabase: PlaceRoomDatabase) : BasePlace
                 if (allPlaces?.any{ it.id == newPlaceKey } == false)
                     placeDao?.insertPlace(place)
 
-                placeCallback?.onSuccessFromLocal(place)
+                placeCallback?.onSuccessFromLocal(place.id, place)
         }
 
     }

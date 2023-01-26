@@ -64,4 +64,8 @@ class Coordinate() : Parcelable {
             return arrayOfNulls(size)
         }
     }
+
+    override fun toString(): String {
+        return "COORDINATE(" + lat + ";" + lon + ";" + alt + ")";
+    }
 }

@@ -56,6 +56,10 @@ class Node() : Parcelable {
         this.ga = ga
     }
 
+    override fun toString(): String {
+        return id + ";" + label + ";" + name + ";" + description + ";" + position.toString() + ";" + ga.toString();
+    }
+
     constructor(parcel: Parcel) : this() {
         id = parcel.readString()!!
         label = parcel.readString()!!
@@ -109,9 +113,7 @@ class Node() : Parcelable {
         return dBearing
     }
 
-    override fun toString(): String {
-        return id + ";" + label
-    }
+
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)

@@ -1,17 +1,15 @@
 package com.example.demoapiarch.source
 
-import android.util.Log
 import com.example.demoapiarch.place.PlaceApiResponse
-import com.example.demoapiarch.service.PlaceApiService
+import com.example.demoapiarch.service.MapsApiService
 import com.example.demoapiarch.util.Constants.RETROFIT_ERROR
 import com.example.demoapiarch.util.ServiceLocator
-import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PlaceRemoteDataSource(val apiKey: String) : BasePlaceRemoteDataSource() {
-    private val placeApiService : PlaceApiService = ServiceLocator.getPlaceApiService()
+    private val placeApiService : MapsApiService = ServiceLocator.getPlaceApiService()
 
     override fun getPlace(placeId: String) {
         val placeResponseCall : Call<PlaceApiResponse> = placeApiService.getPlace(placeId, apiKey)

@@ -5,7 +5,7 @@ import com.example.demoapiarch.R
 import com.example.demoapiarch.database.PlaceRoomDatabase
 import com.example.demoapiarch.repository.IPlaceRepository
 import com.example.demoapiarch.repository.PlaceRepository
-import com.example.demoapiarch.service.PlaceApiService
+import com.example.demoapiarch.service.MapsApiService
 import com.example.demoapiarch.source.BasePlaceLocalDataSource
 import com.example.demoapiarch.source.BasePlaceRemoteDataSource
 import com.example.demoapiarch.source.PlaceLocalDataSource
@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceLocator {
 
-    fun getPlaceApiService(): PlaceApiService {
+    fun getPlaceApiService(): MapsApiService {
         //TODO SISTEMARE
         val gson = GsonBuilder()
             .setLenient()
@@ -28,7 +28,7 @@ object ServiceLocator {
             .baseUrl(Constants.API_BASE_URL)
             .build()
 
-        return retrofit.create(PlaceApiService::class.java)
+        return retrofit.create(MapsApiService::class.java)
     }
 
     fun getPlaceDao(application: Application): PlaceRoomDatabase {

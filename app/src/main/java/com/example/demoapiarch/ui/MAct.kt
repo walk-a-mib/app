@@ -45,8 +45,8 @@ class MAct : AppCompatActivity() {
             }
         }
 
-        var places = arrayOf("fff7e512-2dbc-4bd1-8936-def34a43369d", "ec375f55-e25b-42d7-a536-b95de0a2aeaf",
-            "498d873b-7da9-4d5b-a6ac-9d5fa29db83d", "52aa315a-1d97-4e16-9adb-703d3ed1c167")
+        var places = arrayOf("30", "31",
+            "32", "33")
         var counter : Int = 0;
 
 

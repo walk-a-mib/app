@@ -6,6 +6,6 @@ import com.example.demoapiarch.domain.Node
 interface PlaceCallback {
     fun onSuccessFromRemote(placeApiResponse: PlaceApiResponse, lastUpdate: Long)
     fun onFailureFromRemote(exception: Exception)
-    fun onSuccessFromLocal(place: Node)
+    fun onSuccessFromLocal(reqId: String, place: Node?)
     fun onFailureFromLocal(exception: Exception)
 }

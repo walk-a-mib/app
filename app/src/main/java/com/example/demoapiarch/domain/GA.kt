@@ -25,6 +25,10 @@ class GA() : Parcelable {
 
     var image: String? = null
 
+    override fun toString(): String {
+        return "GA(" + available + ";" + accessible + ";" + indoor + ";" + building + ";" + floor + ")";
+    }
+
     @Ignore
     constructor(available: Boolean, accessible: Boolean, indoor: Boolean, building: Int) : this() {
         this.available = available;

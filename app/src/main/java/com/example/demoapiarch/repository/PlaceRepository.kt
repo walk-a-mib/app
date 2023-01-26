@@ -35,12 +35,13 @@ class PlaceRepository(val placeRemoteDataSource: BasePlaceRemoteDataSource,
         //}
         //else
         //    placeLocalDataSource.getPlace(placeId)
-        val localRes = placeLocalDataSource.getPlace(placeId)
-        if (localRes == null) {
-            Log.d("MAIN", "NO LOCAL RESULT. FETCHING FROM REMOTE...")
-            placeRemoteDataSource.getPlace(placeId)
-        }
+        //TODO: condizione se non è passato troppo tempo
+        placeLocalDataSource.getPlace(placeId)
         return allRequiredPlaces
+    }
+
+    private fun fetchFromRemote(placeId: String) {
+        placeRemoteDataSource.getPlace(placeId)
     }
 
     override fun onSuccessFromRemote(placeApiResponse: PlaceApiResponse, lastUpdate: Long) {
@@ -52,9 +53,12 @@ class PlaceRepository(val placeRemoteDataSource: BasePlaceRemoteDataSource,
         allRequiredPlaces.postValue(result)
     }
 
-    override fun onSuccessFromLocal(place: Node) {
+    override fun onSuccessFromLocal(reqId: String, place: Node?) {
         val result = PlaceResult.Success(PlaceResponse(place))
-        allRequiredPlaces.postValue(result)
+        if (result.placeResponse.place != null)
+            allRequiredPlaces.postValue(result)
+        else
+            fetchFromRemote(reqId)
     }
 
     override fun onFailureFromLocal(exception: Exception) {
