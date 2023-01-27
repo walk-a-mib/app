@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:background="@color/neutral"
+    android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardView2"
@@ -28,7 +24,6 @@
                 android:adjustViewBounds="true"
                 android:background="@drawable/top_wave"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +36,7 @@
                 android:gravity="top|center"
                 android:lineSpacingExtra="-20dp"
                 android:text="@string/walk_at_mib"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorLogo"
                 android:textSize="40sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,30 +44,53 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:layout_weight="3">
+            android:layout_weight="3"
+            android:gravity="center">
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/nav_host_fragment"
-                android:name="androidx.navigation.fragment.NavHostFragment"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/webViewContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:defaultNavHost="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:navGraph="@navigation/nav_graph" />
-        </RelativeLayout>
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                android:layout_weight="2">
+
+                <WebView
+                    android:id="@+id/webViewSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/skip"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:text="Skippa" />
+
+
+<!--            <androidx.fragment.app.FragmentContainerView-->
+<!--                android:id="@+id/nav_host_fragment"-->
+<!--                android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:defaultNavHost="true"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:navGraph="@navigation/nav_graph" />-->
+
+        </LinearLayout>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/bottom_wave"
-            android:layout_weight="1"
-
-             />
-    </LinearLayout>
-</RelativeLayout>
+            android:layout_weight="0.8" />
+</LinearLayout>

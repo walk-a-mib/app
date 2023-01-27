@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
+        android:background="@color/neutral"
         android:padding="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
                 android:fontFamily="@font/montserrat"
                 android:includeFontPadding="false"
                 android:text="@string/greeting"
-                android:textColor="@color/colorText"
+                android:textColor="@color/colorGreetingText"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,7 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:includeFontPadding="false"
                 android:text="Max"
-                android:textColor="@color/colorText"
+                android:textColor="@color/colorGreetingText"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/greeting"
@@ -64,14 +64,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/settings"
-                    app:tint="@color/colorText" />
+                    app:tint="@color/colorSettingsIcon" />
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout
             android:id="@+id/destination"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_below="@+id/greetingBox"
             android:layout_marginTop="25dp"
             android:clickable="true"
@@ -79,21 +79,22 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:hint="@string/dove_andiamo"
-                android:textColorHint="@color/colorTextInput"
-                android:textColor="@color/colorTextInput"
+                android:textColorHint="@color/textColorHintOnNavigationInput"
+                android:textColor="@color/textColorOnNavigationInput"
                 android:fontFamily="@font/montserrat"
                 android:background="@drawable/custom_input"
                 android:textSize="17sp"
                 android:inputType="text"
-                android:textCursorDrawable="@drawable/color_cursor" />
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:paddingRight="45dp" />
 
 
             <ImageButton
-                android:id="@+id/button1"
+                android:id="@+id/submit_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@null"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
@@ -101,7 +102,7 @@
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/arrow_right"
                 android:text="Button"
-                app:tint="@color/colorTextInput"/>
+                app:tint="@color/colorArrowInputNavigation" />
 
         </RelativeLayout>
 
@@ -117,13 +118,14 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="@color/colorSecondary"
+                android:backgroundTint="@android:color/transparent"
                 app:cardElevation="0dp"
                 app:cardCornerRadius="15dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:animateLayoutChanges="true">
 
                     <WebView
                         android:id="@+id/webview"
@@ -151,13 +153,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp"
                                 android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/colorTextInput"
+                                android:backgroundTint="@color/backgroundColorPoI"
                                 android:paddingStart="9dp"
                                 android:paddingTop="4dp"
                                 android:paddingEnd="9dp"
                                 android:paddingBottom="4dp"
                                 android:src="@drawable/cibo"
-                                app:tint="@color/colorSecondary" />
+                                app:tint="@color/colorPoI" />
 
                             <ImageButton
                                 android:id="@+id/imgBtn2"
@@ -165,10 +167,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp"
                                 android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/colorTextInput"
-                                android:padding="3dp"
-                                android:src="@drawable/microwave"
-                                app:tint="@color/colorSecondary" />
+                                android:backgroundTint="@color/backgroundColorPoI"
+                                android:paddingStart="9dp"
+                                android:paddingTop="4dp"
+                                android:paddingEnd="9dp"
+                                android:paddingBottom="4dp"
+                                android:src="@drawable/cibo"
+                                app:tint="@color/colorPoI" />
 
                             <ImageButton
                                 android:id="@+id/imgBtn3"
@@ -176,10 +181,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp"
                                 android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/colorTextInput"
-                                android:padding="3dp"
-                                android:src="@drawable/microwave"
-                                app:tint="@color/colorSecondary" />
+                                android:backgroundTint="@color/backgroundColorPoI"
+                                android:paddingStart="9dp"
+                                android:paddingTop="4dp"
+                                android:paddingEnd="9dp"
+                                android:paddingBottom="4dp"
+                                android:src="@drawable/cibo"
+                                app:tint="@color/colorPoI" />
 
                             <ImageButton
                                 android:id="@+id/imgBtn4"
@@ -187,10 +195,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp"
                                 android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/colorTextInput"
-                                android:padding="3dp"
-                                android:src="@drawable/microwave"
-                                app:tint="@color/colorSecondary" />
+                                android:backgroundTint="@color/backgroundColorPoI"
+                                android:paddingStart="9dp"
+                                android:paddingTop="4dp"
+                                android:paddingEnd="9dp"
+                                android:paddingBottom="4dp"
+                                android:src="@drawable/cibo"
+                                app:tint="@color/colorPoI" />
 
                             <ImageButton
                                 android:id="@+id/imgBtn5"
@@ -198,10 +209,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp"
                                 android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/colorTextInput"
-                                android:padding="3dp"
-                                android:src="@drawable/microwave"
-                                app:tint="@color/colorSecondary" />
+                                android:backgroundTint="@color/backgroundColorPoI"
+                                android:paddingStart="9dp"
+                                android:paddingTop="4dp"
+                                android:paddingEnd="9dp"
+                                android:paddingBottom="4dp"
+                                android:src="@drawable/cibo"
+                                app:tint="@color/colorPoI" />
 
                             <ImageButton
                                 android:id="@+id/imgBtn6"
@@ -209,10 +223,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp"
                                 android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/colorTextInput"
-                                android:padding="3dp"
-                                android:src="@drawable/microwave"
-                                app:tint="@color/colorSecondary" />
+                                android:backgroundTint="@color/backgroundColorPoI"
+                                android:paddingStart="9dp"
+                                android:paddingTop="4dp"
+                                android:paddingEnd="9dp"
+                                android:paddingBottom="4dp"
+                                android:src="@drawable/cibo"
+                                app:tint="@color/colorPoI" />
 
                             <ImageButton
                                 android:id="@+id/imgBtn9"
@@ -220,10 +237,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp"
                                 android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/colorTextInput"
-                                android:padding="3dp"
-                                android:src="@drawable/microwave"
-                                app:tint="@color/colorSecondary" />
+                                android:backgroundTint="@color/backgroundColorPoI"
+                                android:paddingStart="9dp"
+                                android:paddingTop="4dp"
+                                android:paddingEnd="9dp"
+                                android:paddingBottom="4dp"
+                                android:src="@drawable/cibo"
+                                app:tint="@color/colorPoI" />
 
                             <ImageButton
                                 android:id="@+id/imgBtn8"
@@ -231,10 +251,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp"
                                 android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/colorTextInput"
-                                android:padding="3dp"
-                                android:src="@drawable/microwave"
-                                app:tint="@color/colorSecondary" />
+                                android:backgroundTint="@color/backgroundColorPoI"
+                                android:paddingStart="9dp"
+                                android:paddingTop="4dp"
+                                android:paddingEnd="9dp"
+                                android:paddingBottom="4dp"
+                                android:src="@drawable/cibo"
+                                app:tint="@color/colorPoI" />
                         </LinearLayout>
                     </HorizontalScrollView>
 
@@ -247,7 +270,6 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:animateLayoutChanges="true">
-
                         <ImageButton
                             android:id="@+id/zoomIn"
                             android:layout_width="match_parent"
@@ -258,16 +280,16 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/colorText" />
+                            app:tint="@color/zoomArrowAndText" />
 
                         <TextView
                             android:id="@+id/layerNumber"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="@color/colorPrimary"
+                            android:background="@color/neutral"
                             android:gravity="center"
                             android:text="1"
-                            android:textColor="@color/colorText"
+                            android:textColor="@color/zoomArrowAndText"
                             android:textSize="24sp"
                             app:layout_constraintBottom_toTopOf="@+id/zoomOut"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -284,7 +306,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/layerNumber"
-                            app:tint="@color/colorText" />
+                            app:tint="@color/zoomArrowAndText" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -302,6 +324,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_bottom_sheet"
+            android:backgroundTint="@color/neutral"
             android:orientation="vertical"
             android:paddingBottom="20dp"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -312,12 +335,13 @@
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/bottomsheet_style">
 
-                <com.google.android.material.card.MaterialCardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/bottomsheetMaterialCardView"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:backgroundTint="@android:color/transparent"
-                    app:cardElevation="0dp">
+                    app:cardElevation="0dp"
+                    android:elevation="0dp">
 
                     <View
                         android:id="@+id/imageView"
@@ -325,9 +349,9 @@
                         android:layout_height="8dp"
                         android:layout_gravity="center"
                         android:background="@drawable/rounded_style"
-                        android:backgroundTint="@color/colorTextInput" />
+                        android:backgroundTint="@color/bottomSheetNotch" />
 
-                </com.google.android.material.card.MaterialCardView>
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
 
             <androidx.core.widget.NestedScrollView
@@ -339,6 +363,7 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <LinearLayout
+                    android:id="@+id/container"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -353,14 +378,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:text="Blablabla 1"
-                        android:textSize="40sp" />
+                        android:textSize="40sp"
+                        android:textColor="@color/textOnNeutral" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dummy_text"
-                        android:textColor="@color/colorText"
+                        android:textColor="@color/textOnNeutral"
                         android:textSize="24sp" />
 
                 </LinearLayout>

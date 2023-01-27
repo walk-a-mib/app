@@ -12,23 +12,68 @@
 <!--    #A61E3B-->
 <!--    #490614 bottomsheet -->
 
-    <color name="colorPrimary">#FCFCFC</color>
-    <color name="colorPrimaryDark">#401d27</color>
-    <color name="colorSecondary">#733547</color>
-    <color name="colorSecondaryLight">#914E61</color>
-    <color name="colorText">#733547</color>
-    <color name="colorTextInput">#FCFCFC</color>
-    <color name="light_color">#D9D0D0</color>
+<!--    <color name="colorPrimary">#FCFCFC</color>-->
+<!--    <color name="colorPrimaryDark">#401d27</color>-->
+<!--    <color name="colorSecondary">#733547</color>-->
+<!--    <color name="colorSecondaryLight">#914E61</color>-->
+<!--    <color name="colorText">#733547</color>-->
+<!--    <color name="colorTextInput">#FCFCFC</color>-->
+<!--    <color name="light_color">#D9D0D0</color>-->
 
+<!-- ==================================================== -->
+
+<!--    <color name="neutral10">#1a1a1a</color>-->
+<!--    <color name="neutral20">#333333</color>-->
+<!--    <color name="neutral95">#f2f2f2</color>-->
+<!--    <color name="neutral85">#d9d9d9</color>-->
+<!--    <color name="neutral100">#ffffff</color>-->
+
+    <color name="neutral">#f7f7e8</color>
+
+<!--    <color name="primary10">#141f1b</color>-->
+<!--    <color name="primary15">#1d2f28</color>-->
+<!--    <color name="primary20">#273f35</color>-->
+<!--    <color name="primary25">#304f42</color>-->
+<!--    <color name="primary30">#3b5e50</color>-->
+<!--    <color name="primary40">#4f7d6b</color>-->
+<!--    <color name="primary50">#629d85</color>-->
+<!--    <color name="primary60">#82b09e</color>-->
+<!--    <color name="primary65">#91baab</color>-->
+<!--    <color name="primary70">#a1c4b6</color>-->
+<!--    <color name="primary80">#c0d8ce</color>-->
+<!--    <color name="primary85">#d0e2da</color>-->
+<!--    <color name="primary90">#dfece7</color>-->
+<!--    <color name="primary95">#eff5f3</color>-->
+
+<!--    <color name="error10">#330009</color>-->
+<!--    <color name="error35">#b00020</color>-->
+<!--    <color name="error90">#ffccd5</color>-->
+<!--    <color name="error100">#ffffff</color>-->
+
+    <color name="colorPrimary">#446A5C</color>
+    <color name="colorPrimaryDark">#273f35</color>
+    <color name="textOnNeutral">#1d2f28</color>
+    <color name="colorGreetingText">#304F42</color>
+    <color name="colorSettingsIcon">#304F42</color>
+    <color name="bottomSheetNotch">#91baab</color>
+    <color name="colorTextInputCursor">#ffffff</color>
+    <color name="textColorOnNavigationInput">#ffffff</color>
+    <color name="textColorHintOnNavigationInput">#eff5f3</color>
+    <color name="colorArrowInputNavigation">#dfece7</color>
+    <color name="backgroundColorPoI">#c0d8ce</color>
+    <color name="colorPoI">#1d2f28</color>
+    <color name="zoomArrowAndText">#1b2724</color>
+    <color name="routeBackgroundColor">#91baab</color>
+    <color name="routeColor">#141f1b</color>
+    <color name="colorLogo">#c0d8ce</color>
+    <color name="colorWave">#273f35</color>
+    <color name="colorSwitchTrackOn">#f7f7e8</color>
+    <color name="colorSwitchTrackOff">#dfece7</color>
+    <color name="colorSwitchThumbOn">#c0d8ce</color>
+    <color name="colorSwitchThumbOff">#1d2f28</color>
     <!--    <color name="colorPrimary">#D9D0CA</color> &lt;!&ndash; colore testo, cardview &ndash;&gt;-->
 <!--    <color name="colorPrimaryDark">#9D8C7C</color> &lt;!&ndash; colore dell'area in alto del cellulare &ndash;&gt;-->
 <!--    <color name="colorSecondary">#FF3F495D</color> &lt;!&ndash; colore testo, cardview &ndash;&gt;-->
 <!--    <color name="colorSecondaryAlt">#515D75</color>-->
 <!--    <color name="colorTertiary">#F4F0EF</color> &lt;!&ndash; colore bottomsheet &ndash;&gt;-->
-
-    <!--    palette 2-->
-    <color name="p2_colorPrimary">#7FA6B7</color>
-    <color name="p2_colorPrimaryDark">#32546D</color>
-    <color name="p2_colorSecondary">#F7EDEC</color>
-    <color name="p2_colorTertiary">#F2485B</color>
 </resources>

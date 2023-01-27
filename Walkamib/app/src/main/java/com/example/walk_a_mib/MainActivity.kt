@@ -7,14 +7,16 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.walk_a_mib.adapter.RouteAdapter
 import com.example.walk_a_mib.ui.SettingsActivity
-import com.example.walk_a_mib.ui.SignInActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,35 +30,41 @@ val BOTTOMSHEET_HEIGHT = 65.toPx()
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var newRecyclerView : RecyclerView
     private lateinit var newArrayList : ArrayList<Route>
     private lateinit var svgId : Array<Int>
     private lateinit var description: Array<String>
     private lateinit var distance: Array<String>
 
+    private fun darkMode(boolean: Boolean) {
+        when (boolean) {
+            true ->
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+            false ->
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        webview.webViewClient = WebViewClient()
-        webview.loadUrl("https://fuckingmap.bss.design/")
+        val sharedPreferences = getSharedPreferences("save", MODE_PRIVATE)
+        darkMode(sharedPreferences.getBoolean("darkModeSwitch", false))
 
-        val webSettings = webview.settings
-        webSettings.javaScriptEnabled = true
+        createWebView()
+        onBackPressedDispatcher.addCallback(this) {
+            if (webview.canGoBack()) {
+                webview.goBack()
+            }
+        }
 
-        val settings = findViewById<CardView>(R.id.settings)
         settings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
-//            overridePendingTransition(
-//                R.anim.slide_in_top,
-//                R.anim.slide_out_bottom
-//            )
-
             overridePendingTransition(
                 R.anim.slide_in_right,
                 R.anim.slide_out_left
             )
-
         }
 
         BottomSheetBehavior.from(sheet).apply {
@@ -89,39 +97,30 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        imgBtn2.setOnClickListener {
-            startActivity(Intent(this, SignInActivity::class.java))
-
-            overridePendingTransition(
-                R.anim.slide_in_right,
-                R.anim.slide_out_left
-            )
-        }
-
         BottomSheetBehavior.from(sheet).addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when(newState) {
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                         param.bottomMargin = BOTTOMSHEET_HEIGHT
-                        mapLayout.layoutParams = param
+                        webview.layoutParams = param
                     }
 
                     BottomSheetBehavior.STATE_HIDDEN -> {
                         BottomSheetBehavior.from(sheet).peekHeight = BOTTOMSHEET_HEIGHT
                         param.bottomMargin = 0
-                        mapLayout.layoutParams = param
+                        webview.layoutParams = param
                     }
                 }
             }
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 if(slideOffset < 0) {
                     param.bottomMargin = rootContainer.height - bottomSheet.top
-                    mapLayout.layoutParams = param
+                    webview.layoutParams = param
                 }
             }
         })
 
-       setUpRoutes() // adds elements inside RecyclerView
+        setUpRoutes() // adds elements inside RecyclerView
 
         zoomIn.setOnClickListener {
             Snackbar.make(rootContainer, "Zoom In", Snackbar.LENGTH_SHORT).show()
@@ -131,26 +130,24 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(rootContainer, "Zoom Out", Snackbar.LENGTH_SHORT).show()
         }
 
-        onBackPressedDispatcher.addCallback(this /* lifecycle owner */) {
-            if (webview.canGoBack()) {
-                webview.goBack()
-            }
-        }
+//        imgBtn2.setOnClickListener {
+//            startActivity(Intent(this, SignInActivity::class.java))
+//
+//            overridePendingTransition(
+//                R.anim.slide_in_right,
+//                R.anim.slide_out_left
+//            )
+//        }
     }
 
-    //    private fun getScreenHeight() : Int {
-//        val displayMetrics = DisplayMetrics()
-//        lateinit var screenHeight : Any
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            val windowMetrics = windowManager.currentWindowMetrics
-//            val insets = windowMetrics.windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
-//            return windowManager.currentWindowMetrics.bounds.height() - insets.top - insets.bottom
-//
-//        } else {
-//            windowManager.defaultDisplay.getMetrics(displayMetrics)
-//            return displayMetrics.heightPixels
-//        }
-//    }
+    private fun createWebView() {
+        webview.webChromeClient = WebChromeClient()
+        webview.webViewClient = WebViewClient()
+        webview.clearCache(true)
+        webview.loadUrl("https://fuckingmap.bss.design/")
+        val webSettings = webview.settings
+        webSettings.javaScriptEnabled = true
+    }
 
     private fun setUpRoutes() {
         svgId = arrayOf(
@@ -171,20 +168,23 @@ class MainActivity : AppCompatActivity() {
             "91mt"
         )
 
-        newRecyclerView = findViewById(R.id.recyclerView)
-        newRecyclerView.layoutManager = LinearLayoutManager(this)
-        newRecyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
 
         newArrayList = arrayListOf()
         getUserdata()
     }
 
     private fun getUserdata() {
-        for(i in svgId.indices) {
-            val route = Route(svgId[i], description[i], distance[i])
-            newArrayList.add(route)
+//        for(i in svgId.indices) {
+//            val route = Route(svgId[i], description[i], distance[i])
+//            newArrayList.add(route)
+//        }
+
+        for(i in 1 .. 100) {
+            newArrayList.add(Route(R.drawable.ic_round_straight_24, "Descr $i", "dist $i"))
         }
 
-        newRecyclerView.adapter = MyAdapter(newArrayList)
+        recyclerView.adapter = RouteAdapter(newArrayList)
     }
 }

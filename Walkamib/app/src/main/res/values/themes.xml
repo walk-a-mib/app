@@ -17,10 +17,11 @@
 <!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
 <!--    </style>-->
 
-    <style name="Theme.Walkamib" parent="Theme.MaterialComponents.DayNight">
+    <style name="Theme.Walkamib" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorAccent">@android:color/holo_red_dark</item>
+<!--        <item name="colorSecondary">@color/colorSecondary</item>-->
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

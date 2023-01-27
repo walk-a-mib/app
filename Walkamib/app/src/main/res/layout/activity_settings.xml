@@ -4,16 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SettingsActivity">
+    tools:context=".ui.SettingsActivity"
+    android:background="@color/neutral">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Activity per le impostazioni"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/darkModeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dark Mode"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleX="1.5"
+            android:scaleY="1.5" />
+
+<!--        app:track="@drawable/ic_switch_track_off"-->
+<!--        app:thumbTint="@color/white"-->
+<!--        android:thumb="@drawable/ic_switch_thumb"-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

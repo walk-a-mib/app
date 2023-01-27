@@ -8,8 +8,8 @@
     <string name="turn_right">Svolta a destra</string>
     <string name="walk_at_mib" translatable="false">WALK\n@MIB</string>
     <string name="sign_in">Accedi</string>
-    <string name="email">pinco.pallino@gmail.com</string>
-    <string name="password">PasswordSuperSicura123!</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="password" translatable="false">Password</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="confirm_password">Conferma password</string>
@@ -17,4 +17,5 @@
     <string name="sign_up_link">Non hai un account? Registrati</string>
     <string name="sign_in_link">Hai già un account? Accedi</string>
     <string name="sign_up">Registrati</string>
+    <string name="azure_signin">Accesso con Azure</string>
 </resources>

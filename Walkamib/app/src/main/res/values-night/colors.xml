@@ -8,12 +8,21 @@
 <!--    <color name="colorTertiary">#733547</color>-->
 
 
-    <color name="colorPrimary">#5D2938</color>
-    <color name="colorPrimaryDark">#4D1F2D</color>
-    <color name="colorSecondary">#38151F</color>
-    <color name="colorText">#D9D0D0</color>
-    <color name="colorTextInput">#D9D0D0</color>
+<!--    <color name="colorPrimary">#5D2938</color>-->
+<!--    <color name="colorPrimaryDark">#4D1F2D</color>-->
+<!--    <color name="colorSecondary">#38151F</color>-->
+<!--    <color name="colorText">#D9D0D0</color>-->
+<!--    <color name="colorTextInput">#D9D0D0</color> -->
 
+    <color name="neutral">#141f1b</color>
+
+    <color name="colorPrimary">#273f35</color>
+    <color name="colorGreetingText">#c0d8ce</color>
+    <color name="colorSettingsIcon">#c0d8ce</color>
+    <color name="textOnNeutral">#c0d8ce</color>
+    <color name="zoomArrowAndText">#91baab</color>
+    <color name="routeBackgroundColor">#273f35</color>
+    <color name="routeColor">#c0d8ce</color>
 <!--    <color name="colorPrimary">#FF3F495D</color>-->
 <!--    <color name="colorPrimaryDark">#2C3442</color>-->
 <!--    <color name="colorSecondary">#FFEEE5DC</color>-->

@@ -1,16 +1,16 @@
-package com.example.walk_a_mib
+package com.example.walk_a_mib.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
+import com.example.walk_a_mib.R
+import com.example.walk_a_mib.Route
 
-class MyAdapter(private val routeList : ArrayList<Route>) :
-    RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class RouteAdapter(private val routeList : ArrayList<Route>) :
+    RecyclerView.Adapter<RouteAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(itemView : View, routeList: ArrayList<Route>) : RecyclerView.ViewHolder(itemView) {
         val titleSvg : ImageView
@@ -39,7 +39,8 @@ class MyAdapter(private val routeList : ArrayList<Route>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(
+            R.layout.list_item, parent, false)
 
         return MyViewHolder(itemView, routeList)
     }
