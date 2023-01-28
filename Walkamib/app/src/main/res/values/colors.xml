@@ -71,6 +71,16 @@
     <color name="colorSwitchTrackOff">#dfece7</color>
     <color name="colorSwitchThumbOn">#c0d8ce</color>
     <color name="colorSwitchThumbOff">#1d2f28</color>
+    <color name="colorTitleSignInUp">#3b5e50</color>
+    <color name="colorInputBorderSignInUp">#273f35</color>
+    <color name="colorForgotPassword">#3b5e50</color>
+    <color name="colorTextSignInUpBtn">#dfece7</color>
+    <color name="colorSignUpLink">#3b5e50</color>
+    <color name="colorSignInUpBtn">#304F42</color>
+    <color name="colorTextHintSignInUp">#304F42</color>
+    <color name="colorTextInputSignInUp">#273f35</color>
+    <color name="colorLineAndEyeTextInputSignInUp">#3b5e50</color>
+
     <!--    <color name="colorPrimary">#D9D0CA</color> &lt;!&ndash; colore testo, cardview &ndash;&gt;-->
 <!--    <color name="colorPrimaryDark">#9D8C7C</color> &lt;!&ndash; colore dell'area in alto del cellulare &ndash;&gt;-->
 <!--    <color name="colorSecondary">#FF3F495D</color> &lt;!&ndash; colore testo, cardview &ndash;&gt;-->

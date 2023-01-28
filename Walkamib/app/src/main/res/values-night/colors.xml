@@ -23,6 +23,11 @@
     <color name="zoomArrowAndText">#91baab</color>
     <color name="routeBackgroundColor">#273f35</color>
     <color name="routeColor">#c0d8ce</color>
+    <color name="colorTitleSignInUp">#c0d8ce</color>
+    <color name="colorForgotPassword">#c0d8ce</color>
+    <color name="colorSignUpLink">#c0d8ce</color>
+    <color name="colorTextHintSignInUp">#cac4d0</color>
+    <color name="colorTextInputSignInUp">#f2f2f2</color>
 <!--    <color name="colorPrimary">#FF3F495D</color>-->
 <!--    <color name="colorPrimaryDark">#2C3442</color>-->
 <!--    <color name="colorSecondary">#FFEEE5DC</color>-->

@@ -8,7 +8,7 @@
         <shape android:shape="rectangle">
             <stroke
                 android:width="2dp"
-                android:color="#4f7d6b" />
+                android:color="@color/colorLineAndEyeTextInputSignInUp" />
         </shape>
     </item>
 
