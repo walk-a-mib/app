@@ -1,23 +1,34 @@
 package com.example.walk_a_mib.logic_layer.domain
 
+import android.os.Parcelable
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.walk_a_mib.logic_layer.domain.Coordinate
+import kotlinx.parcelize.Parcelize
 import java.lang.Math.toDegrees
 import kotlin.math.*
 
-class Node {
-    var type = 0
-    var id = 0
-    var name: String? = null
-    var description: String? = null
-    var position: Coordinate = Coordinate(0.0, 0.0, 0.0)
-    var ga: GA? = null
+@Parcelize
+@Entity
+class Node(@PrimaryKey(autoGenerate = false) var id: String,
+           var label: String,
+           var type: Int,
+           var name: String,
+           var description: String,
+           @Embedded var position: Coordinate,
+           @Embedded var ga: GA) : Parcelable {
 
+    override fun toString(): String {
+        return "$id;$label;$name;$description;$position;$ga";
+    }
 
     // helpers
     private fun Double.toRadian() = this * Math.PI / 180.0
 
-    fun typeString(): String? {
-        return NodeType.getTypeString(id)
-    }
+    //fun typeString(): String? {
+    //    return NodeType.getTypeString(id)
+    //}
 
     // Takes a provenience node and a destination node as parameter,
     // returns the RELATIVE direction (considering the arriving direction).
@@ -53,9 +64,5 @@ class Node {
         val dBearing = (toDegrees(rBearing) + 360) % 360
         return dBearing
     }
-
-
-
-
 
 }

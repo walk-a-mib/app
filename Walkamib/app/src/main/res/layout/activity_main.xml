@@ -41,10 +41,8 @@
                 android:textColor="@color/colorGreetingText"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/greeting"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:layout_editor_absoluteY="0dp" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/greeting"
+                app:layout_constraintStart_toEndOf="@+id/greeting" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/settings"
@@ -143,6 +141,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <LinearLayout
+                            android:id="@+id/poi_container"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -368,6 +367,14 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/routes"
+                        android:textSize="40sp"
+                        android:textColor="@color/textOnNeutral"
+                        android:layout_marginBottom="20dp" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
@@ -377,7 +384,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:text="Blablabla 1"
+                        android:text="@string/poi_info"
                         android:textSize="40sp"
                         android:textColor="@color/textOnNeutral" />
 

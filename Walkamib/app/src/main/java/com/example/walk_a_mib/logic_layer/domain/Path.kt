@@ -1,5 +1,7 @@
 package com.example.walk_a_mib.logic_layer.domain
 
+import com.example.walk_a_mib.logic_layer.domain.Edge
+
 class Path {
     var nodeList: ArrayList<Node>? = null
     var edgeList: ArrayList<Edge>? = null

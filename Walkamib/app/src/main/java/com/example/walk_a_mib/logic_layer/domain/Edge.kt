@@ -1,5 +1,7 @@
 package com.example.walk_a_mib.logic_layer.domain
 
+import com.example.walk_a_mib.logic_layer.domain.EdgeType
+
 class Edge {
     var type = 0
     private var id = 0

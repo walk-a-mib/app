@@ -4,22 +4,38 @@ import android.animation.LayoutTransition
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.content.res.Resources
+import android.media.Image
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
+import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.walk_a_mib.adapter.RouteAdapter
-import com.example.walk_a_mib.ui.SettingsActivity
+import com.example.walk_a_mib.model.PlaceResult
+import com.example.walk_a_mib.repository.IPlaceRepository
+import com.example.walk_a_mib.ui.PlaceViewModel
+import com.example.walk_a_mib.ui.PlaceViewModelFactory
+import com.example.walk_a_mib.util.ServiceLocator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.internal.format
+import org.w3c.dom.Text
 
 
 // allows us to convert px in dp and vice versa
@@ -49,10 +65,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val settings = findViewById<CardView>(R.id.settings)
+        val sheet = findViewById<LinearLayout>(R.id.sheet)
+        val bottomsheetMaterialCardView = findViewById<CardView>(R.id.bottomsheetMaterialCardView)
+        val mapLayout = findViewById<LinearLayout>(R.id.mapLayout)
+        val param = mapLayout.layoutParams as ViewGroup.MarginLayoutParams
+        val rootContainer = findViewById<RelativeLayout>(R.id.rootContainer)
+        val poiContainer = findViewById<LinearLayout>(R.id.poi_container)
         val sharedPreferences = getSharedPreferences("save", MODE_PRIVATE)
         darkMode(sharedPreferences.getBoolean("darkModeSwitch", false))
+        val layers = findViewById<ConstraintLayout>(R.id.layers)
+        val webview = findViewById<WebView>(R.id.webview)
+        createWebView(webview)
 
-        createWebView()
         onBackPressedDispatcher.addCallback(this) {
             if (webview.canGoBack()) {
                 webview.goBack()
@@ -61,91 +86,98 @@ class MainActivity : AppCompatActivity() {
 
         settings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
-            overridePendingTransition(
-                R.anim.slide_in_right,
-                R.anim.slide_out_left
-            )
+        }
+
+        val placeRepository = ServiceLocator.getPlaceRepository(this.application)
+
+        val placeViewModel = ViewModelProvider(
+            this,
+            PlaceViewModelFactory(placeRepository)
+        )[PlaceViewModel::class.java]
+
+        val bottomSheetPoIDescription = findViewById<TextView>(R.id.info)
+        val nameObserver = Observer<PlaceResult> { result ->
+            if (result.isSuccess()) {
+                val res = (result as PlaceResult.Success).placeResponse.place.toString()
+                Log.d("MAIN", "ACTUALLY FUCKING WORKS " + res)
+                bottomSheetPoIDescription.text = res
+            } else {
+                Log.d("MAIN", "FUCK NO")
+                bottomSheetPoIDescription.text = "FUCK NO"
+            }
         }
 
         BottomSheetBehavior.from(sheet).apply {
-            peekHeight = BOTTOMSHEET_HEIGHT
             this.isHideable = true
             this.state = BottomSheetBehavior.STATE_HIDDEN
             bottomsheetMaterialCardView.layoutParams.height = BOTTOMSHEET_HEIGHT
         }
 
         // this line of code below allows us to modify margins
-        val param = mapLayout.layoutParams as ViewGroup.MarginLayoutParams
 //        param.bottomMargin = BOTTOMSHEET_HEIGHT
         // these lines of code below allows changes to be animated
-        mapLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-        layers.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+//        mapLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+//        layers.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 
-        imgBtn1.setOnClickListener {
-            if(BottomSheetBehavior.from(sheet).state != BottomSheetBehavior.STATE_COLLAPSED) {
+        if(poiContainer.childCount > 0) {
+            for (i in 0 until poiContainer.childCount) {
+                val img = poiContainer.getChildAt(i) as ImageButton
+                img.setOnClickListener {
+                    if(BottomSheetBehavior.from(sheet).state != BottomSheetBehavior.STATE_COLLAPSED) {
+                        BottomSheetBehavior.from(sheet).apply {
+                            peekHeight = BOTTOMSHEET_HEIGHT
+                            this.state = BottomSheetBehavior.STATE_COLLAPSED
+                        }
+                    }
 
-                BottomSheetBehavior.from(sheet).apply {
-                    peekHeight = 0
-                    this.state = BottomSheetBehavior.STATE_COLLAPSED
+                    placeViewModel.fetchPlace((i+1).toString(), 1000).observe(this, nameObserver)
                 }
 
-                ObjectAnimator.ofInt(BottomSheetBehavior.from(sheet), "peekHeight", BOTTOMSHEET_HEIGHT).apply {
-                    startDelay = 50
-                    duration = 300
-                    start()
-                }
+                BottomSheetBehavior.from(sheet).addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        when(newState) {
+                            BottomSheetBehavior.STATE_COLLAPSED -> {
+                                param.bottomMargin = BOTTOMSHEET_HEIGHT
+                                webview.layoutParams = param
+                            }
+
+                            BottomSheetBehavior.STATE_HIDDEN -> {
+                                BottomSheetBehavior.from(sheet).peekHeight = BOTTOMSHEET_HEIGHT
+                                param.bottomMargin = 0
+                                webview.layoutParams = param
+                            }
+                        }
+                    }
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                        if(slideOffset < 0) {
+                            param.bottomMargin = rootContainer.height - bottomSheet.top
+                            webview.layoutParams = param
+                        }
+                    }
+                })
             }
         }
 
-        BottomSheetBehavior.from(sheet).addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when(newState) {
-                    BottomSheetBehavior.STATE_COLLAPSED -> {
-                        param.bottomMargin = BOTTOMSHEET_HEIGHT
-                        webview.layoutParams = param
-                    }
+//        setUpRoutes() // adds elements inside RecyclerView
 
-                    BottomSheetBehavior.STATE_HIDDEN -> {
-                        BottomSheetBehavior.from(sheet).peekHeight = BOTTOMSHEET_HEIGHT
-                        param.bottomMargin = 0
-                        webview.layoutParams = param
-                    }
-                }
-            }
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                if(slideOffset < 0) {
-                    param.bottomMargin = rootContainer.height - bottomSheet.top
-                    webview.layoutParams = param
-                }
-            }
-        })
-
-        setUpRoutes() // adds elements inside RecyclerView
-
+        val zoomIn = findViewById<ImageButton>(R.id.zoomIn)
         zoomIn.setOnClickListener {
             Snackbar.make(rootContainer, "Zoom In", Snackbar.LENGTH_SHORT).show()
         }
 
+        val zoomOut = findViewById<ImageButton>(R.id.zoomOut)
         zoomOut.setOnClickListener {
             Snackbar.make(rootContainer, "Zoom Out", Snackbar.LENGTH_SHORT).show()
         }
 
-//        imgBtn2.setOnClickListener {
-//            startActivity(Intent(this, SignInActivity::class.java))
-//
-//            overridePendingTransition(
-//                R.anim.slide_in_right,
-//                R.anim.slide_out_left
-//            )
-//        }
     }
 
-    private fun createWebView() {
-        webview.webChromeClient = WebChromeClient()
-        webview.webViewClient = WebViewClient()
-        webview.clearCache(true)
-        webview.loadUrl("https://fuckingmap.bss.design/")
-        val webSettings = webview.settings
+    private fun createWebView(webView: WebView) {
+        webView.webChromeClient = WebChromeClient()
+        webView.webViewClient = WebViewClient()
+        webView.clearCache(true)
+        webView.loadUrl("https://fuckingmap.bss.design/")
+        val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
     }
 
@@ -168,20 +200,22 @@ class MainActivity : AppCompatActivity() {
             "91mt"
         )
 
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
 
         newArrayList = arrayListOf()
-        getUserdata()
+        getUserdata(recyclerView)
     }
 
-    private fun getUserdata() {
+    private fun getUserdata(recyclerView: RecyclerView) {
 //        for(i in svgId.indices) {
 //            val route = Route(svgId[i], description[i], distance[i])
 //            newArrayList.add(route)
 //        }
 
-        for(i in 1 .. 100) {
+        for(i in 1 .. 5) {
             newArrayList.add(Route(R.drawable.ic_round_straight_24, "Descr $i", "dist $i"))
         }
 

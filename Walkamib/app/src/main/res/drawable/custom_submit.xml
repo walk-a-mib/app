@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="true">
         <shape android:shape="rectangle">
-            <solid android:color="#304F42" />
+            <solid android:color="@color/colorSignInUpBtn" />
             <corners android:radius="25dp" />
             <!--        <stroke android:width="2dp" android:color="@color/colorPrimary"/>-->
             <padding android:top="12dp"
