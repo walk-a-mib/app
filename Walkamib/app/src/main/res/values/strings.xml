@@ -18,4 +18,8 @@
     <string name="sign_in_link">Hai già un account? Accedi</string>
     <string name="sign_up">Registrati</string>
     <string name="azure_signin">Accesso con Azure</string>
+    <string name="maps_api_key" translatable="false">superSecureKey123</string>
+    <string name="routes">Indicazioni</string>
+    <string name="poi_info">Informazioni</string>
+    <string name="or">O</string>
 </resources>
