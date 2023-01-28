@@ -1,16 +1,20 @@
 package com.example.walk_a_mib.logic_layer.domain
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 import kotlin.math.*
 
-class Coordinate() {
-    var lat: Double = 0.0
-    var lon: Double = 0.0
-    var alt: Double = 0.0
+@Parcelize
+class Coordinate(@SerializedName("lat") var lat: Double,
+                      @SerializedName("lon") var lon: Double,
+                      @SerializedName("alt") var alt: Double) : Parcelable {
 
-    constructor(lat: Double, lon: Double, alt: Double) : this() {
-        this.lat = lat;
-        this.lon = lon;
-        this.alt = lat;
-    }
+    //constructor(lat: Double, lon: Double, alt: Double) : this() {
+    //    this.lat = lat;
+    //    this.lon = lon;
+    //    this.alt = lat;
+    //}
+
 
     fun distance(b: Coordinate): Double {
         val r = 6371
@@ -25,5 +29,9 @@ class Coordinate() {
         val height = this.alt - b.alt
         distance = distance.pow(2.0) + height.pow(2.0)
         return sqrt(distance)
+    }
+
+    override fun toString(): String {
+        return "COORDINATE(" + lat + ";" + lon + ";" + alt + ")";
     }
 }
