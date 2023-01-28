@@ -1,10 +1,9 @@
-package com.example.walk_a_mib.ui
+package com.example.walk_a_mib
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.walk_a_mib.R
-import kotlinx.android.synthetic.main.activity_settings.*
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 
 class SettingsActivity : AppCompatActivity() {
@@ -24,6 +23,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         val sharedPreferences = getSharedPreferences("save", MODE_PRIVATE)
+        val darkModeSwitch = findViewById<SwitchMaterial>(R.id.darkModeSwitch)
         darkModeSwitch.isChecked = sharedPreferences.getBoolean("darkModeSwitch", false)
 
         darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->

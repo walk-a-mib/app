@@ -13,4 +13,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="sign_in_link">Already have an account? Sign In</string>
     <string name="azure_signin">Sign In with Azure</string>
+    <string name="routes">Directions</string>
+    <string name="poi_info">Information</string>
+    <string name="or">OR</string>
 </resources>

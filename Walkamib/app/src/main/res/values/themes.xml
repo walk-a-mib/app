@@ -20,7 +20,7 @@
     <style name="Theme.Walkamib" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@android:color/holo_red_dark</item>
+<!--        <item name="colorAccent">@android:color/holo_red_dark</item>-->
 <!--        <item name="colorSecondary">@color/colorSecondary</item>-->
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
         <item name="windowActionBar">false</item>
