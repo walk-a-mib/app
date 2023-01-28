@@ -47,7 +47,7 @@ class LoginFragment : Fragment() {
         val signInBtn = view.findViewById<Button>(R.id.sign_in_btn)
         signInBtn.setOnClickListener {
 
-//            Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_mainActivity)
+            Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_mainActivity)
 
             activity?.finish()
         }
