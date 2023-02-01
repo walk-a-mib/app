@@ -17,9 +17,17 @@
     <string name="sign_up_link">Non hai un account? Registrati</string>
     <string name="sign_in_link">Hai già un account? Accedi</string>
     <string name="sign_up">Registrati</string>
-    <string name="azure_signin">Accesso con Azure</string>
     <string name="maps_api_key" translatable="false">superSecureKey123</string>
     <string name="routes">Indicazioni</string>
-    <string name="poi_info">Informazioni</string>
+    <string name="poi_info">Informazioni su %1$s</string>
     <string name="or">O</string>
+    <string name="missing_poi_description">Non è stata fornita alcuna descrizione per questo punto di interesse</string>
+    <string name="poi_not_working">Potrebbe essere non funzionante</string>
+    <string name="poi_accessible">Accessibile a persone con disabilità</string>
+    <string name="poi_not_accessible">Non accessibile a persone con disabilità</string>
+    <string name="poi_indoor">Al chiuso</string>
+    <string name="poi_outdoor">All\'aperto</string>
+    <string name="sign_in_with_google">Accedi con Google</string>
+    <string name="building">Edificio %1$s</string>
+    <string name="floor">Piano %1$s</string>
 </resources>

@@ -45,10 +45,11 @@
 <!--    <color name="primary90">#dfece7</color>-->
 <!--    <color name="primary95">#eff5f3</color>-->
 
-<!--    <color name="error10">#330009</color>-->
-<!--    <color name="error35">#b00020</color>-->
-<!--    <color name="error90">#ffccd5</color>-->
-<!--    <color name="error100">#ffffff</color>-->
+
+    <color name="errorBg">#ffbfbf</color>
+    <color name="errorTextOnBg">#701d1d</color>
+    <color name="otherInfoBg">#91baab</color>
+    <color name="otherInfoTextOnBg">#1d2f28</color>
 
     <color name="colorPrimary">#446A5C</color>
     <color name="colorPrimaryDark">#273f35</color>

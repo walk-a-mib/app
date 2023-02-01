@@ -128,7 +128,9 @@
                     <WebView
                         android:id="@+id/webview"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:layout_editor_absoluteY="0dp" />
 
                     <HorizontalScrollView
                         android:id="@+id/horizontalScrollView"
@@ -325,13 +327,11 @@
             android:background="@drawable/rounded_bottom_sheet"
             android:backgroundTint="@color/neutral"
             android:orientation="vertical"
-            android:paddingBottom="20dp"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
                 android:background="@drawable/bottomsheet_style">
 
                 <androidx.cardview.widget.CardView
@@ -368,11 +368,13 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:text="@string/routes"
-                        android:textSize="40sp"
+                        android:textSize="34sp"
                         android:textColor="@color/textOnNeutral"
+                        android:layout_marginTop="30dp"
                         android:layout_marginBottom="20dp" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -381,20 +383,36 @@
                         android:layout_height="match_parent" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/infoTitle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:layout_marginBottom="20dp"
                         android:text="@string/poi_info"
-                        android:textSize="40sp"
+                        android:textSize="34sp"
                         android:textColor="@color/textOnNeutral" />
 
                     <TextView
-                        android:id="@+id/info"
+                        android:id="@+id/poiDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/dummy_text"
-                        android:textColor="@color/textOnNeutral"
-                        android:textSize="24sp" />
+                        android:textSize="20sp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="40dp" />
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/info"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/dummy_text"-->
+<!--                        android:textColor="@color/textOnNeutral"-->
+<!--                        android:textSize="24sp" />-->
+
+                    <LinearLayout
+                        android:id="@+id/otherInfoContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>

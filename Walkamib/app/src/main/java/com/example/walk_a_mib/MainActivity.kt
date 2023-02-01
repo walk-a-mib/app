@@ -1,10 +1,7 @@
 package com.example.walk_a_mib
 
-import android.animation.LayoutTransition
-import android.animation.ObjectAnimator
 import android.content.Intent
 import android.content.res.Resources
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,29 +10,28 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.walk_a_mib.adapter.RouteAdapter
 import com.example.walk_a_mib.model.PlaceResult
-import com.example.walk_a_mib.repository.IPlaceRepository
+import com.example.walk_a_mib.ui.OtherInfo
 import com.example.walk_a_mib.ui.PlaceViewModel
 import com.example.walk_a_mib.ui.PlaceViewModelFactory
 import com.example.walk_a_mib.util.ServiceLocator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
-import okhttp3.internal.format
-import org.w3c.dom.Text
 
 
 // allows us to convert px in dp and vice versa
@@ -51,19 +47,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var description: Array<String>
     private lateinit var distance: Array<String>
 
-    private fun darkMode(boolean: Boolean) {
-        when (boolean) {
-            true ->
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-
-            false ->
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-    }
+//    private fun darkMode(boolean: Boolean) {
+//        when (boolean) {
+//            true ->
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//
+//            false ->
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         val settings = findViewById<CardView>(R.id.settings)
         val sheet = findViewById<LinearLayout>(R.id.sheet)
@@ -73,8 +71,8 @@ class MainActivity : AppCompatActivity() {
         val rootContainer = findViewById<RelativeLayout>(R.id.rootContainer)
         val poiContainer = findViewById<LinearLayout>(R.id.poi_container)
         val sharedPreferences = getSharedPreferences("save", MODE_PRIVATE)
-        darkMode(sharedPreferences.getBoolean("darkModeSwitch", false))
-        val layers = findViewById<ConstraintLayout>(R.id.layers)
+//        darkMode(sharedPreferences.getBoolean("darkModeSwitch", false))
+//        val layers = findViewById<ConstraintLayout>(R.id.layers)
         val webview = findViewById<WebView>(R.id.webview)
         createWebView(webview)
 
@@ -95,15 +93,41 @@ class MainActivity : AppCompatActivity() {
             PlaceViewModelFactory(placeRepository)
         )[PlaceViewModel::class.java]
 
-        val bottomSheetPoIDescription = findViewById<TextView>(R.id.info)
+        val infoTitle = findViewById<TextView>(R.id.infoTitle)
+
+        val poiDescription = findViewById<TextView>(R.id.poiDescription)
+        val otherInfoContainer = findViewById<LinearLayout>(R.id.otherInfoContainer)
+
         val nameObserver = Observer<PlaceResult> { result ->
             if (result.isSuccess()) {
-                val res = (result as PlaceResult.Success).placeResponse.place.toString()
-                Log.d("MAIN", "ACTUALLY FUCKING WORKS " + res)
-                bottomSheetPoIDescription.text = res
+                val res = (result as PlaceResult.Success).placeResponse.place
+                Log.d("res", res.toString())
+                val name = res?.name
+                val descr = res?.description
+                val ga = res?.ga
+
+                // adding the name
+                infoTitle.text = resources.getString(R.string.poi_info, name)
+
+                // adding the description
+                if (descr != "" && descr != null) {
+                    poiDescription.text = descr
+                } else {
+                    poiDescription.text = getString(R.string.missing_poi_description)
+                }
+
+                if (ga != null) {
+                    // adding other information
+                    val otherInfo = OtherInfo(this)
+
+                    otherInfo.addOtherInformation(otherInfoContainer, "available", ga.available.toString())
+                    otherInfo.addOtherInformation(otherInfoContainer, "accessible", ga.accessible.toString())
+                    otherInfo.addOtherInformation(otherInfoContainer, "indoor", ga.indoor.toString())
+                    otherInfo.addOtherInformation(otherInfoContainer, "building", ga.building.toString())
+                    otherInfo.addOtherInformation(otherInfoContainer, "floor", ga.floor.toString())
+                }
             } else {
-                Log.d("MAIN", "FUCK NO")
-                bottomSheetPoIDescription.text = "FUCK NO"
+
             }
         }
 
@@ -123,6 +147,10 @@ class MainActivity : AppCompatActivity() {
             for (i in 0 until poiContainer.childCount) {
                 val img = poiContainer.getChildAt(i) as ImageButton
                 img.setOnClickListener {
+
+                    // clear otherInfoContainer
+                    otherInfoContainer.removeAllViews()
+
                     if(BottomSheetBehavior.from(sheet).state != BottomSheetBehavior.STATE_COLLAPSED) {
                         BottomSheetBehavior.from(sheet).apply {
                             peekHeight = BOTTOMSHEET_HEIGHT

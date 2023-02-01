@@ -12,8 +12,17 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_in_link">Already have an account? Sign In</string>
-    <string name="azure_signin">Sign In with Azure</string>
     <string name="routes">Directions</string>
-    <string name="poi_info">Information</string>
+    <string name="poi_info">Information on %1$s</string>
     <string name="or">OR</string>
+    <string name="missing_poi_description">No description provided for this point of interest</string>
+    <string name="poi_not_working">May not be working</string>
+    <string name="poi_accessible">Accessible to people with disabilities</string>
+    <string name="poi_not_accessible">Not accessible to people with disabilities</string>
+    <string name="poi_indoor">Indoor</string>
+    <string name="poi_outdoor">Outdoor</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="building">Building %1$s</string>
+    <string name="floor">Floor %1$s</string>
+
 </resources>
