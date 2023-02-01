@@ -1,14 +1,9 @@
 package com.example.demoapiarch.domain
 
-import android.os.Parcel
-import android.os.ParcelFileDescriptor
 import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import java.lang.Math.toDegrees
 import kotlin.math.*

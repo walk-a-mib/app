@@ -1,7 +1,8 @@
-package com.example.demoapiarch.source
+package com.example.demoapiarch.source.place
 
 import android.util.Log
-import com.example.demoapiarch.place.PlaceApiResponse
+import com.example.demoapiarch.model.GenericApiResponse
+import com.example.demoapiarch.model.place.PlaceBodyResponse
 import com.example.demoapiarch.service.MapsApiService
 import com.example.demoapiarch.util.Constants.RETROFIT_ERROR
 import com.example.demoapiarch.util.ServiceLocator
@@ -13,12 +14,10 @@ class PlaceRemoteDataSource(val apiKey: String) : BasePlaceRemoteDataSource() {
     private val placeApiService : MapsApiService = ServiceLocator.getPlaceApiService()
 
     override fun getPlace(placeId: String) {
-        val placeResponseCall : Call<PlaceApiResponse> = placeApiService.getPlace(placeId, apiKey)
+        val placeResponseCall : Call<GenericApiResponse<PlaceBodyResponse>> = placeApiService.getPlace(placeId, apiKey)
 
-        placeResponseCall.enqueue(object : Callback<PlaceApiResponse> {
-            override fun onResponse(call: Call<PlaceApiResponse>, response: Response<PlaceApiResponse>) {
-
-                try {
+        placeResponseCall.enqueue(object : Callback<GenericApiResponse<PlaceBodyResponse>> {
+            override fun onResponse(call: Call<GenericApiResponse<PlaceBodyResponse>>, response: Response<GenericApiResponse<PlaceBodyResponse>>) {
 
                     if (response.isSuccessful &&
                         !(response.body()?.status.equals("error"))
@@ -28,12 +27,10 @@ class PlaceRemoteDataSource(val apiKey: String) : BasePlaceRemoteDataSource() {
                             System.currentTimeMillis()
                         )
                     }
-                } catch (e: Exception) {
-                    Log.d("MAIN", e.message.toString())
-                }
             }   //response.body()
 
-            override fun onFailure(call: Call<PlaceApiResponse>, t: Throwable) {
+            override fun onFailure(call: Call<GenericApiResponse<PlaceBodyResponse>>, t: Throwable) {
+                Log.d("MAIN", t.stackTraceToString().toString())
                 placeCallback?.onFailureFromRemote(Exception(RETROFIT_ERROR));
             }
 
