@@ -7,9 +7,9 @@ import com.example.walk_a_mib.model.GenericApiResponse
 import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.model.place.PlaceBodyResponse
 
-import com.example.demoapiarch.source.callbacks.PlaceCallback
-import com.example.demoapiarch.source.place.BasePlaceLocalDataSource
-import com.example.demoapiarch.source.place.BasePlaceRemoteDataSource
+import com.example.walk_a_mib.source.callbacks.PlaceCallback
+import com.example.walk_a_mib.source.place.BasePlaceLocalDataSource
+import com.example.walk_a_mib.source.place.BasePlaceRemoteDataSource
 import kotlin.reflect.typeOf
 
 class PlaceRepository(val placeRemoteDataSource: BasePlaceRemoteDataSource,

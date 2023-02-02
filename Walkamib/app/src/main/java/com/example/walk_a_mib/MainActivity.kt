@@ -84,10 +84,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         val placeRepository = ServiceLocator.getPlaceRepository(this.application)
+        val placesNearby = ServiceLocator.getPlacesNearbyRepository(this.application)
 
         val placeViewModel = ViewModelProvider(
             this,
-            PlaceViewModelFactory(placeRepository)
+            PlaceViewModelFactory(placeRepository, placesNearby)
         )[PlaceViewModel::class.java]
 
         val infoTitle = findViewById<TextView>(R.id.infoTitle)
@@ -95,34 +96,32 @@ class MainActivity : AppCompatActivity() {
         val poiDescription = findViewById<TextView>(R.id.poiDescription)
         val otherInfoContainer = findViewById<LinearLayout>(R.id.otherInfoContainer)
 
-        val nameObserver = Observer<PlaceResult> { result ->
+        val nameObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
-                val res = (result as PlaceResult.Success).placeResponse.place
-                Log.d("res", res.toString())
-                val name = res?.name
-                val descr = res?.description
-                val ga = res?.ga
+                val res = (result as CallResult.SuccessPlace).placeResponse.place
+                Log.d("controllo res", res.toString())
+                val name = res.name
+                val descr = res.description
+                val ga = res.ga
 
                 // adding the name
                 infoTitle.text = resources.getString(R.string.poi_info, name)
 
                 // adding the description
-                if (descr != "" && descr != null) {
+                if (descr != "") {
                     poiDescription.text = descr
                 } else {
                     poiDescription.text = getString(R.string.missing_poi_description)
                 }
 
-                if (ga != null) {
-                    // adding other information
-                    val otherInfo = OtherInfo(this)
+                // adding other information
+                val otherInfo = OtherInfo(this)
 
-                    otherInfo.addOtherInformation(otherInfoContainer, "available", ga.available.toString())
-                    otherInfo.addOtherInformation(otherInfoContainer, "accessible", ga.accessible.toString())
-                    otherInfo.addOtherInformation(otherInfoContainer, "indoor", ga.indoor.toString())
-                    otherInfo.addOtherInformation(otherInfoContainer, "building", ga.building.toString())
-                    otherInfo.addOtherInformation(otherInfoContainer, "floor", ga.floor.toString())
-                }
+                otherInfo.addOtherInformation(otherInfoContainer, "available", ga.available.toString())
+                otherInfo.addOtherInformation(otherInfoContainer, "accessible", ga.accessible.toString())
+                otherInfo.addOtherInformation(otherInfoContainer, "indoor", ga.indoor.toString())
+                otherInfo.addOtherInformation(otherInfoContainer, "building", ga.building.toString())
+                otherInfo.addOtherInformation(otherInfoContainer, "floor", ga.floor.toString())
             } else {
 
             }

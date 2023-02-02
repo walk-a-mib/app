@@ -1,6 +1,6 @@
 package com.example.walk_a_mib.logic_layer.domain
 
-import com.example.demoapiarch.domain.Type
+import com.example.walk_a_mib.logic_layer.domain.Type
 
 object EdgeType : Type.Type {
     private var table = arrayOf(

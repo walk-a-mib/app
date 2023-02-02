@@ -5,7 +5,7 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import com.example.demoapiarch.domain.Node
+import com.example.walk_a_mib.logic_layer.domain.Node
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -21,7 +21,7 @@ import kotlinx.parcelize.Parcelize
             childColumns = ["neighbour_id"],
             parentColumns = ["id"])
     ])
-class Proximity(@NonNull @ColumnInfo(name = "reference_id") var referenceId: String,
+class Proximity(@ColumnInfo(name = "reference_id") var referenceId: String,
                 @ColumnInfo(name = "neighbour_id") var neighborId: String,
-                @NonNull @ColumnInfo(name = "distance") var distance: Int) : Parcelable {
+                @ColumnInfo(name = "distance") var distance: Int) : Parcelable {
 }
