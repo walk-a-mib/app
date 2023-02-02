@@ -2,15 +2,20 @@ package com.example.walk_a_mib.util
 
 import android.app.Application
 import com.example.walk_a_mib.R
-import com.example.walk_a_mib.database.PlaceRoomDatabase
-import com.example.walk_a_mib.repository.IPlaceRepository
-import com.example.walk_a_mib.repository.PlaceRepository
+import com.example.walk_a_mib.database.MapsRoomDatabase
+import com.example.walk_a_mib.repository.place.IPlaceRepository
+import com.example.walk_a_mib.repository.place.PlaceRepository
+import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
+import com.example.walk_a_mib.repository.placesNearby.PlacesNearbyRepository
 import com.example.walk_a_mib.service.MapsApiService
-import com.example.walk_a_mib.source.BasePlaceLocalDataSource
-import com.example.walk_a_mib.source.BasePlaceRemoteDataSource
-import com.example.walk_a_mib.source.PlaceLocalDataSource
-import com.example.walk_a_mib.source.PlaceRemoteDataSource
-import com.example.walk_a_mib.util.Constants
+import com.example.walk_a_mib.source.place.BasePlaceLocalDataSource
+import com.example.walk_a_mib.source.place.BasePlaceRemoteDataSource
+import com.example.walk_a_mib.source.place.PlaceLocalDataSource
+import com.example.walk_a_mib.source.place.PlaceRemoteDataSource
+import com.example.walk_a_mib.source.placesNearby.BasePlacesNearbyLocalDataSource
+import com.example.walk_a_mib.source.placesNearby.BasePlacesNearbyRemoteDataSource
+import com.example.walk_a_mib.source.placesNearby.PlacesNearbyLocalDataSource
+import com.example.walk_a_mib.source.placesNearby.PlacesNearbyRemoteDataSource
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -32,15 +37,23 @@ object ServiceLocator {
         return retrofit.create(MapsApiService::class.java)
     }
 
-    fun getPlaceDao(application: Application): PlaceRoomDatabase {
-        return PlaceRoomDatabase.getDatabase(application)
+    fun getDao(application: Application): MapsRoomDatabase {
+        return MapsRoomDatabase.getDatabase(application)
     }
 
     fun getPlaceRepository(application: Application): IPlaceRepository {
         val placeRemoteDataSource: BasePlaceRemoteDataSource = PlaceRemoteDataSource(application.getString(
             R.string.maps_api_key))
-        val placeLocalDataSource: BasePlaceLocalDataSource = PlaceLocalDataSource(getPlaceDao(application))
+        val placeLocalDataSource: BasePlaceLocalDataSource = PlaceLocalDataSource(getDao(application))
 
         return PlaceRepository(placeRemoteDataSource, placeLocalDataSource)
+    }
+
+    fun getPlacesNearbyRepository(application: Application): IPlacesNearbyRepository {
+        val placesNearbyRemoteDataSource: BasePlacesNearbyRemoteDataSource = PlacesNearbyRemoteDataSource(application.getString(
+            R.string.maps_api_key))
+        val placesNearbyLocalDataSource: BasePlacesNearbyLocalDataSource = PlacesNearbyLocalDataSource(getDao(application))
+
+        return PlacesNearbyRepository(placesNearbyRemoteDataSource, placesNearbyLocalDataSource)
     }
 }

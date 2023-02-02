@@ -1,8 +1,8 @@
 package com.example.walk_a_mib.logic_layer.application
 
+import com.example.demoapiarch.domain.Path
 import com.example.walk_a_mib.logic_layer.application.GraphInterface
 import com.example.walk_a_mib.logic_layer.domain.Node
-import com.example.walk_a_mib.logic_layer.domain.Path
 
 interface GraphInterface {
     // Takes as input an initial and a final node,

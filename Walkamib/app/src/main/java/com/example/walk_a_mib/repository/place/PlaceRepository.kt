@@ -1,21 +1,23 @@
-package com.example.walk_a_mib.repository
+package com.example.walk_a_mib.repository.place
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.walk_a_mib.model.PlaceApiResponse
-import com.example.walk_a_mib.model.PlaceResponse
-import com.example.walk_a_mib.model.PlaceResult
 import com.example.walk_a_mib.logic_layer.domain.Node
-import com.example.walk_a_mib.source.BasePlaceLocalDataSource
-import com.example.walk_a_mib.source.BasePlaceRemoteDataSource
-import com.example.walk_a_mib.source.PlaceCallback
+import com.example.walk_a_mib.model.GenericApiResponse
+import com.example.walk_a_mib.model.CallResult
+import com.example.walk_a_mib.model.place.PlaceBodyResponse
 
+import com.example.demoapiarch.source.callbacks.PlaceCallback
+import com.example.demoapiarch.source.place.BasePlaceLocalDataSource
+import com.example.demoapiarch.source.place.BasePlaceRemoteDataSource
+import kotlin.reflect.typeOf
 
 class PlaceRepository(val placeRemoteDataSource: BasePlaceRemoteDataSource,
                       val placeLocalDataSource: BasePlaceLocalDataSource
 ) : IPlaceRepository, PlaceCallback {
     val TAG: String = PlaceRepository::class.java.simpleName
-    val allRequiredPlaces: MutableLiveData<PlaceResult> = MutableLiveData<PlaceResult>().apply { postValue(
-        PlaceResult()
+    val allRequiredPlaces: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
+        CallResult()
     )}
 
     var choice = true
@@ -25,7 +27,7 @@ class PlaceRepository(val placeRemoteDataSource: BasePlaceRemoteDataSource,
         placeLocalDataSource.placeCallback = this
     }
 
-    override fun fetchPlace(placeId: String, lastUpdate: Long): MutableLiveData<PlaceResult> {
+    override fun fetchPlace(placeId: String, lastUpdate: Long): MutableLiveData<CallResult> {
         val currentTime = System.currentTimeMillis()
 
         //if (choice) { //(currentTime - lastUpdate > Constants.FRESH_TIMEOUT)
@@ -43,25 +45,26 @@ class PlaceRepository(val placeRemoteDataSource: BasePlaceRemoteDataSource,
         placeRemoteDataSource.getPlace(placeId)
     }
 
-    override fun onSuccessFromRemote(placeApiResponse: PlaceApiResponse, lastUpdate: Long) {
-        placeLocalDataSource.insertPlace(placeApiResponse.place!!)
+    override fun onSuccessFromRemote(apiResponse: GenericApiResponse<PlaceBodyResponse>, lastUpdate: Long) {
+        placeLocalDataSource.insertPlace(apiResponse.responseBody.place)
     }
 
     override fun onFailureFromRemote(exception: Exception) {
-        val result: PlaceResult.Error = PlaceResult.Error(exception.message)
+        val result: CallResult.Error = CallResult.Error(exception.message)
         allRequiredPlaces.postValue(result)
     }
 
     override fun onSuccessFromLocal(reqId: String, place: Node?) {
-        val result = PlaceResult.Success(PlaceResponse(place))
-        if (result.placeResponse.place != null)
-            allRequiredPlaces.postValue(result)
+        if (place != null) {
+            var result = CallResult.SuccessPlace(PlaceBodyResponse(place!!))
+            allRequiredPlaces.postValue(result!!)
+        }
         else
             fetchFromRemote(reqId)
     }
 
     override fun onFailureFromLocal(exception: Exception) {
-        val resultError: PlaceResult.Error = PlaceResult.Error(exception.message)
+        val resultError: CallResult.Error = CallResult.Error(exception.message)
         allRequiredPlaces.postValue(resultError)
     }
 

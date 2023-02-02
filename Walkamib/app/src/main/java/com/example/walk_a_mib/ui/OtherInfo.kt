@@ -1,7 +1,6 @@
 package com.example.walk_a_mib.ui
 
 import android.content.Context
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -15,7 +14,13 @@ import com.example.walk_a_mib.R
 class OtherInfo(val context: Context) {
 
     fun addOtherInformation(linearLayout: LinearLayout, name: String, value: String) {
-        if ((name == "available" && value == "false") || name == "accessible" || name == "indoor" || name == "building" || name == "floor") {
+        if (
+            (name == "available" && value == "false")
+            || name == "accessible"
+            || name == "indoor"
+            || name == "building"
+            || name == "floor"
+        ) {
 
             LayoutInflater.from(context).inflate(R.layout.other_info_poi, linearLayout, true)
 

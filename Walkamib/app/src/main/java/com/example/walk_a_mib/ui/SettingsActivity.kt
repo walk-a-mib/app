@@ -1,8 +1,9 @@
-package com.example.walk_a_mib
+package com.example.walk_a_mib.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.walk_a_mib.R
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 

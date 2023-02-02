@@ -1,8 +1,8 @@
 package com.example.walk_a_mib.logic_layer.application
 
-import com.example.walk_a_mib.logic_layer.domain.Node
-import com.example.walk_a_mib.logic_layer.domain.Path
+import com.example.demoapiarch.domain.Path
 import com.example.walk_a_mib.logic_layer.domain.Graph
+import com.example.walk_a_mib.logic_layer.domain.Node
 
 object OnlineGraphController : OnlineGraphInterface {
     override fun getOfflineMapData(id: Int): Graph? {

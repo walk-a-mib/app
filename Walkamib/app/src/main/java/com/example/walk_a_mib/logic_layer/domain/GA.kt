@@ -14,7 +14,7 @@ class GA(var available: Boolean, var accessible: Boolean, var indoor: Boolean, v
     //var image: String? = null
 
     override fun toString(): String {
-        return "GA($available;$accessible;$indoor;$building;$floor)"
+        return "GA($available;$accessible;$indoor;$building;$floor)";
     }
 
 }

@@ -4,7 +4,6 @@ import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.walk_a_mib.logic_layer.domain.Coordinate
 import kotlinx.parcelize.Parcelize
 import java.lang.Math.toDegrees
 import kotlin.math.*

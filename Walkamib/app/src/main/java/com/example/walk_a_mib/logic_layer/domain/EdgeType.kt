@@ -1,6 +1,8 @@
 package com.example.walk_a_mib.logic_layer.domain
 
-object EdgeType : Type {
+import com.example.demoapiarch.domain.Type
+
+object EdgeType : Type.Type {
     private var table = arrayOf(
         arrayOf("elevator_step","l' ","ascensore", "prendi", "prendi"),
         arrayOf("stairs_step","le ","scale", "sali", "scendi"),
