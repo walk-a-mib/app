@@ -1,12 +1,16 @@
 package com.example.demoapiarch.domain
 
-class Edge {
-    var type = 0
-    private var id = 0
-    var distance = 0.0
-    var a: Coordinate? = null
-    var b: Coordinate? = null
-    fun typeString(): String {
-        return EdgeType.getTypeString(id)
-    }
+import android.os.Parcelable
+import androidx.room.*
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+@Entity
+class Edge(
+    @PrimaryKey(autoGenerate = false) var id: String,
+    var label: String,
+    var type: Int,
+    var distance: Int,
+    @Embedded var ga: GA): Parcelable {
+
 }

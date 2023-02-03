@@ -1,13 +1,13 @@
 package com.example.demoapiarch.domain
 
-import com.example.demoapiarch.domain.EdgeType
-import com.example.demoapiarch.domain.Edge
-import com.example.demoapiarch.domain.Node
-import com.example.demoapiarch.domain.NodeType
+import android.os.Parcelable
+import androidx.room.Embedded
+import kotlinx.parcelize.Parcelize
 
-class Path {
-    var nodeList: ArrayList<Node>? = null
-    var edgeList: ArrayList<Edge>? = null
+@Parcelize
+class Path(val pathLength: Int,
+           @Embedded var nodeList: ArrayList<Node>,
+           @Embedded var edgeList: ArrayList<Edge>) : Parcelable {
 
     fun getTextIndications() : ArrayList<String> {
         val result : ArrayList<String> = arrayListOf()

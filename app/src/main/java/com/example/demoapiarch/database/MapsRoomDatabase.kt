@@ -4,15 +4,18 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.demoapiarch.database.relationship.Pathway
 import com.example.demoapiarch.database.relationship.Proximity
+import com.example.demoapiarch.domain.Edge
 import com.example.demoapiarch.domain.Node
 import java.util.concurrent.Executors
 
-@Database(entities = [Proximity::class, Node::class], version = 1)
+@Database(entities = [Proximity::class, Node::class, Pathway::class, Edge::class], version = 1)
 abstract class MapsRoomDatabase: RoomDatabase() {
 
     abstract fun placeDao(): PlaceDao
     abstract fun placeNearbyDao(): PlaceNearbyDao
+    abstract fun pathDao(): PathDao
 
     companion object {
         private val NUMBER_OF_THREADS = Runtime.getRuntime().availableProcessors()

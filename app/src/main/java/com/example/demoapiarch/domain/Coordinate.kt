@@ -13,13 +13,6 @@ class Coordinate(@SerializedName("lat") var lat: Double,
                       @SerializedName("lon") var lon: Double,
                       @SerializedName("alt") var alt: Double) : Parcelable {
 
-    //constructor(lat: Double, lon: Double, alt: Double) : this() {
-    //    this.lat = lat;
-    //    this.lon = lon;
-    //    this.alt = lat;
-    //}
-
-
     fun distance(b: Coordinate): Double {
         val r = 6371
         val latDistance = Math.toRadians(b.lat - this.lat)

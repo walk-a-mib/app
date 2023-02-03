@@ -44,6 +44,7 @@ class MAct : AppCompatActivity() {
             if (result.isSuccess()) {
                 val res = (result as CallResult.SuccessPlace).placeResponse.place.toString()
                 Log.d("MAIN", "ACTUALLY FUCKING WORKS " + res)
+
             } else {
                 Log.d("MAIN", "FUCK NO")
             }
@@ -58,7 +59,7 @@ class MAct : AppCompatActivity() {
             if (counter < 4) {
                 counter++
                 counter %= 4
-
+                
                 placeViewModel.fetchPlace(pl, 1000).observe(this, nameObserver)
 
                 //TODO: gestire gli observer che hanno finito il loro compito

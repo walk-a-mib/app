@@ -1,6 +1,5 @@
 package com.example.demoapiarch.source.placesNearby
 
-import android.util.Log
 import com.example.demoapiarch.database.*
 import com.example.demoapiarch.database.relationship.Proximity
 import com.example.demoapiarch.domain.Node

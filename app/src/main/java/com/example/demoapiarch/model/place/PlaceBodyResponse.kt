@@ -5,5 +5,4 @@ import com.example.demoapiarch.domain.Node
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-open class PlaceBodyResponse(val place: Node): Parcelable {
-}
+data class PlaceBodyResponse(val place: Node): Parcelable
