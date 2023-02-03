@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "337c99f17b1c526b4ff7818742aac8e7",
+    "identityHash": "3a20d293658890422a71179dffae0025",
     "entities": [
       {
         "tableName": "Proximity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`reference_id` TEXT NOT NULL, `neighbour_id` TEXT NOT NULL, `distance` INTEGER NOT NULL, PRIMARY KEY(`reference_id`, `neighbour_id`), FOREIGN KEY(`reference_id`) REFERENCES `Node`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`neighbour_id`) REFERENCES `Node`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`reference_id` TEXT NOT NULL, `neighbour_id` TEXT NOT NULL, `distance` INTEGER NOT NULL, PRIMARY KEY(`reference_id`, `neighbour_id`), FOREIGN KEY(`reference_id`) REFERENCES `Node`(`node_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`neighbour_id`) REFERENCES `Node`(`node_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "referenceId",
@@ -44,7 +44,7 @@
               "reference_id"
             ],
             "referencedColumns": [
-              "id"
+              "node_id"
             ]
           },
           {
@@ -55,30 +55,30 @@
               "neighbour_id"
             ],
             "referencedColumns": [
-              "id"
+              "node_id"
             ]
           }
         ]
       },
       {
         "tableName": "Node",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `label` TEXT NOT NULL, `type` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `lat` REAL NOT NULL, `lon` REAL NOT NULL, `alt` REAL NOT NULL, `available` INTEGER NOT NULL, `accessible` INTEGER NOT NULL, `indoor` INTEGER NOT NULL, `building` INTEGER NOT NULL, `floor` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`node_id` TEXT NOT NULL, `node_label` TEXT NOT NULL, `node_type` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `nodelat` REAL NOT NULL, `nodelon` REAL NOT NULL, `nodealt` REAL NOT NULL, `nodeavailable` INTEGER NOT NULL, `nodeaccessible` INTEGER NOT NULL, `nodeindoor` INTEGER NOT NULL, `nodebuilding` INTEGER NOT NULL, `nodefloor` INTEGER NOT NULL, PRIMARY KEY(`node_id`))",
         "fields": [
           {
             "fieldPath": "id",
-            "columnName": "id",
+            "columnName": "node_id",
             "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "label",
-            "columnName": "label",
+            "columnName": "node_label",
             "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "type",
-            "columnName": "type",
+            "columnName": "node_type",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -96,56 +96,56 @@
           },
           {
             "fieldPath": "position.lat",
-            "columnName": "lat",
+            "columnName": "nodelat",
             "affinity": "REAL",
             "notNull": true
           },
           {
             "fieldPath": "position.lon",
-            "columnName": "lon",
+            "columnName": "nodelon",
             "affinity": "REAL",
             "notNull": true
           },
           {
             "fieldPath": "position.alt",
-            "columnName": "alt",
+            "columnName": "nodealt",
             "affinity": "REAL",
             "notNull": true
           },
           {
             "fieldPath": "ga.available",
-            "columnName": "available",
+            "columnName": "nodeavailable",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "ga.accessible",
-            "columnName": "accessible",
+            "columnName": "nodeaccessible",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "ga.indoor",
-            "columnName": "indoor",
+            "columnName": "nodeindoor",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "ga.building",
-            "columnName": "building",
+            "columnName": "nodebuilding",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "ga.floor",
-            "columnName": "floor",
+            "columnName": "nodefloor",
             "affinity": "INTEGER",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "node_id"
           ],
           "autoGenerate": false
         },
@@ -154,7 +154,7 @@
       },
       {
         "tableName": "Pathway",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`reference_id` TEXT NOT NULL, `destination_id` TEXT NOT NULL, `intermediate_id` TEXT NOT NULL, `edge_id` TEXT NOT NULL, `order_number` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`reference_id`) REFERENCES `Node`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`destination_id`) REFERENCES `Node`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`intermediate_id`) REFERENCES `Node`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`edge_id`) REFERENCES `Edge`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`reference_id` TEXT NOT NULL, `destination_id` TEXT NOT NULL, `intermediate_id` TEXT NOT NULL, `connecting_edge_id` TEXT NOT NULL, `order_number` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`reference_id`) REFERENCES `Node`(`node_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`destination_id`) REFERENCES `Node`(`node_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`intermediate_id`) REFERENCES `Node`(`node_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`connecting_edge_id`) REFERENCES `Edge`(`edge_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "referenceId",
@@ -176,7 +176,7 @@
           },
           {
             "fieldPath": "edgeId",
-            "columnName": "edge_id",
+            "columnName": "connecting_edge_id",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -209,7 +209,7 @@
               "reference_id"
             ],
             "referencedColumns": [
-              "id"
+              "node_id"
             ]
           },
           {
@@ -220,7 +220,7 @@
               "destination_id"
             ],
             "referencedColumns": [
-              "id"
+              "node_id"
             ]
           },
           {
@@ -231,7 +231,7 @@
               "intermediate_id"
             ],
             "referencedColumns": [
-              "id"
+              "node_id"
             ]
           },
           {
@@ -239,33 +239,33 @@
             "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
-              "edge_id"
+              "connecting_edge_id"
             ],
             "referencedColumns": [
-              "id"
+              "edge_id"
             ]
           }
         ]
       },
       {
         "tableName": "Edge",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `label` TEXT NOT NULL, `type` INTEGER NOT NULL, `distance` INTEGER NOT NULL, `available` INTEGER NOT NULL, `accessible` INTEGER NOT NULL, `indoor` INTEGER NOT NULL, `building` INTEGER NOT NULL, `floor` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`edge_id` TEXT NOT NULL, `edge_label` TEXT NOT NULL, `edge_type` INTEGER NOT NULL, `distance` INTEGER NOT NULL, `edgeavailable` INTEGER NOT NULL, `edgeaccessible` INTEGER NOT NULL, `edgeindoor` INTEGER NOT NULL, `edgebuilding` INTEGER NOT NULL, `edgefloor` INTEGER NOT NULL, PRIMARY KEY(`edge_id`))",
         "fields": [
           {
             "fieldPath": "id",
-            "columnName": "id",
+            "columnName": "edge_id",
             "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "label",
-            "columnName": "label",
+            "columnName": "edge_label",
             "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "type",
-            "columnName": "type",
+            "columnName": "edge_type",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -277,38 +277,38 @@
           },
           {
             "fieldPath": "ga.available",
-            "columnName": "available",
+            "columnName": "edgeavailable",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "ga.accessible",
-            "columnName": "accessible",
+            "columnName": "edgeaccessible",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "ga.indoor",
-            "columnName": "indoor",
+            "columnName": "edgeindoor",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "ga.building",
-            "columnName": "building",
+            "columnName": "edgebuilding",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "ga.floor",
-            "columnName": "floor",
+            "columnName": "edgefloor",
             "affinity": "INTEGER",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "edge_id"
           ],
           "autoGenerate": false
         },
@@ -319,7 +319,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '337c99f17b1c526b4ff7818742aac8e7')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3a20d293658890422a71179dffae0025')"
     ]
   }
 }

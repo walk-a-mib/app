@@ -9,5 +9,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Step(
-    @Embedded val node: Node,
-    @Embedded val edge: Edge): Parcelable
+    @Embedded val edge: Edge,
+    @Embedded val node: Node): Parcelable //@Embedded(prefix = "edge_bean")

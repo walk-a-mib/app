@@ -14,7 +14,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.383" />
 
     <Button
         android:id="@+id/pnBtn"
@@ -23,8 +24,19 @@
         android:text="PLACES NEARBY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gobtn"
-        app:layout_constraintVertical_bias="0.358" />
+        app:layout_constraintVertical_bias="0.201" />
+
+    <Button
+        android:id="@+id/fPath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PATH"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pnBtn"
+        app:layout_constraintVertical_bias="0.336" />
 </androidx.constraintlayout.widget.ConstraintLayout>

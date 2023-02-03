@@ -16,25 +16,25 @@ import kotlinx.parcelize.Parcelize
         ForeignKey(
             entity = Node::class,
             childColumns = ["reference_id"],
-            parentColumns = ["id"]),
+            parentColumns = ["node_id"]),
         ForeignKey(
             entity = Node::class,
             childColumns = ["destination_id"],
-            parentColumns = ["id"]),
+            parentColumns = ["node_id"]),
         ForeignKey(
             entity = Node::class,
             childColumns = ["intermediate_id"],
-            parentColumns = ["id"]),
+            parentColumns = ["node_id"]),
         ForeignKey(
             entity = Edge::class,
-            childColumns = ["edge_id"],
-            parentColumns = ["id"]),
+            childColumns = ["connecting_edge_id"],
+            parentColumns = ["edge_id"]),
     ])
 class Pathway(
     @ColumnInfo(name = "reference_id") var referenceId: String,
     @ColumnInfo(name = "destination_id") var destinationId: String,
     @ColumnInfo(name = "intermediate_id") var intermediateId: String,
-    @ColumnInfo(name = "edge_id") var edgeId: String,
+    @ColumnInfo(name = "connecting_edge_id") var edgeId: String,
     @ColumnInfo(name = "order_number") var orderNumber: Int) : Parcelable {
 
     @PrimaryKey(autoGenerate = true) var id: Int = 0

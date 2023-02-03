@@ -1,6 +1,7 @@
 package com.example.demoapiarch.domain
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,16 +11,16 @@ import kotlin.math.*
 
 @Parcelize
 @Entity
-class Node(@PrimaryKey(autoGenerate = false) var id: String,
-           var label: String,
-           var type: Int,
+class Node(@ColumnInfo(name = "node_id") @PrimaryKey(autoGenerate = false) var id: String,
+           @ColumnInfo(name = "node_label") var label: String,
+           @ColumnInfo(name = "node_type") var type: Int,
            var name: String,
            var description: String,
-           @Embedded var position: Coordinate,
-           @Embedded var ga: GA) : Parcelable {
+           @Embedded(prefix = "node") var position: Coordinate,
+           @Embedded(prefix = "node") var ga: GA) : Parcelable {
 
     override fun toString(): String {
-        return "$id;$label;$name;$description;$position;$ga";
+        return "$id;$label;$name;$description;$position;$ga"
     }
 
     // helpers

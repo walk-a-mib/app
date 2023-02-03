@@ -1,3 +1,6 @@
 package com.example.demoapiarch.model.path
 
-data class PathBodyRequest(val referencePlaceId: String, val destinationPlaceId: String)
+import com.google.gson.annotations.SerializedName
+
+data class PathBodyRequest(@SerializedName("reference_place_id")  val referencePlaceId: String,
+                           @SerializedName("destination_place_id")  val destinationPlaceId: String)

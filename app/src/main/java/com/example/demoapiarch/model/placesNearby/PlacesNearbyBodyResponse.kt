@@ -5,5 +5,5 @@ import com.example.demoapiarch.domain.Node
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class PlacesNearbyBodyResponse(val referencePlace: Node, val placesNearby: List<Neighbour>): Parcelable {
-}
+data class PlacesNearbyBodyResponse(val referencePlace: Node,
+                                    val placesNearby: List<Neighbour>): Parcelable

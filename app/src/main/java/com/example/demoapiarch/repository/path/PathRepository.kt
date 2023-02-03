@@ -1,5 +1,6 @@
 package com.example.demoapiarch.repository.path
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.demoapiarch.domain.Edge
 import com.example.demoapiarch.domain.Node
@@ -66,7 +67,7 @@ class PathRepository(val pathRemoteDataSource: BasePathRemoteDataSource,
                                     referencePlace: Node?,
                                     steps: List<Step>?) {
         if (referencePlace != null && steps?.size!! > 0) {
-            var result = CallResult.SuccessPath(buildPath(distance, referencePlace, steps))
+            var result = CallResult.SuccessPath(buildPath(distance, referencePlace!!, steps!!))
             allPaths.postValue(result!!)
         } else {
             fetchFromRemote(referenceId, destinationId)

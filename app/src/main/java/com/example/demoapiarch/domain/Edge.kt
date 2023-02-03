@@ -7,10 +7,13 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity
 class Edge(
-    @PrimaryKey(autoGenerate = false) var id: String,
-    var label: String,
-    var type: Int,
+    @ColumnInfo(name = "edge_id") @PrimaryKey(autoGenerate = false) var id: String,
+    @ColumnInfo(name = "edge_label") var label: String,
+    @ColumnInfo(name = "edge_type") var type: Int,
     var distance: Int,
-    @Embedded var ga: GA): Parcelable {
+    @Embedded(prefix = "edge") var ga: GA): Parcelable {
+    override fun toString(): String {
+        return "EDGE($id;$label;$type;$distance;$ga)"
+    }
 
-}
+    }

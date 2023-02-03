@@ -3,11 +3,17 @@ package com.example.demoapiarch.util
 import android.app.Application
 import com.example.demoapiarch.R
 import com.example.demoapiarch.database.MapsRoomDatabase
+import com.example.demoapiarch.repository.path.IPathRepository
+import com.example.demoapiarch.repository.path.PathRepository
 import com.example.demoapiarch.repository.place.IPlaceRepository
 import com.example.demoapiarch.repository.place.PlaceRepository
 import com.example.demoapiarch.repository.placesNearby.IPlacesNearbyRepository
 import com.example.demoapiarch.repository.placesNearby.PlacesNearbyRepository
 import com.example.demoapiarch.service.MapsApiService
+import com.example.demoapiarch.source.path.BasePathLocalDataSource
+import com.example.demoapiarch.source.path.BasePathRemoteDataSource
+import com.example.demoapiarch.source.path.PathLocalDataSource
+import com.example.demoapiarch.source.path.PathRemoteDataSource
 import com.example.demoapiarch.source.place.BasePlaceLocalDataSource
 import com.example.demoapiarch.source.place.BasePlaceRemoteDataSource
 import com.example.demoapiarch.source.place.PlaceLocalDataSource
@@ -55,5 +61,13 @@ object ServiceLocator {
         val placesNearbyLocalDataSource: BasePlacesNearbyLocalDataSource = PlacesNearbyLocalDataSource(getDao(application))
 
         return PlacesNearbyRepository(placesNearbyRemoteDataSource, placesNearbyLocalDataSource)
+    }
+
+    fun getPathRepository(application: Application): IPathRepository {
+        val pathRemoteDataSource: BasePathRemoteDataSource = PathRemoteDataSource(application.getString(
+            R.string.maps_api_key))
+        val pathLocalDataSource: BasePathLocalDataSource = PathLocalDataSource(getDao(application))
+
+        return PathRepository(pathRemoteDataSource, pathLocalDataSource)
     }
 }

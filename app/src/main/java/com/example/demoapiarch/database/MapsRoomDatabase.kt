@@ -16,6 +16,7 @@ abstract class MapsRoomDatabase: RoomDatabase() {
     abstract fun placeDao(): PlaceDao
     abstract fun placeNearbyDao(): PlaceNearbyDao
     abstract fun pathDao(): PathDao
+    abstract fun edgeDao(): EdgeDao
 
     companion object {
         private val NUMBER_OF_THREADS = Runtime.getRuntime().availableProcessors()

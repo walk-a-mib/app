@@ -15,13 +15,12 @@ import kotlinx.parcelize.Parcelize
         ForeignKey(
             entity = Node::class,
             childColumns = ["reference_id"],
-            parentColumns = ["id"]),
+            parentColumns = ["node_id"]),
         ForeignKey(
             entity = Node::class,
             childColumns = ["neighbour_id"],
-            parentColumns = ["id"])
+            parentColumns = ["node_id"])
     ])
-class Proximity(@NonNull @ColumnInfo(name = "reference_id") var referenceId: String,
+class Proximity(@ColumnInfo(name = "reference_id") var referenceId: String,
                 @ColumnInfo(name = "neighbour_id") var neighborId: String,
-                @NonNull @ColumnInfo(name = "distance") var distance: Int) : Parcelable {
-}
+                @ColumnInfo(name = "distance") var distance: Int) : Parcelable
