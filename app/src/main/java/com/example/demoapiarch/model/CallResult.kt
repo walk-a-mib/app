@@ -2,6 +2,7 @@ package com.example.demoapiarch.model
 
 import com.example.demoapiarch.domain.Path
 import com.example.demoapiarch.model.path.PathBodyResponse
+import com.example.demoapiarch.model.place.AllPlacesBodyResponse
 import com.example.demoapiarch.model.place.PlaceBodyResponse
 import com.example.demoapiarch.model.placesNearby.PlacesNearbyBodyResponse
 import com.example.demoapiarch.repository.placesNearby.PlacesNearbyRepository
@@ -18,6 +19,8 @@ open class CallResult {
     class SuccessPlacesNearby(val placesNearbyResponse: PlacesNearbyBodyResponse) : CallResult()
 
     class SuccessPath(val pathResponse: Path) : CallResult()
+
+    class SuccessAllPlaces(val allPlaces: AllPlacesBodyResponse) : CallResult()
 
     class Error(val message: String?) : CallResult()
 

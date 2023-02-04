@@ -2,6 +2,7 @@ package com.example.demoapiarch.source.place
 
 import android.util.Log
 import com.example.demoapiarch.model.GenericApiResponse
+import com.example.demoapiarch.model.place.AllPlacesBodyResponse
 import com.example.demoapiarch.model.place.PlaceBodyResponse
 import com.example.demoapiarch.service.MapsApiService
 import com.example.demoapiarch.util.Constants.RETROFIT_ERROR
@@ -22,7 +23,7 @@ class PlaceRemoteDataSource(val apiKey: String) : BasePlaceRemoteDataSource() {
                     if (response.isSuccessful &&
                         !(response.body()?.status.equals("error"))
                     ) {
-                        placeCallback?.onSuccessFromRemote(
+                        placeCallback?.onSuccessFromRemotePlace(
                             response.body()!!,
                             System.currentTimeMillis()
                         )
@@ -36,5 +37,28 @@ class PlaceRemoteDataSource(val apiKey: String) : BasePlaceRemoteDataSource() {
 
         })
 
+    }
+
+    override fun getAllPlaces() {
+        val allPlacesResponseCall : Call<GenericApiResponse<AllPlacesBodyResponse>> = placeApiService.getAllPlaces(apiKey)
+
+        allPlacesResponseCall.enqueue(object : Callback<GenericApiResponse<AllPlacesBodyResponse>> {
+            override fun onResponse(call: Call<GenericApiResponse<AllPlacesBodyResponse>>, response: Response<GenericApiResponse<AllPlacesBodyResponse>>) {
+
+                if (response.isSuccessful &&
+                    !(response.body()?.status.equals("error"))
+                ) {
+                    allPlacesCallback?.onSuccessFromRemoteAllPlaces(
+                        response.body()!!,
+                        System.currentTimeMillis()
+                    )
+                }
+            }   //response.body()
+
+            override fun onFailure(call: Call<GenericApiResponse<AllPlacesBodyResponse>>, t: Throwable) {
+                allPlacesCallback?.onFailureFromRemote(Exception(RETROFIT_ERROR));
+            }
+
+        })
     }
 }

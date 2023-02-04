@@ -16,12 +16,27 @@ class PlaceLocalDataSource(val mapsRoomDatabase: MapsRoomDatabase) : BasePlaceLo
             }
     }
 
+    override fun getAllPlaces() {
+        MapsRoomDatabase.databaseWriteExecutor.execute {
+            allPlacesCallback?.onSuccessFromLocal(
+                placeDao.getAllPlaces()
+            )
+        }
+    }
+
     override fun insertPlace(place: Node) {
         MapsRoomDatabase.databaseWriteExecutor.execute {
             placeDao?.insert(place!!)
             placeCallback?.onSuccessFromLocal(place.id, place)
         }
 
+    }
+
+    override fun insertPlaces(places: List<Node>) {
+        MapsRoomDatabase.databaseWriteExecutor.execute {
+            placeDao?.insert(places!!)
+            allPlacesCallback?.onSuccessFromLocal(places)
+        }
     }
 
 }

@@ -3,12 +3,17 @@ package com.example.demoapiarch.service
 import com.example.demoapiarch.model.GenericApiResponse
 import com.example.demoapiarch.model.path.PathBodyRequest
 import com.example.demoapiarch.model.path.PathBodyResponse
+import com.example.demoapiarch.model.place.AllPlacesBodyResponse
 import com.example.demoapiarch.model.place.PlaceBodyResponse
 import com.example.demoapiarch.model.placesNearby.PlacesNearbyBodyResponse
 import retrofit2.Call
 import retrofit2.http.*
 
 interface MapsApiService {
+
+    @GET("allPlaces")
+    fun getAllPlaces(@Header("Authorization") apiKey : String) : Call<GenericApiResponse<AllPlacesBodyResponse>>
+
     @GET("place")
     fun getPlace(@Query("place_id") placeId : String, @Header("Authorization") apiKey : String) : Call<GenericApiResponse<PlaceBodyResponse>>
 
