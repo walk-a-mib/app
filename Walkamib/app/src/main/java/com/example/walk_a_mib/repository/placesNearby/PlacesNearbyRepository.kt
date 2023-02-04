@@ -1,13 +1,11 @@
-package com.example.walk_a_mib.repository.placesNearby
-
-import android.util.Log
+package com.example.walk_a_mib.repository.path
 import androidx.lifecycle.MutableLiveData
 import com.example.walk_a_mib.logic_layer.domain.Node
 import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.model.GenericApiResponse
-import com.example.walk_a_mib.model.place.PlaceBodyResponse
 import com.example.walk_a_mib.model.placesNearby.Neighbour
 import com.example.walk_a_mib.model.placesNearby.PlacesNearbyBodyResponse
+import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
 import com.example.walk_a_mib.source.callbacks.PlacesNearbyCallback
 import com.example.walk_a_mib.source.placesNearby.BasePlacesNearbyLocalDataSource
 import com.example.walk_a_mib.source.placesNearby.BasePlacesNearbyRemoteDataSource

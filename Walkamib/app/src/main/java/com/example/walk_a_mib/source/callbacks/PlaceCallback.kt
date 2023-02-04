@@ -7,5 +7,6 @@ import com.example.walk_a_mib.source.MapsCallback
 
 interface PlaceCallback: MapsCallback {
     fun onSuccessFromLocal(reqId: String, place: Node?)
-    fun onSuccessFromRemote(apiResponse: GenericApiResponse<PlaceBodyResponse>, lastUpdate: Long)
+    fun onSuccessFromRemotePlace(apiResponse: GenericApiResponse<PlaceBodyResponse>,
+                                 lastUpdate: Long)
 }

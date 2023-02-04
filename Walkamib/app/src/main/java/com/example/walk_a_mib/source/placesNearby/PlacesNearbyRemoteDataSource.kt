@@ -1,6 +1,5 @@
 package com.example.walk_a_mib.source.placesNearby
 
-import android.util.Log
 import com.example.walk_a_mib.model.GenericApiResponse
 import com.example.walk_a_mib.model.placesNearby.PlacesNearbyBodyResponse
 import com.example.walk_a_mib.service.MapsApiService
@@ -30,7 +29,6 @@ class PlacesNearbyRemoteDataSource(val apiKey: String): BasePlacesNearbyRemoteDa
             }   //response.body()
 
             override fun onFailure(call: Call<GenericApiResponse<PlacesNearbyBodyResponse>>, t: Throwable) {
-                Log.d("MAIN", t.stackTraceToString())
                 placeNearbyCallback?.onFailureFromRemote(Exception(Constants.RETROFIT_ERROR));
             }
 

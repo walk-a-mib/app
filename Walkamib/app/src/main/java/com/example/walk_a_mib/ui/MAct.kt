@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.walk_a_mib.R
 import com.example.walk_a_mib.model.CallResult
+import com.example.walk_a_mib.repository.path.IPathRepository
 import com.example.walk_a_mib.repository.place.IPlaceRepository
 import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
 import com.example.walk_a_mib.util.ServiceLocator
@@ -30,12 +30,30 @@ class MAct : AppCompatActivity() {
                 this.application
             )
 
+        val pathRepository: IPathRepository =
+            ServiceLocator.getPathRepository(
+                this.application
+            )
 
-
-        val placeViewModel = ViewModelProvider(
+        val mapsViewModel = ViewModelProvider(
             this,
-            PlaceViewModelFactory(placeRepository, placesNearbyRepository)
-        )[PlaceViewModel::class.java]
+            MapsViewModelFactory(placeRepository, placesNearbyRepository, pathRepository)
+        )[MapsViewModel::class.java]
+
+
+        val allPlacesObserver = Observer<CallResult> { result ->
+            if (result.isSuccess()) {
+                val res = (result as CallResult.SuccessAllPlaces).allPlaces.places.toString()
+                Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! " + res)
+
+            } else {
+                Log.d("MAIN", "FUCK NO ALL PLACES")
+            }
+        }
+        mapsViewModel.fetchAllPlaces(1000).observe(this, allPlacesObserver)
+
+
+
 
         val btn = findViewById<Button>(R.id.gobtn)
 
@@ -59,7 +77,7 @@ class MAct : AppCompatActivity() {
                 counter++
                 counter %= 4
 
-                placeViewModel.fetchPlace(pl, 1000).observe(this, nameObserver)
+                mapsViewModel.fetchPlace(pl, 1000).observe(this, nameObserver)
 
                 //TODO: gestire gli observer che hanno finito il loro compito
 
@@ -99,7 +117,7 @@ class MAct : AppCompatActivity() {
                 counter++
                 counter %= 4
 
-                placeViewModel.fetchPlacesNearby(pl, 3000, 1000).observe(this, pnObserver)
+                mapsViewModel.fetchPlacesNearby(pl, 3000, 1000).observe(this, pnObserver)
                 //TODO: gestire gli observer che hanno finito il loro compito
 
 

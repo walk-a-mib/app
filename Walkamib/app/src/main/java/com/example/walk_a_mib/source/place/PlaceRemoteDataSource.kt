@@ -1,7 +1,7 @@
 package com.example.walk_a_mib.source.place
 
-import android.util.Log
 import com.example.walk_a_mib.model.GenericApiResponse
+import com.example.walk_a_mib.model.place.AllPlacesBodyResponse
 import com.example.walk_a_mib.model.place.PlaceBodyResponse
 import com.example.walk_a_mib.service.MapsApiService
 import com.example.walk_a_mib.util.Constants.RETROFIT_ERROR
@@ -18,11 +18,10 @@ class PlaceRemoteDataSource(val apiKey: String) : BasePlaceRemoteDataSource() {
 
         placeResponseCall.enqueue(object : Callback<GenericApiResponse<PlaceBodyResponse>> {
             override fun onResponse(call: Call<GenericApiResponse<PlaceBodyResponse>>, response: Response<GenericApiResponse<PlaceBodyResponse>>) {
-
                     if (response.isSuccessful &&
                         !(response.body()?.status.equals("error"))
                     ) {
-                        placeCallback?.onSuccessFromRemote(
+                        placeCallback?.onSuccessFromRemotePlace(
                             response.body()!!,
                             System.currentTimeMillis()
                         )
@@ -30,11 +29,33 @@ class PlaceRemoteDataSource(val apiKey: String) : BasePlaceRemoteDataSource() {
             }   //response.body()
 
             override fun onFailure(call: Call<GenericApiResponse<PlaceBodyResponse>>, t: Throwable) {
-                Log.d("MAIN", t.stackTraceToString().toString())
                 placeCallback?.onFailureFromRemote(Exception(RETROFIT_ERROR));
             }
 
         })
 
+    }
+
+    override fun getAllPlaces() {
+        val allPlacesResponseCall : Call<GenericApiResponse<AllPlacesBodyResponse>> = placeApiService.getAllPlaces(apiKey)
+
+        allPlacesResponseCall.enqueue(object : Callback<GenericApiResponse<AllPlacesBodyResponse>> {
+            override fun onResponse(call: Call<GenericApiResponse<AllPlacesBodyResponse>>, response: Response<GenericApiResponse<AllPlacesBodyResponse>>) {
+
+                if (response.isSuccessful &&
+                    !(response.body()?.status.equals("error"))
+                ) {
+                    allPlacesCallback?.onSuccessFromRemoteAllPlaces(
+                        response.body()!!,
+                        System.currentTimeMillis()
+                    )
+                }
+            }   //response.body()
+
+            override fun onFailure(call: Call<GenericApiResponse<AllPlacesBodyResponse>>, t: Throwable) {
+                allPlacesCallback?.onFailureFromRemote(Exception(RETROFIT_ERROR));
+            }
+
+        })
     }
 }

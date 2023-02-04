@@ -1,9 +1,5 @@
 package com.example.walk_a_mib.logic_layer.domain
-import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.Ignore
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import kotlin.math.*
@@ -12,13 +8,6 @@ import kotlin.math.*
 class Coordinate(@SerializedName("lat") var lat: Double,
                       @SerializedName("lon") var lon: Double,
                       @SerializedName("alt") var alt: Double) : Parcelable {
-
-    //constructor(lat: Double, lon: Double, alt: Double) : this() {
-    //    this.lat = lat;
-    //    this.lon = lon;
-    //    this.alt = lat;
-    //}
-
 
     fun distance(b: Coordinate): Double {
         val r = 6371

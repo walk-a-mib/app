@@ -1,4 +1,4 @@
-package com.example.walk_a_mib.database
+package com.example.demoapiarch.database
 
 import androidx.room.*
 

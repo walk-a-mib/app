@@ -24,9 +24,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.walk_a_mib.adapter.RouteAdapter
 import com.example.walk_a_mib.model.CallResult
+import com.example.walk_a_mib.repository.path.IPathRepository
 import com.example.walk_a_mib.ui.OtherInfo
-import com.example.walk_a_mib.ui.PlaceViewModelFactory
-import com.example.walk_a_mib.ui.PlaceViewModel
+import com.example.walk_a_mib.ui.MapsViewModelFactory
+import com.example.walk_a_mib.ui.MapsViewModel
 import com.example.walk_a_mib.ui.SettingsActivity
 import com.example.walk_a_mib.util.ServiceLocator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -85,11 +86,12 @@ class MainActivity : AppCompatActivity() {
 
         val placeRepository = ServiceLocator.getPlaceRepository(this.application)
         val placesNearby = ServiceLocator.getPlacesNearbyRepository(this.application)
+        val pathRepository: IPathRepository = ServiceLocator.getPathRepository(this.application)
 
-        val placeViewModel = ViewModelProvider(
+        val mapsViewModel = ViewModelProvider(
             this,
-            PlaceViewModelFactory(placeRepository, placesNearby)
-        )[PlaceViewModel::class.java]
+            MapsViewModelFactory(placeRepository, placesNearby, pathRepository)
+        )[MapsViewModel::class.java]
 
         val infoTitle = findViewById<TextView>(R.id.infoTitle)
 
