@@ -16,6 +16,8 @@ import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,8 +60,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         val settings = findViewById<CardView>(R.id.settings)
         val sheet = findViewById<LinearLayout>(R.id.sheet)
         val bottomsheetMaterialCardView = findViewById<CardView>(R.id.bottomsheetMaterialCardView)
@@ -96,10 +96,10 @@ class MainActivity : AppCompatActivity() {
         val poiDescription = findViewById<TextView>(R.id.poiDescription)
         val otherInfoContainer = findViewById<LinearLayout>(R.id.otherInfoContainer)
 
-        val nameObserver = Observer<CallResult> { result ->
+        val observePlace = Observer<CallResult> { result ->
             if (result.isSuccess()) {
                 val res = (result as CallResult.SuccessPlace).placeResponse.place
-                Log.d("controllo res", res.toString())
+                Log.d("observer", res.toString())
                 val name = res.name
                 val descr = res.description
                 val ga = res.ga
@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
                 otherInfo.addOtherInformation(otherInfoContainer, "building", ga.building.toString())
                 otherInfo.addOtherInformation(otherInfoContainer, "floor", ga.floor.toString())
             } else {
-
+                Snackbar.make(rootContainer, "errore generato da fetchPlace", Snackbar.LENGTH_SHORT).show()
             }
         }
 
@@ -133,54 +133,107 @@ class MainActivity : AppCompatActivity() {
             bottomsheetMaterialCardView.layoutParams.height = BOTTOMSHEET_HEIGHT
         }
 
-        // this line of code below allows us to modify margins
-//        param.bottomMargin = BOTTOMSHEET_HEIGHT
-        // these lines of code below allows changes to be animated
-//        mapLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-//        layers.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-
-        if(poiContainer.childCount > 0) {
-            for (i in 0 until poiContainer.childCount) {
-                val img = poiContainer.getChildAt(i) as ImageButton
-                img.setOnClickListener {
-
-                    // clear otherInfoContainer
-                    otherInfoContainer.removeAllViews()
-
-                    if(BottomSheetBehavior.from(sheet).state != BottomSheetBehavior.STATE_COLLAPSED) {
-                        BottomSheetBehavior.from(sheet).apply {
-                            peekHeight = BOTTOMSHEET_HEIGHT
-                            this.state = BottomSheetBehavior.STATE_COLLAPSED
-                        }
+        BottomSheetBehavior.from(sheet).addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when(newState) {
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        param.bottomMargin = BOTTOMSHEET_HEIGHT
+                        webview.layoutParams = param
                     }
 
-                    placeViewModel.fetchPlace((i+1).toString(), 1000).observe(this, nameObserver)
+                    BottomSheetBehavior.STATE_HIDDEN -> {
+                        BottomSheetBehavior.from(sheet).peekHeight = BOTTOMSHEET_HEIGHT
+                        param.bottomMargin = 0
+                        webview.layoutParams = param
+                    }
                 }
+            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                if(slideOffset < 0) {
+                    param.bottomMargin = rootContainer.height - bottomSheet.top
+                    webview.layoutParams = param
+                }
+            }
+        })
 
-                BottomSheetBehavior.from(sheet).addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                    override fun onStateChanged(bottomSheet: View, newState: Int) {
-                        when(newState) {
-                            BottomSheetBehavior.STATE_COLLAPSED -> {
-                                param.bottomMargin = BOTTOMSHEET_HEIGHT
-                                webview.layoutParams = param
-                            }
+        val observePlacesNearby = Observer<CallResult> { result ->
+            if (result.isSuccess()) {
+                val res = (result as CallResult.SuccessPlacesNearby).placesNearbyResponse
+                Log.d("MAIN", "ACTUALLY FUCKING WORKS PN! RP = " + res.referencePlace + " --- PN = " + res.placesNearby)
 
-                            BottomSheetBehavior.STATE_HIDDEN -> {
-                                BottomSheetBehavior.from(sheet).peekHeight = BOTTOMSHEET_HEIGHT
-                                param.bottomMargin = 0
-                                webview.layoutParams = param
-                            }
+                val places = res.placesNearby
+
+                Log.d("MAIN", places.size.toString())
+
+                for(i in places.indices) {
+                    layoutInflater.inflate(R.layout.poi, poiContainer)
+                    val img = poiContainer.getChildAt(i) as ImageButton
+
+                    when(places[i].place.label) {
+                        "door_normal" -> {
+                            img.setImageDrawable(
+                                ContextCompat.getDrawable(this, R.drawable.microwave)
+                            )
+                        }
+                        "door_exit" -> {
+                            img.setImageDrawable(
+                                ContextCompat.getDrawable(this, R.drawable.indoor)
+                            )
+                        }
+                        "stairs" -> {
+                            img.setImageDrawable(
+                                ContextCompat.getDrawable(this, R.drawable.floor)
+                            )
+                        }
+                        "restroom_H" -> {
+                            img.setImageDrawable(
+                                ContextCompat.getDrawable(this, R.drawable.warning)
+                            )
+                        }
+                        "restroom_M" -> {
+                            img.setImageDrawable(
+                                ContextCompat.getDrawable(this, R.drawable.arrow_right)
+                            )
+                        }
+                        "restroom_F" -> {
+                            img.setImageDrawable(
+                                ContextCompat.getDrawable(this, R.drawable.outdoor)
+                            )
+                        }
+                        "classroom" -> {
+                            img.setImageDrawable(
+                                ContextCompat.getDrawable(this, R.drawable.bottom_wave)
+                            )
+                        }
+                        else -> {
+                            Snackbar.make(
+                                rootContainer,
+                                "manca ${places[i].place.label}",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                         }
                     }
-                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                        if(slideOffset < 0) {
-                            param.bottomMargin = rootContainer.height - bottomSheet.top
-                            webview.layoutParams = param
+
+                    img.setOnClickListener {
+                        // clear otherInfoContainer
+                        otherInfoContainer.removeAllViews()
+
+                        if(BottomSheetBehavior.from(sheet).state != BottomSheetBehavior.STATE_COLLAPSED) {
+                            BottomSheetBehavior.from(sheet).apply {
+                                peekHeight = BOTTOMSHEET_HEIGHT
+                                this.state = BottomSheetBehavior.STATE_COLLAPSED
+                            }
                         }
+                        placeViewModel.fetchPlace((i+1).toString(), 1000)
+                            .observe(this, observePlace)
                     }
-                })
+                }
             }
         }
+
+        placeViewModel.fetchPlacesNearby("20", 3000, 1000)
+            .observe(this, observePlacesNearby)
+
 
 //        setUpRoutes() // adds elements inside RecyclerView
 
@@ -193,13 +246,12 @@ class MainActivity : AppCompatActivity() {
         zoomOut.setOnClickListener {
             Snackbar.make(rootContainer, "Zoom Out", Snackbar.LENGTH_SHORT).show()
         }
-
     }
 
     private fun createWebView(webView: WebView) {
         webView.webChromeClient = WebChromeClient()
         webView.webViewClient = WebViewClient()
-        webView.clearCache(true)
+//        webView.clearCache(true)
         webView.loadUrl("https://fuckingmap.bss.design/")
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true

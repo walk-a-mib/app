@@ -148,117 +148,117 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                            <ImageButton
-                                android:id="@+id/imgBtn1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="10dp"
-                                android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/backgroundColorPoI"
-                                android:paddingStart="9dp"
-                                android:paddingTop="4dp"
-                                android:paddingEnd="9dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/cibo"
-                                app:tint="@color/colorPoI" />
+<!--                            <ImageButton-->
+<!--                                android:id="@+id/imgBtn1"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginEnd="10dp"-->
+<!--                                android:background="@drawable/rounded_style"-->
+<!--                                android:backgroundTint="@color/backgroundColorPoI"-->
+<!--                                android:paddingStart="9dp"-->
+<!--                                android:paddingTop="4dp"-->
+<!--                                android:paddingEnd="9dp"-->
+<!--                                android:paddingBottom="4dp"-->
+<!--                                android:src="@drawable/cibo"-->
+<!--                                app:tint="@color/colorPoI" />-->
 
-                            <ImageButton
-                                android:id="@+id/imgBtn2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="10dp"
-                                android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/backgroundColorPoI"
-                                android:paddingStart="9dp"
-                                android:paddingTop="4dp"
-                                android:paddingEnd="9dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/cibo"
-                                app:tint="@color/colorPoI" />
+<!--                            <ImageButton-->
+<!--                                android:id="@+id/imgBtn2"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginEnd="10dp"-->
+<!--                                android:background="@drawable/rounded_style"-->
+<!--                                android:backgroundTint="@color/backgroundColorPoI"-->
+<!--                                android:paddingStart="9dp"-->
+<!--                                android:paddingTop="4dp"-->
+<!--                                android:paddingEnd="9dp"-->
+<!--                                android:paddingBottom="4dp"-->
+<!--                                android:src="@drawable/cibo"-->
+<!--                                app:tint="@color/colorPoI" />-->
 
-                            <ImageButton
-                                android:id="@+id/imgBtn3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="10dp"
-                                android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/backgroundColorPoI"
-                                android:paddingStart="9dp"
-                                android:paddingTop="4dp"
-                                android:paddingEnd="9dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/cibo"
-                                app:tint="@color/colorPoI" />
+<!--                            <ImageButton-->
+<!--                                android:id="@+id/imgBtn3"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginEnd="10dp"-->
+<!--                                android:background="@drawable/rounded_style"-->
+<!--                                android:backgroundTint="@color/backgroundColorPoI"-->
+<!--                                android:paddingStart="9dp"-->
+<!--                                android:paddingTop="4dp"-->
+<!--                                android:paddingEnd="9dp"-->
+<!--                                android:paddingBottom="4dp"-->
+<!--                                android:src="@drawable/cibo"-->
+<!--                                app:tint="@color/colorPoI" />-->
 
-                            <ImageButton
-                                android:id="@+id/imgBtn4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="10dp"
-                                android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/backgroundColorPoI"
-                                android:paddingStart="9dp"
-                                android:paddingTop="4dp"
-                                android:paddingEnd="9dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/cibo"
-                                app:tint="@color/colorPoI" />
+<!--                            <ImageButton-->
+<!--                                android:id="@+id/imgBtn4"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginEnd="10dp"-->
+<!--                                android:background="@drawable/rounded_style"-->
+<!--                                android:backgroundTint="@color/backgroundColorPoI"-->
+<!--                                android:paddingStart="9dp"-->
+<!--                                android:paddingTop="4dp"-->
+<!--                                android:paddingEnd="9dp"-->
+<!--                                android:paddingBottom="4dp"-->
+<!--                                android:src="@drawable/cibo"-->
+<!--                                app:tint="@color/colorPoI" />-->
 
-                            <ImageButton
-                                android:id="@+id/imgBtn5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="10dp"
-                                android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/backgroundColorPoI"
-                                android:paddingStart="9dp"
-                                android:paddingTop="4dp"
-                                android:paddingEnd="9dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/cibo"
-                                app:tint="@color/colorPoI" />
+<!--                            <ImageButton-->
+<!--                                android:id="@+id/imgBtn5"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginEnd="10dp"-->
+<!--                                android:background="@drawable/rounded_style"-->
+<!--                                android:backgroundTint="@color/backgroundColorPoI"-->
+<!--                                android:paddingStart="9dp"-->
+<!--                                android:paddingTop="4dp"-->
+<!--                                android:paddingEnd="9dp"-->
+<!--                                android:paddingBottom="4dp"-->
+<!--                                android:src="@drawable/cibo"-->
+<!--                                app:tint="@color/colorPoI" />-->
 
-                            <ImageButton
-                                android:id="@+id/imgBtn6"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="10dp"
-                                android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/backgroundColorPoI"
-                                android:paddingStart="9dp"
-                                android:paddingTop="4dp"
-                                android:paddingEnd="9dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/cibo"
-                                app:tint="@color/colorPoI" />
+<!--                            <ImageButton-->
+<!--                                android:id="@+id/imgBtn6"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginEnd="10dp"-->
+<!--                                android:background="@drawable/rounded_style"-->
+<!--                                android:backgroundTint="@color/backgroundColorPoI"-->
+<!--                                android:paddingStart="9dp"-->
+<!--                                android:paddingTop="4dp"-->
+<!--                                android:paddingEnd="9dp"-->
+<!--                                android:paddingBottom="4dp"-->
+<!--                                android:src="@drawable/cibo"-->
+<!--                                app:tint="@color/colorPoI" />-->
 
-                            <ImageButton
-                                android:id="@+id/imgBtn9"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="10dp"
-                                android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/backgroundColorPoI"
-                                android:paddingStart="9dp"
-                                android:paddingTop="4dp"
-                                android:paddingEnd="9dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/cibo"
-                                app:tint="@color/colorPoI" />
+<!--                            <ImageButton-->
+<!--                                android:id="@+id/imgBtn9"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginEnd="10dp"-->
+<!--                                android:background="@drawable/rounded_style"-->
+<!--                                android:backgroundTint="@color/backgroundColorPoI"-->
+<!--                                android:paddingStart="9dp"-->
+<!--                                android:paddingTop="4dp"-->
+<!--                                android:paddingEnd="9dp"-->
+<!--                                android:paddingBottom="4dp"-->
+<!--                                android:src="@drawable/cibo"-->
+<!--                                app:tint="@color/colorPoI" />-->
 
-                            <ImageButton
-                                android:id="@+id/imgBtn8"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="10dp"
-                                android:background="@drawable/rounded_style"
-                                android:backgroundTint="@color/backgroundColorPoI"
-                                android:paddingStart="9dp"
-                                android:paddingTop="4dp"
-                                android:paddingEnd="9dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/cibo"
-                                app:tint="@color/colorPoI" />
+<!--                            <ImageButton-->
+<!--                                android:id="@+id/imgBtn8"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginEnd="10dp"-->
+<!--                                android:background="@drawable/rounded_style"-->
+<!--                                android:backgroundTint="@color/backgroundColorPoI"-->
+<!--                                android:paddingStart="9dp"-->
+<!--                                android:paddingTop="4dp"-->
+<!--                                android:paddingEnd="9dp"-->
+<!--                                android:paddingBottom="4dp"-->
+<!--                                android:src="@drawable/cibo"-->
+<!--                                app:tint="@color/colorPoI" />-->
                         </LinearLayout>
                     </HorizontalScrollView>
 
