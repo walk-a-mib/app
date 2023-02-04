@@ -226,14 +226,14 @@ class MainActivity : AppCompatActivity() {
                                 this.state = BottomSheetBehavior.STATE_COLLAPSED
                             }
                         }
-                        placeViewModel.fetchPlace((i+1).toString(), 1000)
+                        mapsViewModel.fetchPlace((i+1).toString(), 1000)
                             .observe(this, observePlace)
                     }
                 }
             }
         }
 
-        placeViewModel.fetchPlacesNearby("20", 3000, 1000)
+        mapsViewModel.fetchPlacesNearby("20", 3000, 1000)
             .observe(this, observePlacesNearby)
 
 
