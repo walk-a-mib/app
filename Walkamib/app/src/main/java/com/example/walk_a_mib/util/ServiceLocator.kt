@@ -3,11 +3,17 @@ package com.example.walk_a_mib.util
 import android.app.Application
 import com.example.walk_a_mib.R
 import com.example.walk_a_mib.database.MapsRoomDatabase
+import com.example.walk_a_mib.repository.path.IPathRepository
+import com.example.walk_a_mib.repository.path.PathRepository
+import com.example.walk_a_mib.repository.path.PlacesNearbyRepository
 import com.example.walk_a_mib.repository.place.IPlaceRepository
 import com.example.walk_a_mib.repository.place.PlaceRepository
 import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
-import com.example.walk_a_mib.repository.placesNearby.PlacesNearbyRepository
 import com.example.walk_a_mib.service.MapsApiService
+import com.example.walk_a_mib.source.path.BasePathLocalDataSource
+import com.example.walk_a_mib.source.path.BasePathRemoteDataSource
+import com.example.walk_a_mib.source.path.PathLocalDataSource
+import com.example.walk_a_mib.source.path.PathRemoteDataSource
 import com.example.walk_a_mib.source.place.BasePlaceLocalDataSource
 import com.example.walk_a_mib.source.place.BasePlaceRemoteDataSource
 import com.example.walk_a_mib.source.place.PlaceLocalDataSource
@@ -55,5 +61,13 @@ object ServiceLocator {
         val placesNearbyLocalDataSource: BasePlacesNearbyLocalDataSource = PlacesNearbyLocalDataSource(getDao(application))
 
         return PlacesNearbyRepository(placesNearbyRemoteDataSource, placesNearbyLocalDataSource)
+    }
+
+    fun getPathRepository(application: Application): IPathRepository {
+        val pathRemoteDataSource: BasePathRemoteDataSource = PathRemoteDataSource(application.getString(
+            R.string.maps_api_key))
+        val pathLocalDataSource: BasePathLocalDataSource = PathLocalDataSource(getDao(application))
+
+        return PathRepository(pathRemoteDataSource, pathLocalDataSource)
     }
 }

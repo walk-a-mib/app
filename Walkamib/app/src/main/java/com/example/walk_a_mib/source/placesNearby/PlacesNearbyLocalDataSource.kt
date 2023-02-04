@@ -1,7 +1,8 @@
 package com.example.walk_a_mib.source.placesNearby
 
-import android.util.Log
-import com.example.walk_a_mib.database.*
+import com.example.walk_a_mib.database.MapsRoomDatabase
+import com.example.walk_a_mib.database.PlaceDao
+import com.example.walk_a_mib.database.PlaceNearbyDao
 import com.example.walk_a_mib.database.relationship.Proximity
 import com.example.walk_a_mib.logic_layer.domain.Node
 import com.example.walk_a_mib.model.placesNearby.Neighbour

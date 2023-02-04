@@ -1,9 +1,8 @@
 package com.example.walk_a_mib.logic_layer.domain
 
-import com.example.walk_a_mib.logic_layer.domain.Type
 import java.lang.Exception
 
-object NodeType : Type.Type {
+object NodeType : Type {
     private var table = arrayOf(
         arrayOf("waypoint","",""),
         arrayOf("classroom","l'","aula"),

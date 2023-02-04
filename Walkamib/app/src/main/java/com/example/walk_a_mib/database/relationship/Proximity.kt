@@ -1,7 +1,6 @@
 package com.example.walk_a_mib.database.relationship
 
 import android.os.Parcelable
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -15,13 +14,12 @@ import kotlinx.parcelize.Parcelize
         ForeignKey(
             entity = Node::class,
             childColumns = ["reference_id"],
-            parentColumns = ["id"]),
+            parentColumns = ["node_id"]),
         ForeignKey(
             entity = Node::class,
             childColumns = ["neighbour_id"],
-            parentColumns = ["id"])
+            parentColumns = ["node_id"])
     ])
 class Proximity(@ColumnInfo(name = "reference_id") var referenceId: String,
                 @ColumnInfo(name = "neighbour_id") var neighborId: String,
-                @ColumnInfo(name = "distance") var distance: Int) : Parcelable {
-}
+                @ColumnInfo(name = "distance") var distance: Int) : Parcelable

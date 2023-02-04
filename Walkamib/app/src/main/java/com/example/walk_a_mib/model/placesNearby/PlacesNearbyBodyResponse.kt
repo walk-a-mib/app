@@ -5,5 +5,5 @@ import com.example.walk_a_mib.logic_layer.domain.Node
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class PlacesNearbyBodyResponse(val referencePlace: Node, val placesNearby: List<Neighbour>): Parcelable {
-}
+data class PlacesNearbyBodyResponse(val referencePlace: Node,
+                                    val placesNearby: List<Neighbour>): Parcelable
