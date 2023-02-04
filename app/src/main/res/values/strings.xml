@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">DemoAPIArch</string>
-
-    <string name="maps_api_key">superSecureKey123</string>
-</resources>
