@@ -40,6 +40,21 @@ class MAct : AppCompatActivity() {
             MapsViewModelFactory(placeRepository, placesNearbyRepository, pathRepository)
         )[MapsViewModel::class.java]
 
+
+        val allPlacesObserver = Observer<CallResult> { result ->
+            if (result.isSuccess()) {
+                val res = (result as CallResult.SuccessAllPlaces).allPlaces.toString()
+                Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! " + res)
+
+            } else {
+                Log.d("MAIN", "FUCK NO ALL PLACES")
+            }
+        }
+        mapsViewModel.fetchAllPlaces(1000).observe(this, allPlacesObserver)
+
+
+
+
         val btn = findViewById<Button>(R.id.gobtn)
 
 

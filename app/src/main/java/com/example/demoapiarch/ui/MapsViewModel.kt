@@ -17,11 +17,12 @@ class MapsViewModel(var placeRepository: IPlaceRepository,
     var place: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
         CallResult()
     )}
-
+    var allPlaces: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
+        CallResult()
+    )}
     var placesNearby: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
         CallResult()
     )}
-
     var paths: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
         CallResult()
     )}
@@ -29,6 +30,11 @@ class MapsViewModel(var placeRepository: IPlaceRepository,
     fun fetchPlace(placeId: String, lastUpdate: Long): MutableLiveData<CallResult> {
         place = placeRepository.fetchPlace(placeId, lastUpdate)!!
         return place
+    }
+
+    fun fetchAllPlaces(lastUpdate: Long): MutableLiveData<CallResult> {
+        allPlaces = placeRepository.fetchAllPlaces()!!
+        return allPlaces
     }
 
     fun fetchPlacesNearby(referencePlaceId: String, maxDistance: Int, lastUpdate: Long): MutableLiveData<CallResult> {
