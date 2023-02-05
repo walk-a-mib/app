@@ -12,6 +12,5 @@
     android:paddingTop="4dp"
     android:paddingEnd="9dp"
     android:paddingBottom="4dp"
-    android:src="@drawable/floor"
     app:tint="@color/colorPoI"
     />

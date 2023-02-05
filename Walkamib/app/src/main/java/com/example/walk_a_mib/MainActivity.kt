@@ -164,8 +164,6 @@ class MainActivity : AppCompatActivity() {
 
                 val places = res.placesNearby
 
-                Log.d("MAIN", places.size.toString())
-
                 for(i in places.indices) {
                     layoutInflater.inflate(R.layout.poi, poiContainer)
                     val img = poiContainer.getChildAt(i) as ImageButton
@@ -207,11 +205,7 @@ class MainActivity : AppCompatActivity() {
                             )
                         }
                         else -> {
-                            Snackbar.make(
-                                rootContainer,
-                                "manca ${places[i].place.label}",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
+                            Log.d("manca", places[i].place.label)
                         }
                     }
 
@@ -236,7 +230,7 @@ class MainActivity : AppCompatActivity() {
             .observe(this, observePlacesNearby)
 
 
-//        setUpRoutes() // adds elements inside RecyclerView
+        setUpRoutes() // adds elements inside RecyclerView
 
         val zoomIn = findViewById<ImageButton>(R.id.zoomIn)
         zoomIn.setOnClickListener {

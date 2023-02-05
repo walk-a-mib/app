@@ -88,39 +88,45 @@
 
     <color name="errorBg">#ffbfbf</color>
     <color name="errorTextOnBg">#701d1d</color>
-    <color name="otherInfoBg">#91baab</color>
-    <color name="otherInfoTextOnBg">#1d2f28</color>
+    <color name="otherInfoBg">#85A7D6</color>
+    <color name="otherInfoTextOnBg">#061A40</color>
 
-    <color name="colorPrimary">#4977A4</color>
-    <color name="colorPrimaryDark">#1A4177</color>
+    <color name="colorPrimary">#204F7E</color>
+    <color name="colorPrimaryDark">#153969</color>
     <color name="textOnNeutral">#061A40</color>
     <color name="colorGreetingText">#13316B</color>
     <color name="colorSettingsIcon">#13316B</color>
-    <color name="bottomSheetNotch">#7DA0D1</color>
-    <color name="colorTextInputCursor">#ffffff</color>
-    <color name="textColorOnNavigationInput">#ffffff</color>
-    <color name="textColorHintOnNavigationInput">#eff5f3</color>
-    <color name="colorArrowInputNavigation">#dfece7</color>
-    <color name="backgroundColorPoI">#c0d8ce</color>
+    <color name="bottomSheetNotch">#85A7D6</color>
+    <color name="colorTextInputCursor">#f2f2f2</color>
+    <color name="textColorOnNavigationInput">#f2f2f2</color>
+    <color name="textColorHintOnNavigationInput">#DBEDFF</color>
+    <color name="colorArrowInputNavigation">#DBEDFF</color>
+    <color name="backgroundColorPoI">#A0BBE0</color>
     <color name="colorPoI">#061A40</color>
-    <color name="zoomArrowAndText">#1b2724</color>
-    <color name="routeBackgroundColor">#91baab</color>
-    <color name="routeColor">#141f1b</color>
-    <color name="colorLogo">#c0d8ce</color>
-    <color name="colorWave">#1A4177</color>
+    <color name="zoomArrowAndText">#061A40</color>
+    <color name="routeBackgroundColor">#85A7D6</color>
+    <color name="routeColor">#121721</color>
+    <color name="colorLogo">#B4CDEF</color>
+    <color name="colorWave">#153969</color>
     <color name="colorSwitchTrackOn">#f7f7e8</color>
     <color name="colorSwitchTrackOff">#dfece7</color>
     <color name="colorSwitchThumbOn">#c0d8ce</color>
     <color name="colorSwitchThumbOff">#061A40</color>
-    <color name="colorTitleSignInUp">#3b5e50</color>
-    <color name="colorInputBorderSignInUp">#1A4177</color>
-    <color name="colorForgotPassword">#3b5e50</color>
+    <color name="colorTitleSignInUp">#183367</color>
+    <color name="colorForgotPassword">#2C3C53</color>
     <color name="colorTextSignInUpBtn">#dfece7</color>
-    <color name="colorSignUpLink">#3b5e50</color>
+    <color name="colorSignUpLink">#2C3C53</color>
     <color name="colorSignInUpBtn">#13316B</color>
     <color name="colorTextHintSignInUp">#13316B</color>
     <color name="colorTextInputSignInUp">#1A4177</color>
-    <color name="colorLineAndEyeTextInputSignInUp">#3b5e50</color>
+    <color name="colorLineAndEyeTextInputSignInUp">#153969</color>
+
+
+<!--    ALTERNATIVA BTN SIGN IN/UP-->
+<!--    <color name="colorTextSignInUpBtn">#423100</color>-->
+<!--    <color name="colorSignInUpBtn">#F5B800</color>-->
+
+
 
     <!--    <color name="colorPrimary">#D9D0CA</color> &lt;!&ndash; colore testo, cardview &ndash;&gt;-->
 <!--    <color name="colorPrimaryDark">#9D8C7C</color> &lt;!&ndash; colore dell'area in alto del cellulare &ndash;&gt;-->
