@@ -92,7 +92,7 @@ class OtherInfo(val context: Context) {
                         cardView,
                         R.color.otherInfoBg,
                         img,
-                        R.drawable.building,
+                        R.drawable.ic_building_24,
                         txt,
                         R.color.otherInfoTextOnBg,
                         context.resources.getString(R.string.building, value)

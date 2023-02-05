@@ -17,7 +17,6 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -194,7 +193,7 @@ class MainActivity : AppCompatActivity() {
                         }
                         "restroom_M" -> {
                             img.setImageDrawable(
-                                ContextCompat.getDrawable(this, R.drawable.arrow_right)
+                                ContextCompat.getDrawable(this, R.drawable.ic_arrow_right_24)
                             )
                         }
                         "restroom_F" -> {
@@ -204,7 +203,7 @@ class MainActivity : AppCompatActivity() {
                         }
                         "classroom" -> {
                             img.setImageDrawable(
-                                ContextCompat.getDrawable(this, R.drawable.bottom_wave)
+                                ContextCompat.getDrawable(this, R.drawable.ic_bottom_wave_24)
                             )
                         }
                         else -> {
