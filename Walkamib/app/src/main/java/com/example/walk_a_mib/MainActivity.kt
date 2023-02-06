@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.webkit.WebViewAssetLoader
 import com.example.walk_a_mib.adapter.RouteAdapter
 import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.repository.path.IPathRepository
@@ -31,7 +32,9 @@ import com.example.walk_a_mib.ui.SettingsActivity
 import com.example.walk_a_mib.util.ServiceLocator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
-
+import com.example.walk_a_mib.LocalContentWebViewClient
+import com.example.walk_a_mib.logic_layer.domain.NodeType
+import com.example.walk_a_mib.model.JSBridge
 
 // allows us to convert px in dp and vice versa
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
@@ -104,8 +107,10 @@ class MainActivity : AppCompatActivity() {
                 val name = res.name
                 val descr = res.description
                 val ga = res.ga
-
-                // adding the name
+                val textType = NodeType.getTypeString(res.type);
+                //Log.d("cribbio", "insertIcon(\"${res.id}\", \"${res.name}\", [${res.position.lon}, ${res.position.lat}], 24, ${res.ga.floor}, \"${textType}\"))")
+                //webview.evaluateJavascript("javascript:insertIcon(\"eheeeh\", \"nome\", [9.221144, 45.523829], 24, 0, \"vending_machine_colddrinks\");", null)
+                //webview.evaluateJavascript("javascript:initializeIcons()", null)// adding the name
                 infoTitle.text = resources.getString(R.string.poi_info, name)
 
                 // adding the description
@@ -243,13 +248,26 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun createWebView(webView: WebView) {
+    /*private fun createWebView(webView: WebView) {
         webView.webChromeClient = WebChromeClient()
         webView.webViewClient = WebViewClient()
 //        webView.clearCache(true)
         webView.loadUrl("https://fuckingmap.bss.design/")
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
+    }*/
+
+    private fun createWebView(webView: WebView){
+        val assetLoader = WebViewAssetLoader.Builder()
+            .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(this))
+            .addPathHandler("/res/", WebViewAssetLoader.ResourcesPathHandler(this))
+            .build()
+
+        webView.webViewClient = LocalContentWebViewClient(assetLoader)
+        val webSettings = webView.settings
+        webSettings.javaScriptEnabled = true
+        webView.addJavascriptInterface(JSBridge(),"JSBridge")
+        webView.loadUrl("https://appassets.androidplatform.net/assets/index.html")
     }
 
     private fun setUpRoutes() {
@@ -293,3 +311,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = RouteAdapter(newArrayList)
     }
 }
+
+
+
