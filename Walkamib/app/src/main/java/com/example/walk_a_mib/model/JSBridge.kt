@@ -11,11 +11,13 @@ import com.example.walk_a_mib.logic_layer.domain.Node
 //  sono stata fino alle 3 ad ottimizzare la funzione per cambiare piano e ora va che
 //  è una meraviglia, non "flasha" più la mappa, è istantaneo il caricamento
 
-class JSBridge(){
+object JSBridge{
+
+        //callback per evento su mappa
         @JavascriptInterface
         fun showPointInfo(id:String){
             // restituisce l'id del punto di interesse toccato sulla mappa
-            Log.d("MESSAGE FROM WEBVIEW", id);
+            Log.d("MESSAGE FROM WEBVIEW", id)
             // mettere qui tutto il codice che bisogna eseguire quando viene
             // toccato un punto della mappa, per esempio una chiamata al controller
             // che setta tutto quanto per vedere le info del punto.

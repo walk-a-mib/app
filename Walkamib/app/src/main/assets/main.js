@@ -48174,12 +48174,12 @@ iconStylesArray = [
 
 
 const mapCenter = [1026483.3215925582, 5704361.888187996];
-const mapZoom = 16;
+const mapZoom = 20;
 const extent = (0,ol_proj_js__WEBPACK_IMPORTED_MODULE_2__.transformExtent)([9.208126, 45.528779, 9.227494, 45.518385], 'EPSG:4326', 'EPSG:3857');
 
 const iconScale = 0.18
 const iconScaleHighlighted = 0.25
-const iconZoomLevel = 20
+const iconZoomLevel = 19
 const iconWidth = 30
 const iconHeight = 30
 
@@ -48437,8 +48437,7 @@ map.on('click', function(evt) {
   //feature.getStyle().getImage().setScale([iconScaleHighlighted, iconScaleHighlighted]);
   centerOnCoordinates((0,ol_proj_js__WEBPACK_IMPORTED_MODULE_2__.transform)(feature.get('geometry').getCoordinates(), 'EPSG:3857', 'EPSG:4326'));
   currentFeature = feature;
-  var s = feature.id;
-  JSBridge.showPointInfo(feature);
+  JSBridge.showPointInfo(feature.get("id"));
 });
 
 /*//pessima idea finita male, non vale il guadagno a livello grafico

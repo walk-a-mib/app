@@ -3,6 +3,7 @@ package com.example.walk_a_mib
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.example.walk_a_mib.LocalContentWebViewClient
 import com.example.walk_a_mib.logic_layer.domain.NodeType
 import com.example.walk_a_mib.model.JSBridge
+import com.example.walk_a_mib.repository.place.IPlaceRepository
+import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
+import kotlinx.coroutines.delay
+import kotlin.concurrent.timer
 
 // allows us to convert px in dp and vice versa
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
@@ -111,6 +116,7 @@ class MainActivity : AppCompatActivity() {
                 //Log.d("cribbio", "insertIcon(\"${res.id}\", \"${res.name}\", [${res.position.lon}, ${res.position.lat}], 24, ${res.ga.floor}, \"${textType}\"))")
                 //webview.evaluateJavascript("javascript:insertIcon(\"eheeeh\", \"nome\", [9.221144, 45.523829], 24, 0, \"vending_machine_colddrinks\");", null)
                 //webview.evaluateJavascript("javascript:initializeIcons()", null)// adding the name
+
                 infoTitle.text = resources.getString(R.string.poi_info, name)
 
                 // adding the description
@@ -239,12 +245,14 @@ class MainActivity : AppCompatActivity() {
 
         val zoomIn = findViewById<ImageButton>(R.id.zoomIn)
         zoomIn.setOnClickListener {
-            Snackbar.make(rootContainer, "Zoom In", Snackbar.LENGTH_SHORT).show()
+            //Snackbar.make(rootContainer, "Zoom In", Snackbar.LENGTH_SHORT).show()
+            JSBridge.setFloor(webview, 1)
         }
 
         val zoomOut = findViewById<ImageButton>(R.id.zoomOut)
         zoomOut.setOnClickListener {
-            Snackbar.make(rootContainer, "Zoom Out", Snackbar.LENGTH_SHORT).show()
+            //Snackbar.make(rootContainer, "Zoom Out", Snackbar.LENGTH_SHORT).show()
+            JSBridge.setFloor(webview, 0)
         }
     }
 
@@ -266,9 +274,102 @@ class MainActivity : AppCompatActivity() {
         webView.webViewClient = LocalContentWebViewClient(assetLoader)
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
-        webView.addJavascriptInterface(JSBridge(),"JSBridge")
+        webView.addJavascriptInterface(JSBridge,"JSBridge")
         webView.loadUrl("https://appassets.androidplatform.net/assets/index.html")
+
+        val instance = this
+
+        val placeRepository: IPlaceRepository =
+            ServiceLocator.getPlaceRepository(
+                this.application
+            )
+
+        val placesNearbyRepository: IPlacesNearbyRepository =
+            ServiceLocator.getPlacesNearbyRepository(
+                this.application
+            )
+
+        val pathRepository: IPathRepository =
+            ServiceLocator.getPathRepository(
+                this.application
+            )
+
+        val mapsViewModel = ViewModelProvider(
+            this,
+            MapsViewModelFactory(placeRepository, placesNearbyRepository, pathRepository)
+        )[MapsViewModel::class.java]
+
+        val allPlacesObserver = Observer<CallResult> { result ->
+            if (result.isSuccess()) {
+                val res = (result as CallResult.SuccessAllPlaces).allPlaces.places
+                JSBridge.showIcons(webView, res);
+                Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! ${res.toString()}")
+
+            } else {
+                Log.d("MAIN", "FUCK NO ALL PLACES")
+            }
+        }
+        val fpObserver = Observer<CallResult> { result ->
+            if (result.isSuccess()) {
+                val res = (result as CallResult.SuccessPath).pathResponse
+
+                JSBridge.showPath(webView, res.nodeList)
+
+                val n = res.nodeList.iterator()
+                JSBridge.showUserLocation(webView, n.next().position.lon, n.next().position.lat)
+                val timer = object: CountDownTimer(10000, 2000) {
+
+                    override fun onTick(millisUntilFinished: Long) {
+                        if(n.hasNext()){
+                            JSBridge.updateUserLocation(webView, n.next().position.lon, n.next().position.lat)
+                        }
+                        Log.d("sono un rompicazzo", "certificato!")
+                    }
+
+                    override fun onFinish() {
+                    }
+                }
+                timer.start()
+
+                Log.d("MAIN",
+                    "ACTUALLY FUCKING WORKS FIND PATH: " + res.pathLength + " --- "
+                            + res.nodeList.toString() + " --- " + res.edgeList.toString())
+
+
+            } else {
+                Log.d("MAIN", "FUCK NO FIND PATH")
+            }
+        }
+
+        val nameObserver = Observer<CallResult> { result ->
+            if (result.isSuccess()) {
+                val res = (result as CallResult.SuccessPlace).placeResponse.place.toString()
+                Log.d("MAIN", "ACTUALLY FUCKING WORKS " + res)
+
+            } else {
+                Log.d("MAIN", "FUCK NO")
+            }
+        }
+        // non mettere id a cazzo
+        mapsViewModel.fetchPlace("3", 1000).observe(this, nameObserver)
+
+
+
+        val timer = object: CountDownTimer(5000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                Log.d("sono un rompicazzo", "certificato!")
+            }
+
+            override fun onFinish() {
+                mapsViewModel.fetchAllPlaces(1000).observe(instance, allPlacesObserver)
+                mapsViewModel.fetchPath("3", "32", 1000).observe(instance, fpObserver)
+            }
+        }
+        timer.start()
+
     }
+
+
 
     private fun setUpRoutes() {
         svgId = arrayOf(
