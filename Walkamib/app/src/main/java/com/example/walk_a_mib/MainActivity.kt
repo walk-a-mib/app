@@ -320,10 +320,10 @@ class MainActivity : AppCompatActivity() {
                 val timer = object: CountDownTimer(10000, 2000) {
 
                     override fun onTick(millisUntilFinished: Long) {
-                        if(n.hasNext()){
-                            JSBridge.updateUserLocation(webView, n.next().position.lon, n.next().position.lat)
-                        }
-                        Log.d("sono un rompicazzo", "certificato!")
+                        //if(n.hasNext()){
+                        //    JSBridge.updateUserLocation(webView, n.next().position.lon, n.next().position.lat)
+                        //}
+                        //Log.d("sono un rompicazzo", "certificato!")
                     }
 
                     override fun onFinish() {
@@ -362,7 +362,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 mapsViewModel.fetchAllPlaces(1000).observe(instance, allPlacesObserver)
-                mapsViewModel.fetchPath("3", "32", 1000).observe(instance, fpObserver)
+                mapsViewModel.fetchPath("3", "43", 1000).observe(instance, fpObserver)
             }
         }
         timer.start()
