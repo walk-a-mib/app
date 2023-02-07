@@ -416,6 +416,10 @@ class MainActivity : AppCompatActivity() {
             MapsViewModelFactory(placeRepository, placesNearbyRepository, pathRepository)
         )[MapsViewModel::class.java]
 
+
+
+
+
         val allPlacesObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
                 val res = (result as CallResult.SuccessAllPlaces).allPlaces.places
@@ -426,6 +430,9 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MAIN", "FUCK NO ALL PLACES")
             }
         }
+
+        mapsViewModel.fetchAllPlaces(1000).observe(instance, allPlacesObserver)
+
         val fpObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
                 val res = (result as CallResult.SuccessPath).pathResponse
@@ -472,7 +479,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val timer = object: CountDownTimer(5000, 1000) {
+        val timer = object: CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 Log.d("sono un rompicazzo", "certificato!")
             }

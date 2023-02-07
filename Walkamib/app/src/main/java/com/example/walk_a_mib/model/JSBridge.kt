@@ -27,6 +27,14 @@ object JSBridge{
 
         }
 
+        //chiamata quando la mappa è pronta a fare il load delle icone. Chris un observer?
+        @JavascriptInterface
+        fun onMapReady(){
+
+        }
+
+
+
         // Da chiamare quando si vuole cambiare piano sulla mappa
         fun setFloor(webview: WebView, floor: Int){
             webview.evaluateJavascript("javascript:setFloor(${floor})", null)
@@ -59,7 +67,9 @@ object JSBridge{
                 "stairs",
                 "classroom",
                 "vending_machine_hotdrinks",
-                "vending_machine_colddrinks"
+                "vending_machine_colddrinks",
+                "door_exit",
+                "door_normal"
             )
             for(node in nodes){
                 if(allowed_nodes.contains(node.label)){
@@ -105,10 +115,12 @@ object JSBridge{
     fun showPath(webview: WebView, nodes: List<Node>){
         var s = "["
         for(node in nodes){
-            s += "[${node.position.lon}, ${node.position.lat}],"
+            s += "[[${node.position.lon}, ${node.position.lat}], ${node.ga.floor}],"
             }
         s += "]"
-        webview.evaluateJavascript("javascript:showPath(${s})", null)
+        webview.evaluateJavascript("javascript:showMultiFloorPath(${s})", null)
+        Log.d("rip", s)
+        Log.d("rip", s)
         }
 
     //si autocommenta????

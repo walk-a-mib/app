@@ -16427,14 +16427,14 @@ function asColorLike(color) {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-module.exports = __webpack_require__.p + "d7a2feb3b30aeec13591.png";
+module.exports = __webpack_require__.p + "d714f944141add3e1eef.png";
 
 /***/ }),
 /* 80 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-module.exports = __webpack_require__.p + "3f8c559d504d083b1470.png";
+module.exports = __webpack_require__.p + "9506380e102d816a7234.png";
 
 /***/ }),
 /* 81 */
@@ -48148,30 +48148,43 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 // All maps layer and images needed
 var map
 var buildings = new Array(2);
 var iconLayers = new Array(2);
+var multiFloorPaths = new Array();
 var currentFloor = 0;
 var currentFeature = undefined;
+var navigationArray = new Array();
 
 var iconStyles = new Map();
-
 var iconStylesArray = new Array();
-
+// https://coolors.co/e79998-ecc88d-ece58e-abd89d-a9e5e4-8dc8d8-dbc9b8
+// https://coolors.co/d85c5a-e1aa51-e1d851-75bf5f-52cbc9-49a7c1-b48e6a
 //tipo, nome icona, colore simbolo, colore fill, colore stroke,
 iconStylesArray = [
+  ["restroom_M", "fa-person", "#F7F6EF", "#8DC8D8", "#49A7C1", 0.75],
+  ["restroom_F", "fa-person-dress", "#F7F6EF", "#8DC8D8", "#49A7C1", 0.75],
+  ["restroom_H", "fa-wheelchair-move", "#F7F6EF", "#8DC8D8", "#49A7C1", 0.70],
+  ["vending_machine_hotdrinks", "fa-mug-hot", "#F7F6EF", "#DBC9B8", "#B48E6A", 0.60],
+  ["door_normal", "fa-door-open", "#F7F6EF", "#ECC88D", "#E1AA51",0.60],
+  ["door_exit", "fa-person-walking-arrow-right", "#F7F6EF", "#ABD89D", "#75BF5F",0.60],
+  ["vending_machine_colddrinks", "fa-bottle-water", "#F7F6EF", "#A9E5E4", "#52CBC9", 0.75],
+  ["stairs", "fa-stairs", "#F7F6EF", "#E4E0A0", "#E1D851", 0.60],
+  ["classroom", "fa-chalkboard-user", "#F7F6EF", "#E79998", "#D85C5A", 0.52],
+];
+
+/*iconStylesArray = [
   ["restroom_M", "fa-person", "#e8f3fc", "#0d3b66", "#061a2d", 0.75],
   ["restroom_F", "fa-person-dress", "#e8f3fc", "#0d3b66", "#061a2d", 0.75],
   ["restroom_H", "fa-wheelchair-move", "#e8f3fc", "#0d3b66", "#061a2d", 0.70],
   ["vending_machine_hotdrinks", "fa-mug-hot", "#e2d6cf", "#654236", "#211612", 0.60],
-  //["vending_machine_colddrinks", "fa-bottle-water", "#bcB9df", "#725ac1", "#242038"],
+  ["door_normal", "fa-door-open", "#bcB9df", "#725ac1", "#242038",0.70],
+  ["door_exit", "fa-person-walking-arrow-right", "#bcB9df", "#725ac1", "#242038",0.70],
   ["vending_machine_colddrinks", "fa-bottle-water", "#c3f6fe", "#1e555c", "#0f2b2e", 0.75],
   ["stairs", "fa-stairs", "#eeeff0", "#464f51", "#232627", 0.60],
   ["classroom", "fa-chalkboard-user", "#ffb5c3", "#4c061d", "#250307", 0.52],
-];
-
+];*/
 
 const mapCenter = [1026483.3215925582, 5704361.888187996];
 const mapZoom = 20;
@@ -48186,8 +48199,8 @@ const iconHeight = 30
 //FontSymbol.prototype.defs.fonts.FontAwesome.font = "Font Awesome 6 Free";
 
 
-  
-window.initialize = function() {
+
+window.initialize = function () {
   map = getBaseMap();
   initializeStyles();
   initializeBuildings();
@@ -48195,13 +48208,13 @@ window.initialize = function() {
   setFloor(currentFloor);
 }
 
-window.initializeStyles = function(){
+window.initializeStyles = function () {
   iconStylesArray.forEach(element => {
     iconStyles.set(element[0], element);
   });
 }
 
-window.getBaseMap = function() {
+window.getBaseMap = function () {
   return new ol_Map__WEBPACK_IMPORTED_MODULE_7__["default"]({
     preload: 500,
     maxTilesLoading: 500,
@@ -48217,7 +48230,7 @@ window.getBaseMap = function() {
   });
 }
 
-window.initializeBuildings = function() {
+window.initializeBuildings = function () {
   buildings[0] = new ol_ext_layer_GeoImage__WEBPACK_IMPORTED_MODULE_0__["default"]({
     name: "24_0",
     opacity: 1,
@@ -48233,26 +48246,24 @@ window.initializeBuildings = function() {
   });
 }
 
-window.initializeIcons = function() {
+window.initializeIcons = function () {
   //initializeIconLayers(array);
   setFloor(currentFloor);
 }
 
-window.resetIconLayers = function() {
+window.resetIconLayers = function () {
   for (i = 0; i < 2; i++) {
     iconLayers[i] = new map();
   }
 }
 
-window.setFloor = function(floor) {
-
-  
+window.setFloor = function (floor) {
   currentFloor = floor;
   buildings.forEach((floorLayer, floorNumber) => {
     if (typeof floorLayer !== 'undefined') {
       var s = "24_" + floorNumber;
       var l = map.getLayers().getArray().find(layer => layer.get('name') == s);
-      if (typeof l == 'undefined'){
+      if (typeof l == 'undefined') {
         map.addLayer(floorLayer);
         l = map.getLayers().getArray().find(layer => layer.get('name') == s);
       }
@@ -48266,7 +48277,7 @@ window.setFloor = function(floor) {
       if (typeof floorLayer !== 'undefined') {
         var s = floorNumber + "_" + key;
         var l = map.getLayers().getArray().find(layer => layer.get('name') == s);
-        if (typeof l == 'undefined'){
+        if (typeof l == 'undefined') {
           map.addLayer(floorLayer);
           l = map.getLayers().getArray().find(layer => layer.get('name') == s);
         }
@@ -48275,9 +48286,31 @@ window.setFloor = function(floor) {
       }
     }
   });
+
+  multiFloorPaths.forEach((element, index) => {
+    l = map.getLayers().getArray().find(layer => layer.get('name') == element.get("name"));
+    if (typeof l !== 'undefined') {
+      if (currentFloor != index) {
+        l.setVisible(false);
+      }
+      else l.setVisible(true);
+    }
+  });
+
+  var l = map.getLayers().getArray().find(layer => layer.get('name') == 'path');
+  if (typeof l != "undefined" && l.get("floor") == currentFloor) l.setVisible(true);
+  if (typeof l != "undefined" && l.get("floor") != currentFloor) l.setVisible(false);
+
+  var l = map.getLayers().getArray().find(layer => layer.get('name') == 'userLayer');
+  if (typeof l != "undefined" && l.get("floor") == currentFloor) l.setVisible(true);
+  if (typeof l != "undefined" && l.get("floor") != currentFloor) l.setVisible(false);
+
+  var l = map.getLayers().getArray().find(layer => layer.get('name') == 'navigationLayer');
+  if (typeof l != "undefined" && l.get("floor") == currentFloor) l.setVisible(true);
+  if (typeof l != "undefined" && l.get("floor") != currentFloor) l.setVisible(false);
 }
 
-window.getTileLayer = function() {
+window.getTileLayer = function () {
   return new ol_layer_Tile__WEBPACK_IMPORTED_MODULE_9__["default"]({
     source: new ol_source_OSM__WEBPACK_IMPORTED_MODULE_10__["default"]({
       url: "./tiles/{z}/{x}/{y}.png"
@@ -48286,7 +48319,7 @@ window.getTileLayer = function() {
   })
 }
 
-window.getEmptyIconLayer = function(floor, type) {
+window.getEmptyIconLayer = function (floor, type) {
   return new ol_layer_js__WEBPACK_IMPORTED_MODULE_11__["default"]({
     name: floor + '_' + type,
     source: new ol_source_Vector_js__WEBPACK_IMPORTED_MODULE_12__["default"]({
@@ -48296,7 +48329,7 @@ window.getEmptyIconLayer = function(floor, type) {
   });
 }
 
-window.getGeoImage = function(url) {
+window.getGeoImage = function (url) {
   return new ol_ext_source_GeoImage__WEBPACK_IMPORTED_MODULE_1__["default"]({
     url: url,
     imageCenter: [1026483.3215925582, 5704361.888187996],
@@ -48307,7 +48340,7 @@ window.getGeoImage = function(url) {
 }
 
 //long lat
-window.centerOnCoordinates = function(arr) {
+window.centerOnCoordinates = function (arr) {
   map.getView().animate({
     center: (0,ol_proj_js__WEBPACK_IMPORTED_MODULE_2__.transform)(arr, 'EPSG:4326', 'EPSG:3857'),
     duration: 1500,
@@ -48315,7 +48348,7 @@ window.centerOnCoordinates = function(arr) {
   });
 }
 
-window.centerAndTurn = function(arr, radians) {
+window.centerAndTurn = function (arr, radians) {
   map.getView().animate({
     duration: 1000,
     rotation: radians
@@ -48326,14 +48359,14 @@ window.centerAndTurn = function(arr, radians) {
   });
 }
 
-window.resetRotation = function() {
+window.resetRotation = function () {
   map.getView().animate({
     rotation: 0
   });
 }
 // mi aspetto un array di punti con coordinate
 //id, name, coordinates, building, floor, type
-window.insertIcons = function(array) {
+window.insertIcons = function (array) {
   var i = 0;
   array.forEach(p => {
     if (!iconLayers[p[4]].has(p[5])) {
@@ -48350,7 +48383,7 @@ window.insertIcons = function(array) {
   });
 }
 
-window.insertIcon = function(id, name, coordinates, building, floor, type) {
+window.insertIcon = function (id, name, coordinates, building, floor, type) {
   if (typeof iconLayers[floor] == 'undefined') {
     iconLayers[floor] = new Map();
   }
@@ -48365,7 +48398,7 @@ window.insertIcon = function(id, name, coordinates, building, floor, type) {
   iconLayers[floor].set(type, temp);
 }
 
-window.getIconStyle = function(type) {
+window.getIconStyle = function (type) {
   var temp = iconStyles.get(type);
   return [
     new ol_style_Style_js__WEBPACK_IMPORTED_MODULE_13__["default"]({
@@ -48385,14 +48418,14 @@ window.getIconStyle = function(type) {
           color: temp[4],
           width: 5,
         })
-        
+
       }),
     })
   ]
 }
 
 //[long, lat]
-window.createIconFeature = function(id, name, coordinates, building, floor, type) {
+window.createIconFeature = function (id, name, coordinates, building, floor, type) {
   return new ol_Feature_js__WEBPACK_IMPORTED_MODULE_16__["default"]({
     id: id,
     name: name,
@@ -48403,7 +48436,7 @@ window.createIconFeature = function(id, name, coordinates, building, floor, type
   });
 }
 
-window.filterByType = function(type) {
+window.filterByType = function (type) {
   iconLayers.forEach((floorsMap, floorNumber) => {
     for (const [key, layer] of floorsMap) {
       if (floorNumber == currentFloor && typeof layer !== 'undefined') {
@@ -48414,11 +48447,11 @@ window.filterByType = function(type) {
   });
 }
 
-window.resetFilters = function() {
+window.resetFilters = function () {
   setFloor(currentFloor);
 }
 
-window.resetHighlighted = function() {
+window.resetHighlighted = function () {
   if (typeof currentFeature != 'undefined') {
     currentFeature.getStyle().getImage().setScale([iconScale, iconScale]);
     currentFeature = undefined;
@@ -48427,68 +48460,22 @@ window.resetHighlighted = function() {
 
 initialize();
 
-map.on('click', function(evt) {
-  const feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+map.on('click', function (evt) {
+  const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
     return feature;
   });
   if (!feature) {
     return;
   }
-  //feature.getStyle().getImage().setScale([iconScaleHighlighted, iconScaleHighlighted]);
   centerOnCoordinates((0,ol_proj_js__WEBPACK_IMPORTED_MODULE_2__.transform)(feature.get('geometry').getCoordinates(), 'EPSG:3857', 'EPSG:4326'));
   currentFeature = feature;
-  JSBridge.showPointInfo(feature.get("id"));
+  var s = feature.get("id");
+  if (typeof s !== "undefined") {
+    JSBridge.showPointInfo(s);
+  }
 });
 
-/*//pessima idea finita male, non vale il guadagno a livello grafico
-
-window.setIconScale(){
-  res = map.getView().getResolution();
-
-  iconLayers[currentFloor].forEach((floorsMap) => {
-    for (const [key, layer] of floorsMap) {
-      layer.getSource().getFeatures().forEach((feature) => {
-        feature.getStyle().getImage().setScale(1 / Math.pow(resolution, 1/3));
-      });
-    }
-  })
-}
-
-map.getView().on('change:resolution', (event) => {
-  setIconScale();
-
-});*/
-
-window.showPath = function(arr) {
-  var pathLayer = new ol_layer_js__WEBPACK_IMPORTED_MODULE_11__["default"]({
-    name: 'path',
-    source: new ol_source_Vector_js__WEBPACK_IMPORTED_MODULE_12__["default"]({
-      features: [
-        new ol_Feature_js__WEBPACK_IMPORTED_MODULE_16__["default"]({
-          geometry: new ol_geom_LineString_js__WEBPACK_IMPORTED_MODULE_18__["default"](arr).transform('EPSG:4326', 'EPSG:3857') 
-        }),
-       ]
-    }),
-    minZoom: iconZoomLevel,
-    style: new ol_style_Style_js__WEBPACK_IMPORTED_MODULE_13__["default"]({
-      stroke: new ol_style_Stroke__WEBPACK_IMPORTED_MODULE_15__["default"]({
-        color: '#ffba0a',
-        width: 12,
-        lineDash: [20, 25],
-        lineDashOffset: 0,
-      })
-    })
-  });
-
-  map.getLayers().insertAt(3, pathLayer);
-}
-
-window.resetPath = function() {
-  var pathLayer = map.getLayers().getArray().find(layer => layer.get('name') == 'path');
-  map.removeLayer(pathLayer);
-}
-
-window.createIconUser = function(coordinates) {
+window.createIconUser = function (coordinates) {
   var temp = new ol_Feature_js__WEBPACK_IMPORTED_MODULE_16__["default"]({
     id: 'user',
     geometry: new ol_geom_Point_js__WEBPACK_IMPORTED_MODULE_17__["default"]((0,ol_proj_js__WEBPACK_IMPORTED_MODULE_2__.transform)(coordinates, 'EPSG:4326', 'EPSG:3857')),
@@ -48500,53 +48487,263 @@ window.createIconUser = function(coordinates) {
       fontStyle: '900',
       fontSize: 0.70,
       radius: 35,
-      color: "#FFE8AD",
+      color: "#99DAFF",
       fill: new ol_style_Fill__WEBPACK_IMPORTED_MODULE_14__["default"]({
-        color: "#A37500"
+        color: "#70AEFF"
       }),
       stroke: new ol_style_Stroke__WEBPACK_IMPORTED_MODULE_15__["default"]({
-        color: "#A37500",
+        color: "#70AEFF",
         width: 5,
       })
-    })})
+    })
+  })
   temp.setStyle(style);
   return temp;
 }
 
-window.showUserLocation = function(coordinates){
-    var userLayer = getEmptyIconLayer('u', 'u');
-    var feat = createIconUser(coordinates)
-    console.log(feat);
-    userLayer.getSource().addFeature(feat);
-    map.addLayer(userLayer);
-    console.log(map);
-  }
+window.showUserLocation = function (coordinates, floor) {
+  var userLayer = new ol_layer_js__WEBPACK_IMPORTED_MODULE_11__["default"]({
+    name: 'userLayer',
+    floor: floor,
+    source: new ol_source_Vector_js__WEBPACK_IMPORTED_MODULE_12__["default"]({
+      features: [],
+    }),
+    minZoom: iconZoomLevel,
+  });
+  var feat = createIconUser(coordinates)
+  userLayer.getSource().addFeature(feat);
+  map.addLayer(userLayer);
+  if (floor != currentFloor) userLayer.setVisible(false);
+}
 
-window.hideUserLocation = function(){
-  var pathLayer = map.getLayers().getArray().find(layer => layer.get('name') == 'u_u');
+window.hideUserLocation = function () {
+  var pathLayer = map.getLayers().getArray().find(layer => layer.get('name') == 'userLayer');
+  if (typeof pathLayer != "undefined") map.removeLayer(pathLayer);
+}
+
+addEventListener('DOMContentLoaded', (event) => {
+  JSBridge.onMapReady();
+});
+
+//[[][][]]
+window.showPath = function (arr) {
+  var pathLayer = new ol_layer_js__WEBPACK_IMPORTED_MODULE_11__["default"]({
+    name: 'path',
+    source: new ol_source_Vector_js__WEBPACK_IMPORTED_MODULE_12__["default"]({
+      features: [
+        new ol_Feature_js__WEBPACK_IMPORTED_MODULE_16__["default"]({
+          geometry: new ol_geom_LineString_js__WEBPACK_IMPORTED_MODULE_18__["default"](arr).transform('EPSG:4326', 'EPSG:3857')
+        }),
+      ]
+    }),
+    minZoom: iconZoomLevel,
+    style: new ol_style_Style_js__WEBPACK_IMPORTED_MODULE_13__["default"]({
+      stroke: new ol_style_Stroke__WEBPACK_IMPORTED_MODULE_15__["default"]({
+        color: '#338BFF',
+        width: 12,
+        lineDash: [20, 25],
+        lineDashOffset: 0,
+      })
+    })
+  });
+
+  map.getLayers().insertAt(3, pathLayer);
+}
+
+window.resetPath = function () {
+  var pathLayer = map.getLayers().getArray().find(layer => layer.get('name') == 'path');
   map.removeLayer(pathLayer);
+}
+
+//[[lon, lat], floor],]
+window.showMultiFloorPath = function (arr) {
+  multiFloorPaths = [];
+
+  for (let i = 0; i < 2; i++) {
+    multiFloorPaths[i] = new ol_layer_js__WEBPACK_IMPORTED_MODULE_11__["default"]({
+      name: 'multipath_' + i,
+      source: new ol_source_Vector_js__WEBPACK_IMPORTED_MODULE_12__["default"]({
+        features: []
+      }),
+      minZoom: iconZoomLevel,
+      style: new ol_style_Style_js__WEBPACK_IMPORTED_MODULE_13__["default"]({
+        stroke: new ol_style_Stroke__WEBPACK_IMPORTED_MODULE_15__["default"]({
+          color: '#338BFF',
+          width: 12,
+          lineDash: [20, 25],
+          lineDashOffset: 0,
+        })
+      })
+    });
   }
 
-/*insertIcon("eheh", "nome", [9.221111, 45.523813], 24, 0, "restroom_H");
-insertIcon("eeheh", "nome", [9.221162, 45.523875], 24, 0, "classroom");
-insertIcon("eheeh", "nome", [9.221153, 45.523857], 24, 0, "vending_machine_hotdrinks");
-insertIcon("eheeeh", "nome", [9.221144, 45.523829], 24, 1, "vending_machine_colddrinks");
-insertIcon("eheeeeeh", "nome", [9.221135, 45.523861], 24, 1, "stairs");
-initializeIcons();
+  console.log(multiFloorPaths);
 
-showPath([
-  [9.221111, 45.523813],
-  [9.221162, 45.523875],
-  [9.221153, 45.523857],
-])
+  var f = arr[0][1];
+  var temp = new Array();
+  var n = 0;
 
-showUserLocation([9.221221, 45.52373]);
+  arr.forEach((element, i) => {
+    if (f == element[1]) {
+      temp[n] = element[0];
+      n++;
+    }
+    else {
+      temp[n] = element[0];
+      multiFloorPaths[f].getSource().addFeature(
+        new ol_Feature_js__WEBPACK_IMPORTED_MODULE_16__["default"]({
+          id: f + '_' + i,
+          geometry: new ol_geom_LineString_js__WEBPACK_IMPORTED_MODULE_18__["default"](temp).transform('EPSG:4326', 'EPSG:3857')
+        }
+        ))
+
+      n = 1;
+      temp[0] = element[0];
+      f = element[1];
+    }
+  });
+
+  multiFloorPaths[f].getSource().addFeature(
+    new ol_Feature_js__WEBPACK_IMPORTED_MODULE_16__["default"]({
+      id: f + '_' + arr.length,
+      geometry: new ol_geom_LineString_js__WEBPACK_IMPORTED_MODULE_18__["default"](temp).transform('EPSG:4326', 'EPSG:3857')
+    }
+    ))
 
 
-//window.setTimeout(resetPath, 10000)*/
+  multiFloorPaths.forEach((element, index) => {
+    map.getLayers().insertAt(3, element);
+    if (currentFloor != index) {
+      element.setVisible(false);
+    }
+  });
 
 
+}
 
+window.resetMultiFloorPath = function () {
+
+  multiFloorPaths.forEach((element, index) => {
+    l = map.getLayers().getArray().find(layer => layer.get('name') == element.get("name"));
+    if (typeof l !== 'undefined') {
+      map.removeLayer(l);
+    }
+  });
+  multiFloorPaths = [];
+}
+
+
+// Converts from degrees to radians.
+function toRadians(degrees) {
+  return degrees * Math.PI / 180;
+};
+
+function bearing(startCoord, endCoord) {
+  var startLng = startCoord[0]
+  var startLat = startCoord[1]
+  var destLng = endCoord[0]
+  var destLat = endCoord[1]
+  startLat = toRadians(startLat);
+  startLng = toRadians(startLng);
+  destLat = toRadians(destLat);
+  destLng = toRadians(destLng);
+
+  var y = Math.sin(destLng - startLng) * Math.cos(destLat);
+  var x = Math.cos(startLat) * Math.sin(destLat) -
+    Math.sin(startLat) * Math.cos(destLat) * Math.cos(destLng - startLng);
+  var brng = Math.atan2(y, x);
+  return brng
+}
+
+//[[lon, lat], floor]
+window.initializeNavigation = function (arr) {
+  showMultiFloorPath(arr);
+  showNavigationIcon(arr[0][0], arr[0][1]);
+  navigationArray = arr;
+  stepNavigation(0);
+}
+
+window.stepNavigation = function(n) {
+  var startCoord = navigationArray[n][0];
+  var endCoord = [0, 90];
+  if (n != navigationArray.length - 1) endCoord = navigationArray[n + 1][0];  
+  var floor = navigationArray[n][1];
+
+  var rad = bearing(startCoord, endCoord);
+  moveAlongNavigationPath(startCoord, -rad, floor); 
+}
+
+window.closeNavigation = function () {
+  navigationArray = [];
+  resetMultiFloorPath();
+  hideNavigationIcon();
+}
+
+window.createIconNavigation = function (coordinates) {
+  var temp = new ol_Feature_js__WEBPACK_IMPORTED_MODULE_16__["default"]({
+    id: 'user',
+    geometry: new ol_geom_Point_js__WEBPACK_IMPORTED_MODULE_17__["default"]((0,ol_proj_js__WEBPACK_IMPORTED_MODULE_2__.transform)(coordinates, 'EPSG:4326', 'EPSG:3857')),
+  });
+  var style = new ol_style_Style_js__WEBPACK_IMPORTED_MODULE_13__["default"]({
+    image: new ol_ext_style_FontSymbol_js__WEBPACK_IMPORTED_MODULE_3__["default"]({
+      form: 'circle',
+      glyph: 'fa-chevron-up',
+      fontStyle: '900',
+      fontSize: 0.70,
+      radius: 35,
+      color: "#EEEDED",
+      fill: new ol_style_Fill__WEBPACK_IMPORTED_MODULE_14__["default"]({
+        color: "#70AEFF"
+      }),
+      stroke: new ol_style_Stroke__WEBPACK_IMPORTED_MODULE_15__["default"]({
+        color: "#99DAFF",
+        width: 5,
+      })
+    })
+  })
+  temp.setStyle(style);
+  return temp;
+}
+
+window.showNavigationIcon = function (coordinates, floor) {
+  var userLayer = new ol_layer_js__WEBPACK_IMPORTED_MODULE_11__["default"]({
+    name: 'navigationLayer',
+    floor: floor,
+    source: new ol_source_Vector_js__WEBPACK_IMPORTED_MODULE_12__["default"]({
+      features: [],
+    }),
+    minZoom: iconZoomLevel,
+  });
+  var feat = createIconNavigation(coordinates)
+  userLayer.getSource().addFeature(feat);
+  hideNavigationIcon();
+  map.addLayer(userLayer);
+  if (floor != currentFloor) userLayer.setVisible(false);
+}
+
+window.hideNavigationIcon = function () {
+  var pathLayer = map.getLayers().getArray().find(layer => layer.get('name') == 'navigationLayer');
+  if (typeof pathLayer != "undefined") map.removeLayer(pathLayer);
+}
+
+window.moveAlongNavigationPath = function (coords, radians, floor) {
+  map.getView().animate(
+    {
+      center: (0,ol_proj_js__WEBPACK_IMPORTED_MODULE_2__.transform)(coords, 'EPSG:4326', 'EPSG:3857'),
+      duration: 1500,
+    },
+    {
+      duration: 1500,
+      rotation: radians
+    }
+  )
+  setTimeout(setNavigationIconAfterAnimation(coords, floor), 3000)
+}
+
+window.setNavigationIconAfterAnimation = function(coords, floor){
+  setFloor(floor);
+  showNavigationIcon(coords, floor);
+}
 })();
 
 /******/ })()
