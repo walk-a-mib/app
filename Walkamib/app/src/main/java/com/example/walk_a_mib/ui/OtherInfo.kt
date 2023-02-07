@@ -35,7 +35,7 @@ class OtherInfo(val context: Context) {
                         cardView,
                         R.color.errorBg,
                         img,
-                        R.drawable.warning,
+                        R.drawable.ic_warning,
                         txt,
                         R.color.errorTextOnBg,
                         context.resources.getString(R.string.poi_not_working)
@@ -47,7 +47,7 @@ class OtherInfo(val context: Context) {
                             cardView,
                             R.color.otherInfoBg,
                             img,
-                            R.drawable.ic_round_accessible_forward_24,
+                            R.drawable.ic_accessible_icon,
                             txt,
                             R.color.otherInfoTextOnBg,
                             context.resources.getString(R.string.poi_accessible)
@@ -103,7 +103,7 @@ class OtherInfo(val context: Context) {
                         cardView,
                         R.color.otherInfoBg,
                         img,
-                        R.drawable.floor,
+                        R.drawable.ic_floor,
                         txt,
                         R.color.otherInfoTextOnBg,
                         context.resources.getString(R.string.floor, value)

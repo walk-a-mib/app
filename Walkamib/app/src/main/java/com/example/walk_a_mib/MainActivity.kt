@@ -7,17 +7,15 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,20 +24,14 @@ import androidx.webkit.WebViewAssetLoader
 import com.example.walk_a_mib.adapter.RouteAdapter
 import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.repository.path.IPathRepository
-import com.example.walk_a_mib.ui.OtherInfo
-import com.example.walk_a_mib.ui.MapsViewModelFactory
-import com.example.walk_a_mib.ui.MapsViewModel
-import com.example.walk_a_mib.ui.SettingsActivity
 import com.example.walk_a_mib.util.ServiceLocator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.snackbar.Snackbar
-import com.example.walk_a_mib.LocalContentWebViewClient
 import com.example.walk_a_mib.logic_layer.domain.NodeType
 import com.example.walk_a_mib.model.JSBridge
 import com.example.walk_a_mib.repository.place.IPlaceRepository
 import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
-import kotlinx.coroutines.delay
-import kotlin.concurrent.timer
+import com.example.walk_a_mib.ui.*
+import com.google.android.material.snackbar.Snackbar
 
 // allows us to convert px in dp and vice versa
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
@@ -72,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         val sheet = findViewById<LinearLayout>(R.id.sheet)
         val bottomsheetMaterialCardView = findViewById<CardView>(R.id.bottomsheetMaterialCardView)
         val mapLayout = findViewById<LinearLayout>(R.id.mapLayout)
+        val layerNumber = findViewById<TextView>(R.id.layerNumber)
         val param = mapLayout.layoutParams as ViewGroup.MarginLayoutParams
         val rootContainer = findViewById<RelativeLayout>(R.id.rootContainer)
         val poiContainer = findViewById<LinearLayout>(R.id.poi_container)
@@ -80,7 +73,6 @@ class MainActivity : AppCompatActivity() {
 //        val layers = findViewById<ConstraintLayout>(R.id.layers)
         val webview = findViewById<WebView>(R.id.webview)
         createWebView(webview)
-
         onBackPressedDispatcher.addCallback(this) {
             if (webview.canGoBack()) {
                 webview.goBack()
@@ -134,8 +126,6 @@ class MainActivity : AppCompatActivity() {
                 otherInfo.addOtherInformation(otherInfoContainer, "indoor", ga.indoor.toString())
                 otherInfo.addOtherInformation(otherInfoContainer, "building", ga.building.toString())
                 otherInfo.addOtherInformation(otherInfoContainer, "floor", ga.floor.toString())
-            } else {
-                Snackbar.make(rootContainer, "errore generato da fetchPlace", Snackbar.LENGTH_SHORT).show()
             }
         }
 
@@ -169,71 +159,185 @@ class MainActivity : AppCompatActivity() {
         })
 
         val observePlacesNearby = Observer<CallResult> { result ->
+            val isFirstElementArrayList = arrayListOf(true, true, true, true, true, true, true, true, true)
+            val isClicked = arrayListOf(false, false, false, false, false, false, false, false, false)
+            val imgMap = mutableMapOf<String, ImageButton>()
+
             if (result.isSuccess()) {
                 val res = (result as CallResult.SuccessPlacesNearby).placesNearbyResponse
                 Log.d("MAIN", "ACTUALLY FUCKING WORKS PN! RP = " + res.referencePlace + " --- PN = " + res.placesNearby)
 
                 val places = res.placesNearby
+                var i = 0
 
-                for(i in places.indices) {
-                    layoutInflater.inflate(R.layout.poi, poiContainer)
-                    val img = poiContainer.getChildAt(i) as ImageButton
+                do {
+                    var stop = false
+                    var pos = 0 // used to cycle over isFirstElementArrayList
+
+                    while(!stop && pos < isFirstElementArrayList.size) {
+                        if(isFirstElementArrayList[pos]) {
+                            stop = true
+                        }
+                        pos++
+                    }
 
                     when(places[i].place.label) {
                         "door_normal" -> {
-                            img.setImageDrawable(
-                                ContextCompat.getDrawable(this, R.drawable.microwave)
-                            )
+                            if(isFirstElementArrayList[0]) {
+                                val img = Utility.inflateAndAddIcon(
+                                    this, poiContainer, R.drawable.indoor
+                                )
+                                imgMap["door_normal"] = img
+//                                img.setOnClickListener {
+//                                    isClicked[0] = Utility.toggleClick(this, webview, isClicked[0], "door_normal", img)
+//                                }
+                                isFirstElementArrayList[0] = false
+                            }
                         }
                         "door_exit" -> {
-                            img.setImageDrawable(
-                                ContextCompat.getDrawable(this, R.drawable.indoor)
-                            )
+                            if(isFirstElementArrayList[1]) {
+                                val img = Utility.inflateAndAddIcon(
+                                    this, poiContainer, R.drawable.outdoor
+                                )
+                                imgMap["door_exit"] = img
+//                                img.setOnClickListener {
+//                                    isClicked[1] = Utility.toggleClick(this, webview, isClicked[1], "door_exit", img)
+//                                }
+                                isFirstElementArrayList[1] = false
+                            }
                         }
                         "stairs" -> {
-                            img.setImageDrawable(
-                                ContextCompat.getDrawable(this, R.drawable.floor)
-                            )
+                            if(isFirstElementArrayList[2]) {
+                                val img = Utility.inflateAndAddIcon(
+                                    this, poiContainer, R.drawable.ic_stairs
+                                )
+                                imgMap["stairs"] = img
+//                                img.setOnClickListener {
+//                                    isClicked[2] = Utility.toggleClick(this, webview, isClicked[2], "stairs", img)
+//                                }
+                                isFirstElementArrayList[2] = false
+                            }
                         }
                         "restroom_H" -> {
-                            img.setImageDrawable(
-                                ContextCompat.getDrawable(this, R.drawable.warning)
-                            )
+                            if(isFirstElementArrayList[3]) {
+                                val img = Utility.inflateAndAddIcon(
+                                    this, poiContainer, R.drawable.ic_accessible_icon
+                                )
+                                imgMap["restroom_H"] = img
+//                                img.setOnClickListener {
+//                                    isClicked[3] = Utility.toggleClick(this, webview, isClicked[3], "restroom_H", img)
+//                                }
+                                isFirstElementArrayList[3] = false
+                            }
                         }
                         "restroom_M" -> {
-                            img.setImageDrawable(
-                                ContextCompat.getDrawable(this, R.drawable.ic_arrow_right_24)
-                            )
+                            if(isFirstElementArrayList[4]) {
+                                val img = Utility.inflateAndAddIcon(
+                                    this, poiContainer, R.drawable.ic_person
+                                )
+                                imgMap["restroom_M"] = img
+//                                img.setOnClickListener {
+//                                    isClicked[4] = Utility.toggleClick(this, webview, isClicked[4], "restroom_M", img)
+//                                }
+                                isFirstElementArrayList[4] = false
+                            }
                         }
                         "restroom_F" -> {
-                            img.setImageDrawable(
-                                ContextCompat.getDrawable(this, R.drawable.outdoor)
-                            )
+                            if(isFirstElementArrayList[5]) {
+                                val img = Utility.inflateAndAddIcon(
+                                    this, poiContainer, R.drawable.ic_person_dress
+                                )
+                                imgMap["restroom_F"] = img
+//                                img.setOnClickListener {
+//                                    isClicked[5] = Utility.toggleClick(this, webview, isClicked[5], "restroom_F", img)
+//                                }
+                                isFirstElementArrayList[5] = false
+                            }
                         }
                         "classroom" -> {
-                            img.setImageDrawable(
-                                ContextCompat.getDrawable(this, R.drawable.ic_bottom_wave_24)
-                            )
+                            if(isFirstElementArrayList[6]) {
+                                val img = Utility.inflateAndAddIcon(
+                                    this, poiContainer, R.drawable.ic_chalkboard_user
+                                )
+                                imgMap["classroom"] = img
+//                                img.setOnClickListener {
+//                                    isClicked[6] = Utility.toggleClick(this, webview, isClicked[6], "classroom", img)
+//                                }
+                                isFirstElementArrayList[6] = false
+                            }
+                        }
+
+                        "vending_machine_hotdrinks" -> {
+                            if(isFirstElementArrayList[7]) {
+                                val img = Utility.inflateAndAddIcon(
+                                    this, poiContainer, R.drawable.ic_mug_hot
+                                )
+                                imgMap["vending_machine_hotdrinks"] = img
+//                                img.setOnClickListener {
+//                                    isClicked[7] = Utility.toggleClick(this, webview, isClicked[7], "vending_machine_hotdrinks", img)
+//                                }
+                                isFirstElementArrayList[7] = false
+                            }
+                        }
+
+                        "vending_machine_colddrinks" -> {
+                            if (isFirstElementArrayList[8]) {
+                                val img = Utility.inflateAndAddIcon(
+                                    this, poiContainer, R.drawable.ic_bottle_water
+                                )
+                                imgMap["vending_machine_colddrinks"] = img
+//                                img.setOnClickListener {
+//                                    isClicked[8] = Utility.toggleClick(this, webview, isClicked[8], "vending_machine_colddrinks", img)
+//                                }
+                                isFirstElementArrayList[8] = false
+                            }
                         }
                         else -> {
                             Log.d("manca", places[i].place.label)
                         }
                     }
 
-                    img.setOnClickListener {
-                        // clear otherInfoContainer
-                        otherInfoContainer.removeAllViews()
+//                    imgMap.forEachIndexed { index, element ->
+//                        element.setOnClickListener {
+//                            isClicked[index] = Utility.toggleClick(this, webview, isClicked[index], , element)
+//                        }
+//                    }
 
-                        if(BottomSheetBehavior.from(sheet).state != BottomSheetBehavior.STATE_COLLAPSED) {
-                            BottomSheetBehavior.from(sheet).apply {
-                                peekHeight = BOTTOMSHEET_HEIGHT
-                                this.state = BottomSheetBehavior.STATE_COLLAPSED
+
+//                    for((type, img) in imgMap) {
+//                        img.setOnClickListener {
+//                            isClicked[index] = Utility.toggleClick(this, webview, isClicked[index], type, img)
+//                        }
+//                        index++
+//                    }
+
+                    var index = -1
+                    var imgAlreadyClicked: Boolean
+
+                    imgMap.forEach { entry ->
+                        index += 1
+                        entry.value.setOnClickListener {
+                            isClicked[index] =
+                                Utility.toggleClick(this, webview, isClicked[index], entry.key, entry.value)
+                            imgAlreadyClicked = isClicked[index]
+
+                            if(imgAlreadyClicked) {
+                                Utility.resetColors(this, imgMap, R.color.backgroundColorPoI)
+                                imgAlreadyClicked = false
+                            }
+
+                            if(isClicked[index]) {
+                                entry.value.backgroundTintList =
+                                    AppCompatResources.getColorStateList(this, R.color.colorPrimaryDark)
+                            } else {
+                                entry.value.backgroundTintList =
+                                    AppCompatResources.getColorStateList(this, R.color.backgroundColorPoI)
                             }
                         }
-                        mapsViewModel.fetchPlace((i+1).toString(), 1000)
-                            .observe(this, observePlace)
                     }
-                }
+
+                    i++
+                } while(stop && i < places.size)
             }
         }
 
@@ -243,16 +347,29 @@ class MainActivity : AppCompatActivity() {
 
         setUpRoutes() // adds elements inside RecyclerView
 
+        var floor = 0
+        layerNumber.text = "T"
+
         val zoomIn = findViewById<ImageButton>(R.id.zoomIn)
         zoomIn.setOnClickListener {
-            //Snackbar.make(rootContainer, "Zoom In", Snackbar.LENGTH_SHORT).show()
-            JSBridge.setFloor(webview, 1)
+            if(floor < 1) {
+                floor++
+                layerNumber.text = floor.toString()
+                JSBridge.setFloor(webview, floor)
+            }
         }
 
         val zoomOut = findViewById<ImageButton>(R.id.zoomOut)
         zoomOut.setOnClickListener {
-            //Snackbar.make(rootContainer, "Zoom Out", Snackbar.LENGTH_SHORT).show()
-            JSBridge.setFloor(webview, 0)
+            if(floor > 0) {
+                floor--
+                if(floor == 0) {
+                    layerNumber.text = "T"
+                } else {
+                    layerNumber.text = floor.toString()
+                }
+                JSBridge.setFloor(webview, floor)
+            }
         }
     }
 

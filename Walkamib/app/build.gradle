@@ -53,6 +53,7 @@ dependencies {
     implementation 'androidx.webkit:webkit:1.7.0-alpha01'
     implementation 'androidx.webkit:webkit:1.7.0-alpha01'
     implementation 'androidx.webkit:webkit:1.7.0-alpha01'
+    implementation 'androidx.webkit:webkit:1.7.0-alpha01'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
