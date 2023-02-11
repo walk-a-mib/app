@@ -1,10 +1,15 @@
 package com.example.walk_a_mib.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.walk_a_mib.MainActivity
 import com.example.walk_a_mib.R
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 
@@ -45,12 +50,11 @@ class SettingsActivity : AppCompatActivity() {
             darkMode(darkModeSwitch.isChecked)
         }
 
-        val signOutContainer = findViewById<CardView>(R.id.signOutContainer)
+        val signOutContainer = findViewById<ConstraintLayout>(R.id.signOut)
 
         signOutContainer.setOnClickListener {
-            // TODO(Do something)
+            startActivity(Intent(applicationContext, SignInActivity::class.java))
         }
-
     }
 
     override fun finish() {

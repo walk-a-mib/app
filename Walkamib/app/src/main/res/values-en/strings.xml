@@ -28,7 +28,7 @@
     <string name="night_mode">Night mode</string>
     <string name="accessible_paths_only">Accessible path only</string>
     <string name="update_map_data">Update map data</string>
-    <string name="log_out_from_the_account">Log out</string>
+    <string name="sign_out_from_the_account">Sign out</string>
     <string name="error_no_google_account_found_message">No Google accounts have been found</string>
 
 </resources>

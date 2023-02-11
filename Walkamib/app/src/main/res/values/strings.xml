@@ -10,8 +10,6 @@
     <string name="sign_in">Accedi</string>
     <string name="email" translatable="false">Email</string>
     <string name="password" translatable="false">Password</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="confirm_password">Conferma password</string>
     <string name="forgot_password">Password dimenticata?</string>
     <string name="sign_up_link">Non hai un account? Registrati</string>
@@ -35,5 +33,5 @@
     <string name="night_mode">Modalità notte</string>
     <string name="accessible_paths_only">Solo percorsi accessibili</string>
     <string name="update_map_data">Aggiorna dati mappa</string>
-    <string name="log_out_from_the_account">Esci</string>
+    <string name="sign_out_from_the_account">Esci</string>
 </resources>

@@ -14,7 +14,7 @@
 
                 <TextView
                     android:id="@+id/settingsTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings"
                     android:textSize="40sp"
@@ -47,7 +47,10 @@
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/ripple_effect_settings"
+                                    android:clickable="true"
+                                    android:focusable="true">
 
                                         <ImageView
                                             android:id="@+id/nightModeIcon"
@@ -102,7 +105,10 @@
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/ripple_effect_settings"
+                                    android:clickable="true"
+                                    android:focusable="true">
 
                                         <ImageView
                                             android:id="@+id/accessibleIcon"
@@ -147,6 +153,7 @@
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/test"
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
                             app:cardCornerRadius="10dp"
@@ -158,7 +165,10 @@
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/ripple_effect_settings"
+                                    android:clickable="true"
+                                    android:focusable="true">
 
                                         <ImageView
                                             android:id="@+id/updateMapIcon"
@@ -199,7 +209,6 @@
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
-                            android:id="@+id/signOutContainer"
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
                             app:cardCornerRadius="10dp"
@@ -210,11 +219,15 @@
                             android:backgroundTint="@color/errorBg">
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/signOut"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/ripple_effect_sign_out"
+                                    android:clickable="true"
+                                    android:focusable="true">
 
                                         <ImageView
-                                            android:id="@+id/logOutIcon"
+                                            android:id="@+id/signOutIcon"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:src="@drawable/ic_sign_out"
@@ -228,15 +241,14 @@
                                             android:layout_height="match_parent"
                                             android:fontFamily="@font/montserrat"
                                             android:gravity="center"
-                                            android:text="@string/log_out_from_the_account"
+                                            android:text="@string/sign_out_from_the_account"
                                             android:textColor="@color/errorTextOnBg"
                                             android:textSize="17sp"
                                             app:layout_constraintEnd_toEndOf="parent"
-                                            app:layout_constraintLeft_toRightOf="@id/logOutIcon"
+                                            app:layout_constraintLeft_toRightOf="@id/signOutIcon"
                                             app:layout_constraintTop_toTopOf="parent" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
                         </androidx.cardview.widget.CardView>
-
                 </LinearLayout>
 
 

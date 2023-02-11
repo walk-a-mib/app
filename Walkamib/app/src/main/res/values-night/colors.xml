@@ -40,6 +40,9 @@
     <color name="colorSettingsBoxIcon">#85A7D6</color>
     <color name="colorSettingsSwitchOn">#85A7D6</color>
     <color name="colorSettingsSwitchOff">#FFFFFF</color>
+    <color name="colorRippleSignInUp">#061a40</color>
+    <color name="colorRippleSignOut">#ffbfbf</color>
+    <color name="colorRippleSettings">#85A7D6</color>
 <!--    <color name="colorPrimary">#FF3F495D</color>-->
 <!--    <color name="colorPrimaryDark">#2C3442</color>-->
 <!--    <color name="colorSecondary">#FFEEE5DC</color>-->

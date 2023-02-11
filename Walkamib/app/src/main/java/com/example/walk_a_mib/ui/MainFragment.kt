@@ -214,7 +214,6 @@ class MainFragment : Fragment() {
                 val places = res.placesNearby
 
                 val filterHandler = FilterHandler(requireContext(), places, poiContainer, webview)
-
                 filterHandler.handlePlace()
 
 //                var i = 0

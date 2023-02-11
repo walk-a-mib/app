@@ -141,7 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/custom_submit"
+                android:background="@drawable/ripple_effect_sign_in_up"
                 android:fontFamily="@font/montserrat"
                 android:text="@string/sign_in"
                 android:textAllCaps="false"
@@ -151,6 +151,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/forgotPassword" />
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/sign_up_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/sign_up_link"
+                android:textAllCaps="false"
+                android:textColor="@color/colorSignUpLink"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/sign_in_btn"
+                tools:layout_editor_absoluteX="20dp" />
+
             <RelativeLayout
                 android:id="@+id/relative_layout"
                 android:layout_width="match_parent"
@@ -159,7 +173,7 @@
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sign_in_btn">
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_btn">
 
                 <View
                     android:layout_width="wrap_content"
@@ -202,19 +216,5 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/relative_layout" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/sign_up_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/sign_up_link"
-                android:textAllCaps="false"
-                android:textColor="@color/colorSignUpLink"
-                android:textSize="16sp"
-                app:layout_constraintTop_toBottomOf="@id/button_google_login"
-                tools:layout_editor_absoluteX="20dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
