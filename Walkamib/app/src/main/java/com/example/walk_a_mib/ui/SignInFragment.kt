@@ -55,12 +55,6 @@ class LoginFragment : Fragment() {
         signUpBtn.setOnClickListener {
             Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_signUpFragment)
         }
-
-        val signOutContainer = view.findViewById<CardView>(R.id.signOutContainer)
-
-        signOutContainer.setOnClickListener {
-            // TODO(Do something)
-        }
     }
 
     companion object {

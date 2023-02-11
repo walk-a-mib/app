@@ -3,6 +3,7 @@ package com.example.walk_a_mib.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.cardview.widget.CardView
 import com.example.walk_a_mib.R
 import com.google.android.material.switchmaterial.SwitchMaterial
 
@@ -41,9 +42,13 @@ class SettingsActivity : AppCompatActivity() {
             }
 
             darkMode(darkModeSwitch.isChecked)
-
         }
 
+        val signOutContainer = findViewById<CardView>(R.id.signOutContainer)
+
+        signOutContainer.setOnClickListener {
+            // TODO(Do something)
+        }
 
     }
 
