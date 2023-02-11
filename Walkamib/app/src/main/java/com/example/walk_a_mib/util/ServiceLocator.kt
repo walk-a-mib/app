@@ -9,6 +9,8 @@ import com.example.walk_a_mib.repository.path.PlacesNearbyRepository
 import com.example.walk_a_mib.repository.place.IPlaceRepository
 import com.example.walk_a_mib.repository.place.PlaceRepository
 import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
+import com.example.walk_a_mib.repository.user.IUserRepository
+import com.example.walk_a_mib.repository.user.UserRepository
 import com.example.walk_a_mib.service.MapsApiService
 import com.example.walk_a_mib.source.path.BasePathLocalDataSource
 import com.example.walk_a_mib.source.path.BasePathRemoteDataSource
@@ -22,12 +24,35 @@ import com.example.walk_a_mib.source.placesNearby.BasePlacesNearbyLocalDataSourc
 import com.example.walk_a_mib.source.placesNearby.BasePlacesNearbyRemoteDataSource
 import com.example.walk_a_mib.source.placesNearby.PlacesNearbyLocalDataSource
 import com.example.walk_a_mib.source.placesNearby.PlacesNearbyRemoteDataSource
+import com.example.walk_a_mib.source.user.BaseUserAuthenticationRemoteDataSource
+import com.example.walk_a_mib.source.user.BaseUserDataRemoteDataSource
+import com.example.walk_a_mib.source.user.UserAuthenticationRemoteDataSource
+import com.example.walk_a_mib.source.user.UserDataRemoteDataSource
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
 object ServiceLocator {
+    @Volatile
+    private var INSTANCE: ServiceLocator? = null
+
+    private fun ServiceLocator() {}
+
+    /**
+     * Returns an instance of ServiceLocator class.
+     * @return An instance of ServiceLocator.
+     */
+    fun getInstance(): ServiceLocator? {
+        if (INSTANCE == null) {
+            synchronized(ServiceLocator::class.java) {
+                if (INSTANCE == null) {
+                    INSTANCE = com.example.walk_a_mib.util.ServiceLocator
+                }
+            }
+        }
+        return INSTANCE
+    }
 
     fun getPlaceApiService(): MapsApiService {
         //TODO SISTEMARE
@@ -69,5 +94,29 @@ object ServiceLocator {
         val pathLocalDataSource: BasePathLocalDataSource = PathLocalDataSource(getDao(application))
 
         return PathRepository(pathRemoteDataSource, pathLocalDataSource)
+    }
+
+    /**
+     * Creates an instance of IUserRepository.
+     * @return An instance of IUserRepository.
+     */
+    fun getUserRepository(application: Application?): IUserRepository? {
+//        val sharedPreferencesUtil = SharedPreferencesUtil(application)
+        val userRemoteAuthenticationDataSource: BaseUserAuthenticationRemoteDataSource =
+            UserAuthenticationRemoteDataSource()
+        val userDataRemoteDataSource: BaseUserDataRemoteDataSource =
+            UserDataRemoteDataSource(
+//                sharedPreferencesUtil
+            )
+//        val dataEncryptionUtil = DataEncryptionUtil(application)
+//        val newsLocalDataSource: BaseNewsLocalDataSource = NewsLocalDataSource(
+//            getNewsDao(application), sharedPreferencesUtil,
+//            dataEncryptionUtil
+//        )
+        return UserRepository(
+            userRemoteAuthenticationDataSource,
+            userDataRemoteDataSource,
+//            newsLocalDataSource
+        )
     }
 }

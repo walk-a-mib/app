@@ -1,14 +1,33 @@
 package com.example.walk_a_mib.ui
 
+import android.app.Activity
 import android.os.Bundle
+import android.util.Log
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.cardview.widget.CardView
+import android.widget.EditText
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.Navigation
 import com.example.walk_a_mib.R
+import com.example.walk_a_mib.model.user.User
+import com.example.walk_a_mib.repository.user.IUserRepository
+import com.example.walk_a_mib.util.ServiceLocator.getInstance
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.BeginSignInResult
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.material.snackbar.Snackbar
+import java.util.regex.Pattern
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,16 +40,88 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class LoginFragment : Fragment() {
+    private val TAG = LoginFragment::class.java.simpleName
+
+    private var activityResultLauncher: ActivityResultLauncher<IntentSenderRequest>? = null
+    private var startIntentSenderForResult: ActivityResultContracts.StartIntentSenderForResult? = null
+
+    private var oneTapClient: SignInClient? = null
+    private var signInRequest: BeginSignInRequest? = null
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
+    //    private var userViewModel: UserViewModel? = null
+    private var userRepository: IUserRepository? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        userRepository = getInstance()!!
+            .getUserRepository(requireActivity().application)
+
+        oneTapClient = Identity.getSignInClient(requireActivity());
+        signInRequest = BeginSignInRequest.builder()
+            .setPasswordRequestOptions(
+                BeginSignInRequest.PasswordRequestOptions.builder()
+                    .setSupported(true)
+                    .build()
+            )
+            .setGoogleIdTokenRequestOptions(
+                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                    .setSupported(true)
+                    // Your server's client ID, not your Android client ID.
+                    .setServerClientId(getString(R.string.default_web_client_id))
+                    // Only show accounts previously used to sign in.
+                    .setFilterByAuthorizedAccounts(false)
+                    .build()
+            )
+            // Automatically sign in when exactly one credential is retrieved.
+            .setAutoSelectEnabled(true)
+            .build();
+
+        startIntentSenderForResult = ActivityResultContracts.StartIntentSenderForResult()
+
+        activityResultLauncher = registerForActivityResult(
+            startIntentSenderForResult!!
+        ) { activityResult: ActivityResult ->
+            if (activityResult.resultCode == Activity.RESULT_OK) {
+                Log.d("SIGN-IN", "result.getResultCode() == Activity.RESULT_OK")
+                try {
+                    val credential =
+                        oneTapClient!!.getSignInCredentialFromIntent(activityResult.data)
+                    val idToken = credential.googleIdToken
+                    if (idToken != null) {
+
+                        userRepository!!.getGoogleUser(idToken)
+                            .observe(viewLifecycleOwner) { authenticationResult ->
+                                if (authenticationResult.isSuccess) {
+                                    val user: User =
+                                        (authenticationResult as com.example.walk_a_mib.model.Result.UserResponseSuccess).data
+                                } else {
+                                    showSnackbarError("Authentication error!")
+                                }
+                            }
+                    }
+                } catch (e: ApiException) {
+                    showSnackbarError("Authentication error!")
+                }
+            }
+        }
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+    }
+
+    fun showSnackbarError(message: String) {
+        return Snackbar.make(
+            requireActivity().findViewById(android.R.id.content),
+            message,
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     override fun onCreateView(
@@ -45,21 +136,94 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val signInBtn = view.findViewById<Button>(R.id.sign_in_btn)
-        signInBtn.setOnClickListener {
+        // Function to validate email
+        fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+        // Function to validate password
+        fun isValidPasswordFormat(password: CharSequence): Boolean {
+            val passwordREGEX = Pattern.compile("^" +
+//                    "(?=.*[0-9])" +         //at least 1 digit
+//                    "(?=.*[a-z])" +         //at least 1 lower case letter
+//                    "(?=.*[A-Z])" +         //at least 1 upper case letter
+//                    "(?=.*[a-zA-Z])" +      //any letter
+//                    "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                    "(?=\\S+$)" +           //no white spaces
+                    ".{8,}" +               //at least 8 characters
+                    "$");
+            return passwordREGEX.matcher(password).matches()
+        }
+
+//        userRepository?.logout()
+
+        if (userRepository?.loggedUser != null) {
             Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_mainActivity)
-            activity?.finish()
+        }
+
+        val email = view.findViewById<EditText>(R.id.email)
+        val password = view.findViewById<EditText>(R.id.password)
+
+        val signInGoogleBtn = view.findViewById<Button>(R.id.button_google_login)
+        val signInBtn = view.findViewById<Button>(R.id.sign_in_btn)
+
+        signInBtn.setOnClickListener {
+
+            val emailValue = email.text.trim()
+            val passwordValue = password.text.trim()
+
+            if(emailValue.isValidEmail() and isValidPasswordFormat(passwordValue)) {
+                userRepository!!.getUser(emailValue.toString(), passwordValue.toString(), true)
+                    .observe(
+                        viewLifecycleOwner
+                    ) { result: com.example.walk_a_mib.model.Result ->
+                        Log.d("SIGN-IN", "${result.isSuccess}")
+                        if (result.isSuccess) {
+                            val user: User =
+                                (result as com.example.walk_a_mib.model.Result.UserResponseSuccess).data
+
+                            Log.d("SIGN-IN", "USER ${user.toString()}")
+                            Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_mainActivity)
+                        } else {
+                            showSnackbarError("Authentication error!")
+                        }
+                    }
+            } else {
+                showSnackbarError("Email or Password are not valid!")
+            }
+//            activity?.finish()
+        }
+
+        signInGoogleBtn.setOnClickListener { v ->
+            signInRequest?.let {
+                oneTapClient!!.beginSignIn(it)
+                    .addOnSuccessListener(
+                        requireActivity(),
+                        OnSuccessListener<BeginSignInResult> { result ->
+                            Log.d(
+                                TAG,
+                                "onSuccess from oneTapClient.beginSignIn(BeginSignInRequest)"
+                            )
+                            val intentSenderRequest =
+                                IntentSenderRequest.Builder(result.pendingIntent).build()
+                            activityResultLauncher!!.launch(intentSenderRequest)
+
+                            Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_mainActivity)
+                        })
+                    .addOnFailureListener(requireActivity(),
+                        OnFailureListener { e -> // No saved credentials found. Launch the One Tap sign-up flow, or
+                            // do nothing and continue presenting the signed-out UI.
+                            Log.d(TAG, e.localizedMessage)
+                            Snackbar.make(
+                                requireActivity().findViewById(android.R.id.content),
+                                requireActivity().getString(R.string.error_no_google_account_found_message),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        })
+            }
         }
 
         val signUpBtn = view.findViewById<Button>(R.id.sign_up_btn)
         signUpBtn.setOnClickListener {
             Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_signUpFragment)
-        }
-
-        val signOutContainer = view.findViewById<CardView>(R.id.signOutContainer)
-
-        signOutContainer.setOnClickListener {
-            // TODO(Do something)
         }
     }
 
