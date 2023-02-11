@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.cardview.widget.CardView
 import androidx.navigation.Navigation
 import com.example.walk_a_mib.R
 
@@ -47,13 +48,18 @@ class LoginFragment : Fragment() {
         val signInBtn = view.findViewById<Button>(R.id.sign_in_btn)
         signInBtn.setOnClickListener {
             Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_mainActivity)
-
             activity?.finish()
         }
 
         val signUpBtn = view.findViewById<Button>(R.id.sign_up_btn)
         signUpBtn.setOnClickListener {
             Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_signUpFragment)
+        }
+
+        val signOutContainer = view.findViewById<CardView>(R.id.signOutContainer)
+
+        signOutContainer.setOnClickListener {
+            // TODO(Do something)
         }
     }
 

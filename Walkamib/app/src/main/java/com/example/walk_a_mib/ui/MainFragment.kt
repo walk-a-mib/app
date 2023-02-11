@@ -22,6 +22,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.webkit.WebViewAssetLoader
 import com.example.walk_a_mib.LocalContentWebViewClient
 import com.example.walk_a_mib.R
@@ -200,13 +201,15 @@ class MainFragment : Fragment() {
 
         mapsViewModel.fetchPlace("idSelezionato", 1000).observe(requireActivity(), observePlace)
 
+        val horizontalScrollView = view.findViewById<HorizontalScrollView>(R.id.horizontalScrollView)
+
         val observePlacesNearby = Observer<CallResult> { result ->
             val isFirstElementArrayList = arrayListOf(true, true, true, true, true, true, true, true, true)
             val imgMap = mutableMapOf<String, ImageButton>()
 
-            if (result.isSuccess()) {
+            if (result.isSuccess() && horizontalScrollView.childCount == 1) {
                 val res = (result as CallResult.SuccessPlacesNearby).placesNearbyResponse
-                Log.d("MAIN", "ACTUALLY FUCKING WORKS PN! RP = " + res.referencePlace + " --- PN = " + res.placesNearby)
+                Log.d("POIs", "ACTUALLY FUCKING WORKS PN! RP = " + res.referencePlace + " --- PN = " + res.placesNearby)
 
                 val places = res.placesNearby
                 var i = 0
@@ -229,9 +232,6 @@ class MainFragment : Fragment() {
                                     requireContext(), poiContainer, R.drawable.ic_door_open_solid
                                 )
                                 imgMap["door_normal"] = img
-//                                img.setOnClickListener {
-//                                    isClicked[0] = Utility.toggleClick(this, webview, isClicked[0], "door_normal", img)
-//                                }
                                 isFirstElementArrayList[0] = false
                             }
                         }
@@ -241,9 +241,6 @@ class MainFragment : Fragment() {
                                     requireContext(), poiContainer, R.drawable.ic_person_walking_arrow_right_solid
                                 )
                                 imgMap["door_exit"] = img
-//                                img.setOnClickListener {
-//                                    isClicked[1] = Utility.toggleClick(this, webview, isClicked[1], "door_exit", img)
-//                                }
                                 isFirstElementArrayList[1] = false
                             }
                         }
@@ -253,9 +250,6 @@ class MainFragment : Fragment() {
                                     requireContext(), poiContainer, R.drawable.ic_stairs
                                 )
                                 imgMap["stairs"] = img
-//                                img.setOnClickListener {
-//                                    isClicked[2] = Utility.toggleClick(this, webview, isClicked[2], "stairs", img)
-//                                }
                                 isFirstElementArrayList[2] = false
                             }
                         }
@@ -265,9 +259,6 @@ class MainFragment : Fragment() {
                                     requireContext(), poiContainer, R.drawable.ic_accessible_icon
                                 )
                                 imgMap["restroom_H"] = img
-//                                img.setOnClickListener {
-//                                    isClicked[3] = Utility.toggleClick(this, webview, isClicked[3], "restroom_H", img)
-//                                }
                                 isFirstElementArrayList[3] = false
                             }
                         }
@@ -277,9 +268,6 @@ class MainFragment : Fragment() {
                                     requireContext(), poiContainer, R.drawable.ic_person
                                 )
                                 imgMap["restroom_M"] = img
-//                                img.setOnClickListener {
-//                                    isClicked[4] = Utility.toggleClick(this, webview, isClicked[4], "restroom_M", img)
-//                                }
                                 isFirstElementArrayList[4] = false
                             }
                         }
@@ -289,9 +277,6 @@ class MainFragment : Fragment() {
                                     requireContext(), poiContainer, R.drawable.ic_person_dress
                                 )
                                 imgMap["restroom_F"] = img
-//                                img.setOnClickListener {
-//                                    isClicked[5] = Utility.toggleClick(this, webview, isClicked[5], "restroom_F", img)
-//                                }
                                 isFirstElementArrayList[5] = false
                             }
                         }
@@ -301,9 +286,6 @@ class MainFragment : Fragment() {
                                     requireContext(), poiContainer, R.drawable.ic_chalkboard_user
                                 )
                                 imgMap["classroom"] = img
-//                                img.setOnClickListener {
-//                                    isClicked[6] = Utility.toggleClick(this, webview, isClicked[6], "classroom", img)
-//                                }
                                 isFirstElementArrayList[6] = false
                             }
                         }
@@ -314,9 +296,6 @@ class MainFragment : Fragment() {
                                     requireContext(), poiContainer, R.drawable.ic_mug_hot
                                 )
                                 imgMap["vending_machine_hotdrinks"] = img
-//                                img.setOnClickListener {
-//                                    isClicked[7] = Utility.toggleClick(this, webview, isClicked[7], "vending_machine_hotdrinks", img)
-//                                }
                                 isFirstElementArrayList[7] = false
                             }
                         }
@@ -327,9 +306,6 @@ class MainFragment : Fragment() {
                                     requireContext(), poiContainer, R.drawable.ic_bottle_water
                                 )
                                 imgMap["vending_machine_colddrinks"] = img
-//                                img.setOnClickListener {
-//                                    isClicked[8] = Utility.toggleClick(this, webview, isClicked[8], "vending_machine_colddrinks", img)
-//                                }
                                 isFirstElementArrayList[8] = false
                             }
                         }
@@ -337,12 +313,6 @@ class MainFragment : Fragment() {
                             Log.d("manca", places[i].place.label)
                         }
                     }
-
-//                    imgMap.forEachIndexed { index, element ->
-//                        element.setOnClickListener {
-//                            isClicked[index] = Utility.toggleClick(this, webview, isClicked[index], , element)
-//                        }
-//                    }
 
                     var imgAlreadyClicked = false
                     var type: String? = null

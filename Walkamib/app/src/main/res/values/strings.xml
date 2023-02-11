@@ -30,4 +30,9 @@
     <string name="sign_in_with_google">Accedi con Google</string>
     <string name="building">Edificio %1$s</string>
     <string name="floor">Piano %1$s</string>
+    <string name="settings">Impostazioni</string>
+    <string name="night_mode">Modalità notte</string>
+    <string name="accessible_paths_only">Solo percorsi accessibili</string>
+    <string name="update_map_data">Aggiorna dati mappa</string>
+    <string name="log_out_from_the_account">Esci</string>
 </resources>
