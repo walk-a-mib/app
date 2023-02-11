@@ -16,8 +16,13 @@
 
     <color name="neutral">#121721</color>
 
+    <color name="errorBg">#701d1d</color>
+    <color name="errorTextOnBg">#ffbfbf</color>
+
     <color name="colorPrimary">#1C2C4D</color>
     <color name="colorPrimaryDark">#0E1014</color>
+    <color name="colorOrLineSignIn">#8CA9D0</color>
+    <color name="colorLineAndEyeTextInputSignInUp">#BBCBE0</color>
     <color name="colorGreetingText">#85A7D6</color>
     <color name="colorSettingsIcon">#85A7D6</color>
     <color name="textOnNeutral">#9BB7DD</color>
@@ -30,6 +35,11 @@
     <color name="colorSignInUpBtn">#153969</color>
     <color name="colorTextHintSignInUp">#cac4d0</color>
     <color name="colorTextInputSignInUp">#f2f2f2</color>
+    <color name="colorSettingsBox">#061a40</color>
+    <color name="colorSettingsText">#fefefe</color>
+    <color name="colorSettingsBoxIcon">#85A7D6</color>
+    <color name="colorSettingsSwitchOn">#85A7D6</color>
+    <color name="colorSettingsSwitchOff">#FFFFFF</color>
 <!--    <color name="colorPrimary">#FF3F495D</color>-->
 <!--    <color name="colorPrimaryDark">#2C3442</color>-->
 <!--    <color name="colorSecondary">#FFEEE5DC</color>-->

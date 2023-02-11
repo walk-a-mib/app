@@ -48163,15 +48163,15 @@ var iconStylesArray = new Array();
 // https://coolors.co/d85c5a-e1aa51-e1d851-75bf5f-52cbc9-49a7c1-b48e6a
 //tipo, nome icona, colore simbolo, colore fill, colore stroke,
 iconStylesArray = [
-  ["restroom_M", "fa-person", "#F7F6EF", "#8DC8D8", "#49A7C1", 0.75],
-  ["restroom_F", "fa-person-dress", "#F7F6EF", "#8DC8D8", "#49A7C1", 0.75],
-  ["restroom_H", "fa-wheelchair-move", "#F7F6EF", "#8DC8D8", "#49A7C1", 0.70],
-  ["vending_machine_hotdrinks", "fa-mug-hot", "#F7F6EF", "#DBC9B8", "#B48E6A", 0.60],
-  ["door_normal", "fa-door-open", "#F7F6EF", "#ECC88D", "#E1AA51",0.60],
-  ["door_exit", "fa-person-walking-arrow-right", "#F7F6EF", "#ABD89D", "#75BF5F",0.60],
-  ["vending_machine_colddrinks", "fa-bottle-water", "#F7F6EF", "#A9E5E4", "#52CBC9", 0.75],
-  ["stairs", "fa-stairs", "#F7F6EF", "#E4E0A0", "#E1D851", 0.60],
-  ["classroom", "fa-chalkboard-user", "#F7F6EF", "#E79998", "#D85C5A", 0.52],
+  ["restroom_M", "fa-person", "#1B2F90", "#C4CCF3", "#6980DD", 0.75],
+  ["restroom_F", "fa-person-dress", "#1B2F90", "#C4CCF3", "#6980DD", 0.75],
+  ["restroom_H", "fa-wheelchair-move", "#1B2F90", "#C4CCF3", "#6980DD", 0.70],
+  ["vending_machine_hotdrinks", "fa-mug-hot", "#6E420C", "#F7EAD9", "#D29141", 0.60],
+  ["door_normal", "fa-door-open", "#5A0B93", "#E7D2F9", "#B678ED",0.60],
+  ["door_exit", "fa-person-walking-arrow-right", "#445700", "#EDFFAD", "#84A800",0.60],
+  ["vending_machine_colddrinks", "fa-bottle-water", "#004B5C", "#A9E5E4", "#009ABD", 0.75],
+  ["stairs", "fa-stairs", "#4D4000", "#FFF4AD", "#A89200", 0.60],
+  ["classroom", "fa-chalkboard-user", "#821239", "#F9DCE6", "#DE6390", 0.52],
 ];
 
 /*iconStylesArray = [
@@ -48596,7 +48596,7 @@ window.showMultiFloorPath = function (arr) {
           geometry: new ol_geom_LineString_js__WEBPACK_IMPORTED_MODULE_18__["default"](temp).transform('EPSG:4326', 'EPSG:3857')
         }
         ))
-
+      temp = [];
       n = 1;
       temp[0] = element[0];
       f = element[1];
@@ -48622,7 +48622,7 @@ window.showMultiFloorPath = function (arr) {
 }
 
 window.resetMultiFloorPath = function () {
-
+  var l;
   multiFloorPaths.forEach((element, index) => {
     l = map.getLayers().getArray().find(layer => layer.get('name') == element.get("name"));
     if (typeof l !== 'undefined') {

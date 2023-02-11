@@ -19,7 +19,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_signInFragment_to_mainActivity"
-            app:destination="@id/mainActivity2" />
+            app:destination="@id/mainActivity" />
 
 
     </fragment>
@@ -37,7 +37,7 @@
             app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <activity
-        android:id="@+id/mainActivity2"
+        android:id="@+id/mainActivity"
         android:name="com.example.walk_a_mib.MainActivity"
         android:label="MainActivity"
         tools:layout="@layout/activity_main" />

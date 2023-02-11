@@ -118,7 +118,8 @@ object JSBridge{
             s += "[[${node.position.lon}, ${node.position.lat}], ${node.ga.floor}],"
             }
         s += "]"
-        webview.evaluateJavascript("javascript:showMultiFloorPath(${s})", null)
+        webview.evaluateJavascript("javascript:initializeNavigation(${s})", null)
+        webview.evaluateJavascript("javascript:stepNavigation(4)", null)
         Log.d("rip", s)
         Log.d("rip", s)
         }

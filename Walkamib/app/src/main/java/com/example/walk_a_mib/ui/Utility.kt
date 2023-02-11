@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.example.walk_a_mib.R
 import com.example.walk_a_mib.logic_layer.domain.Node
 import com.example.walk_a_mib.model.JSBridge
@@ -25,23 +26,11 @@ object Utility {
         return img
     }
 
-    fun toggleClick(context: Context, webview: WebView, isClicked: Boolean, type: String, img: ImageButton): Boolean {
-        if(!isClicked) {
-            JSBridge.filterByType(webview, type)
-            return true
-        } else {
-            JSBridge.resetFilters(webview)
-            return false
-        }
-    }
-
-    fun changeColor(context: Context, img: ImageButton, colorClicked: Int, isClicked: Boolean) {
-        img.backgroundTintList = getColorStateList(context, colorClicked)
-    }
-
-    fun resetColors(context: Context, imgMap: MutableMap<String, ImageButton>, color: Int) {
-        for((k, v) in imgMap) {
-            v.backgroundTintList = AppCompatResources.getColorStateList(context, R.color.backgroundColorPoI)
-        }
+    fun changeBgColorAndColor(context: Context, img: ImageButton, bgColor: Int, color: Int) {
+        img.backgroundTintList = getColorStateList(context, bgColor)
+        DrawableCompat.setTint(
+            DrawableCompat.wrap(img.drawable),
+            ContextCompat.getColor(context, color)
+        )
     }
 }

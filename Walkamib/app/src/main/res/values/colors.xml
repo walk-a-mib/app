@@ -94,6 +94,7 @@
     <color name="colorPrimary">#204F7E</color>
     <color name="colorPrimaryDark">#153969</color>
     <color name="textOnNeutral">#061A40</color>
+    <color name="colorOrLineSignIn">#153969</color>
     <color name="colorGreetingText">#13316B</color>
     <color name="colorSettingsIcon">#13316B</color>
     <color name="bottomSheetNotch">#85A7D6</color>
@@ -120,13 +121,11 @@
     <color name="colorTextHintSignInUp">#13316B</color>
     <color name="colorTextInputSignInUp">#1A4177</color>
     <color name="colorLineAndEyeTextInputSignInUp">#153969</color>
-
-
-<!--    ALTERNATIVA BTN SIGN IN/UP-->
-<!--    <color name="colorTextSignInUpBtn">#423100</color>-->
-<!--    <color name="colorSignInUpBtn">#F5B800</color>-->
-
-
+    <color name="colorSettingsBox">#fefefe</color>
+    <color name="colorSettingsText">#212121</color>
+    <color name="colorSettingsBoxIcon">#153969</color>
+    <color name="colorSettingsSwitchOn">#153969</color>
+    <color name="colorSettingsSwitchOff">#5A6375</color>
 
     <!--    <color name="colorPrimary">#D9D0CA</color> &lt;!&ndash; colore testo, cardview &ndash;&gt;-->
 <!--    <color name="colorPrimaryDark">#9D8C7C</color> &lt;!&ndash; colore dell'area in alto del cellulare &ndash;&gt;-->
