@@ -2,6 +2,7 @@ package com.example.walk_a_mib.ui
 
 
 import android.content.res.Resources
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -16,6 +17,8 @@ import android.widget.*
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doBeforeTextChanged
 import androidx.core.widget.doOnTextChanged
@@ -347,33 +350,56 @@ class MainFragment : Fragment() {
         mapsViewModel.fetchPlacesNearby("20", 3000, 1000)
             .observe(requireActivity(), observePlacesNearby)
 
-        var floor = 0
-        layerNumber.text = "T"
 
         val zoomIn = view.findViewById<ImageButton>(R.id.zoomIn)
+        val zoomOut = view.findViewById<ImageButton>(R.id.zoomOut)
+
+        var floor = 0
+        layerNumber.text = "T"
+        DrawableCompat.setTint(
+            DrawableCompat.wrap(zoomOut.drawable),
+            ContextCompat.getColor(requireContext(), R.color.zoomArrowDeactivated)
+        )
+        DrawableCompat.setTint(
+            DrawableCompat.wrap(zoomIn.drawable),
+            ContextCompat.getColor(requireContext(), R.color.zoomArrowAndText)
+        )
+
         zoomIn.setOnClickListener {
             if(floor < 1) {
                 floor++
                 layerNumber.text = floor.toString()
                 JSBridge.setFloor(webview, floor)
+                DrawableCompat.setTint(
+                    DrawableCompat.wrap(zoomIn.drawable),
+                    ContextCompat.getColor(requireContext(), R.color.zoomArrowDeactivated)
+                )
+                DrawableCompat.setTint(
+                    DrawableCompat.wrap(zoomOut.drawable),
+                    ContextCompat.getColor(requireContext(), R.color.zoomArrowAndText)
+                )
             }
         }
 
-        val zoomOut = view.findViewById<ImageButton>(R.id.zoomOut)
         zoomOut.setOnClickListener {
             if(floor > 0) {
                 floor--
                 if(floor == 0) {
                     layerNumber.text = "T"
+                    DrawableCompat.setTint(
+                        DrawableCompat.wrap(zoomOut.drawable),
+                        ContextCompat.getColor(requireContext(), R.color.zoomArrowDeactivated)
+                    )
+                    DrawableCompat.setTint(
+                        DrawableCompat.wrap(zoomIn.drawable),
+                        ContextCompat.getColor(requireContext(), R.color.zoomArrowAndText)
+                    )
                 } else {
                     layerNumber.text = floor.toString()
                 }
                 JSBridge.setFloor(webview, floor)
             }
         }
-
-
-
     }
 
     private fun createWebView(webView: WebView){

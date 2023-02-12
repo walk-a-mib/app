@@ -50,10 +50,30 @@ class SettingsActivity : AppCompatActivity() {
             darkMode(darkModeSwitch.isChecked)
         }
 
+        val darkMode = findViewById<ConstraintLayout>(R.id.darkMode)
+
+        darkMode.setOnClickListener {
+            darkModeSwitch.isChecked = !darkModeSwitch.isChecked
+        }
+
+        val accessiblePath = findViewById<ConstraintLayout>(R.id.accessiblePath)
+        val accessiblePathSwitch = findViewById<SwitchMaterial>(R.id.accessibleSwitch)
+
+        accessiblePath.setOnClickListener {
+            accessiblePathSwitch.isChecked = !accessiblePathSwitch.isChecked
+        }
+
+        val updateMap = findViewById<ConstraintLayout>(R.id.updateMap)
+
+        updateMap.setOnClickListener {
+            // TODO(Do something)
+        }
+
         val signOutContainer = findViewById<ConstraintLayout>(R.id.signOut)
 
         signOutContainer.setOnClickListener {
             startActivity(Intent(applicationContext, SignInActivity::class.java))
+            finish()
         }
     }
 

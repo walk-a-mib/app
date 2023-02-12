@@ -157,6 +157,7 @@ class LoginFragment : Fragment() {
 
         if (userRepository?.loggedUser != null) {
             Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_mainActivity)
+            activity?.finish()
         }
 
         val email = view.findViewById<EditText>(R.id.email)
