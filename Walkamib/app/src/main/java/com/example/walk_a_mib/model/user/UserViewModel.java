@@ -11,8 +11,6 @@ public class UserViewModel extends ViewModel {
 
     private final IUserRepository userRepository;
     private MutableLiveData<Result> userMutableLiveData;
-//    private MutableLiveData<Result> userFavoriteNewsMutableLiveData;
-//    private MutableLiveData<Result> userPreferencesMutableLiveData;
     private boolean authenticationError;
 
     public UserViewModel(IUserRepository userRepository) {
@@ -35,26 +33,6 @@ public class UserViewModel extends ViewModel {
         return userMutableLiveData;
     }
 
-//    public MutableLiveData<Result> getUserFavoriteNewsMutableLiveData(String idToken) {
-//        if (userFavoriteNewsMutableLiveData == null) {
-//            getUserFavoriteNews(idToken);
-//        }
-//        return userFavoriteNewsMutableLiveData;
-//    }
-
-//    public void saveUserPreferences(String favoriteCountry, Set<String> favoriteTopics, String idToken) {
-//        if (idToken != null) {
-//            userRepository.saveUserPreferences(favoriteCountry, favoriteTopics, idToken);
-//        }
-//    }
-
-//    public MutableLiveData<Result> getUserPreferences(String idToken) {
-//        if (idToken != null) {
-//            userPreferencesMutableLiveData = userRepository.getUserPreferences(idToken);
-//        }
-//        return userPreferencesMutableLiveData;
-//    }
-
     public User getLoggedUser() {
         return userRepository.getLoggedUser();
     }
@@ -68,10 +46,6 @@ public class UserViewModel extends ViewModel {
 
         return userMutableLiveData;
     }
-
-//    private void getUserFavoriteNews(String idToken) {
-//        userFavoriteNewsMutableLiveData = userRepository.getUserFavoriteNews(idToken);
-//    }
 
     public void getUser(String email, String password, boolean isUserRegistered) {
         userRepository.getUser(email, password, isUserRegistered);

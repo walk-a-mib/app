@@ -52,7 +52,6 @@ class LoginFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    //    private var userViewModel: UserViewModel? = null
     private var userRepository: IUserRepository? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +86,7 @@ class LoginFragment : Fragment() {
             startIntentSenderForResult!!
         ) { activityResult: ActivityResult ->
             if (activityResult.resultCode == Activity.RESULT_OK) {
-                Log.d("SIGN-IN", "result.getResultCode() == Activity.RESULT_OK")
+//                Log.d("SIGN-IN", "result.getResultCode() == Activity.RESULT_OK")
                 try {
                     val credential =
                         oneTapClient!!.getSignInCredentialFromIntent(activityResult.data)
