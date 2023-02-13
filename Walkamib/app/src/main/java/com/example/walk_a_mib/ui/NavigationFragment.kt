@@ -96,6 +96,7 @@ class NavigationFragment : Fragment() {
         val webview = view.findViewById<WebView>(R.id.webview)
         createWebView(webview)
 
+        Snackbar.make(rootContainer, arguments?.getString("idStart").toString(), Snackbar.LENGTH_SHORT).show()
 
 //        onBackPressedDispatcher.addCallback(this) {
 //            if (webview.canGoBack()) {

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -81,11 +82,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val name = view.findViewById<TextView>(R.id.name)
-        name.setOnClickListener {
-            Navigation.findNavController(requireView()).navigate(R.id.action_mainFragment_to_navigationFragment)
-        }
-
         val settings = view.findViewById<CardView>(R.id.settings)
         val sheet = view.findViewById<LinearLayout>(R.id.sheet)
         val bottomsheetMaterialCardView = view.findViewById<CardView>(R.id.bottomsheetMaterialCardView)
@@ -106,16 +102,6 @@ class MainFragment : Fragment() {
 
         settings.setOnClickListener {
             Navigation.findNavController(requireView()).navigate(R.id.action_mainFragment_to_settingsActivity)
-        }
-
-        autoCompleteTextView.doOnTextChanged { text, start, before, count ->
-            Snackbar.make(poiContainer, "scrivo $text", Snackbar.LENGTH_SHORT).show()
-            // TODO(Fare richiesta api basata sul testo scritto qui utilizzando text)
-            val temp1 = "${text.toString()} sto completando 1"
-            val temp2 = "${text.toString()} sto completando 2"
-            val array: Array<String> = arrayOf(temp1, temp2)
-            val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, array)
-            autoCompleteTextView.setAdapter(adapter)
         }
 
         BottomSheetBehavior.from(sheet).apply {
@@ -285,18 +271,34 @@ class MainFragment : Fragment() {
             }
         }
 
-        val callbackObserver = Observer<String> { id ->
+        val navObserver = Observer<CallResult> { result ->
+            if (result.isSuccess()) {
+                val res = (result as CallResult.SuccessPath).pathResponse
+                Snackbar.make(rootContainer, res.nodeList.toString(), Snackbar.LENGTH_SHORT).show()
+            } else {
+                Snackbar.make(rootContainer, "errore", Snackbar.LENGTH_SHORT).show()
+            }
+        }
 
-            if(id != "-1") {
+        var nodeId = "30"
+        val callbackObserver = Observer<String> { id ->
+            if(id != "-1" && id != null) {
+
+                val bundle = bundleOf("idStart" to id, "idEnd" to nodeId)
+                Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_navigationFragment, bundle)
+
                 Snackbar.make(rootContainer, id, Snackbar.LENGTH_LONG).show()
                 // inizia navigazione usando: id, idDestinazione (dove id = posizione dell'utente)
-//                mapsViewModel.fetchPath(id, "44", 1000).observe(requireActivity(), navObserver)
+                mapsViewModel.fetchPath(id, nodeId, 1000).observe(requireActivity(), navObserver)
             } else {
                 Snackbar.make(rootContainer, R.string.missing_user_position, Snackbar.LENGTH_LONG).show()
             }
         }
 
         submitText.setOnClickListener {
+            if(autoCompleteTextView.text != null) {
+                nodeId = autoCompleteTextView.text.toString()
+            }
             JSBridge.getUserPosition(webview)
             JSBridge.callbackValue.observe(requireActivity(), callbackObserver)
         }
@@ -321,6 +323,16 @@ class MainFragment : Fragment() {
 //                mapsViewModel.fetchAllPlaces(1000).observe(requireActivity(), allPlacesObserver)
 //            }
 //        }
+
+        autoCompleteTextView.doOnTextChanged { text, start, before, count ->
+//            Snackbar.make(poiContainer, "scrivo $text", Snackbar.LENGTH_SHORT).show()
+            // TODO(Fare richiesta api basata sul testo scritto qui utilizzando text)
+//            val temp1 = "${text.toString()}1"
+//            val temp2 = "${text.toString()}2"
+            val array: Array<String> = arrayOf("12", "3", "5", "7")
+            val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, array)
+            autoCompleteTextView.setAdapter(adapter)
+        }
 
     }
 
@@ -396,16 +408,16 @@ class MainFragment : Fragment() {
                             svgId.add(R.drawable.ic_arrow_slightly_right_24)
                         }
                         "2" -> {
-                            svgId.add(R.drawable.ic_arrow_backwards_24)
+                            svgId.add(R.drawable.ic_round_turn_right_24)
                         }
                         "3" -> {
                             svgId.add(R.drawable.ic_round_turn_right_24)
                         }
                         "4" -> {
-                            svgId.add(R.drawable.ic_arrow_backwards_24)
+                            svgId.add(R.drawable.ic_round_backwards_24)
                         }
                         "5" -> {
-                            svgId.add(R.drawable.ic_round_turn_left_24)
+                            svgId.add(R.drawable.ic_round_backwards_24)
                         }
                         "6" -> {
                             svgId.add(R.drawable.ic_round_turn_left_24)
