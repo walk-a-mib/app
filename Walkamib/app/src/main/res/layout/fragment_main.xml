@@ -365,11 +365,27 @@
                 android:paddingEnd="20dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+
                 <LinearLayout
                     android:id="@+id/container"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/routes"
+                        android:textSize="34sp"
+                        android:textColor="@color/textOnNeutral"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="20dp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                     <TextView
                         android:id="@+id/infoTitle"

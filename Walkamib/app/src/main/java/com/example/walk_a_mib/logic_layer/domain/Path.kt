@@ -94,7 +94,7 @@ class Path(val pathLength: Int,
             indications = "$turn e $eVerb $ePrep$e fino $n2Prep$n2"
         else
 
-            indications = "$turn e $eVerb $ePrep$e per $dDistance m"
+            indications = "$turn e $eVerb $ePrep$e"
 
         return indications
     }

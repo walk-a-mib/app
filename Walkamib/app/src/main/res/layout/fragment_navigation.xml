@@ -230,8 +230,7 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/sheet"
@@ -312,14 +311,6 @@
                         android:textSize="20sp"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="40dp" />
-
-                    <!--                    <TextView-->
-                    <!--                        android:id="@+id/info"-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:text="@string/dummy_text"-->
-                    <!--                        android:textColor="@color/textOnNeutral"-->
-                    <!--                        android:textSize="24sp" />-->
 
                     <LinearLayout
                         android:id="@+id/otherInfoContainer"
