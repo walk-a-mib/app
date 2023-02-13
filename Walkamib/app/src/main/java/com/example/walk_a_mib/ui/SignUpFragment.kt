@@ -46,10 +46,6 @@ class SignUpFragment : Fragment() {
 
         userRepository = ServiceLocator.getInstance()!!.getUserRepository(requireActivity().application)
 
-//        userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
-//        userViewModel = ViewModelProvider(requireActivity(), UserViewModelFactory(userRepository))[UserViewModel::class.java]
-//        userViewModel!!.isAuthenticationError = false;
-
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -114,25 +110,6 @@ class SignUpFragment : Fragment() {
                                 Log.d("SIGNUP", "USER ${user.toString()}")
                             }
                         }
-
-                    //                    userViewModel!!.getUserMutableLiveData(emailValue.toString(), passwordValue.toString(), false)
-//                        .observe(
-//                        viewLifecycleOwner
-//                    ) { result: com.example.walk_a_mib.model.Result ->
-//                            Log.d("SIGNUP", "${result.isSuccess}")
-//                        if (result.isSuccess) {
-//                            val user: User =
-//                                (result as com.example.walk_a_mib.model.Result.UserResponseSuccess).data
-//
-//                            Log.d("SIGNUP", "USER ${user.toString()}")
-//
-////                            saveLoginData(email, password, user.idToken)
-//                            userViewModel!!.isAuthenticationError = false
-//                        } else {
-////                            userViewModel!!.isAuthenticationError = true
-//                            showSnackbarError("Authentication error!")
-//                        }
-//                    }
 
                     Navigation.findNavController(requireView()).navigate(R.id.action_signUpFragment_to_signInFragment)
                 } else {

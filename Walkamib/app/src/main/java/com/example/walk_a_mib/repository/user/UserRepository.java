@@ -11,31 +11,25 @@ import com.example.walk_a_mib.source.user.BaseUserDataRemoteDataSource;
  * Repository class to get the user information.
  */
 public class UserRepository implements IUserRepository, UserResponseCallback
-//        ,NewsCallback
 {
 
     private static final String TAG = UserRepository.class.getSimpleName();
 
     private final BaseUserAuthenticationRemoteDataSource userRemoteDataSource;
     private final BaseUserDataRemoteDataSource userDataRemoteDataSource;
-//    private final BaseNewsLocalDataSource newsLocalDataSource;
+
     private final MutableLiveData<Result> userMutableLiveData;
-//    private final MutableLiveData<Result> userFavoriteNewsMutableLiveData;
-//    private final MutableLiveData<Result> userPreferencesMutableLiveData;
 
     public UserRepository(BaseUserAuthenticationRemoteDataSource userRemoteDataSource,
                           BaseUserDataRemoteDataSource userDataRemoteDataSource
-//                          ,BaseNewsLocalDataSource newsLocalDataSource
     ) {
         this.userRemoteDataSource = userRemoteDataSource;
         this.userDataRemoteDataSource = userDataRemoteDataSource;
-//        this.newsLocalDataSource = newsLocalDataSource;
+
         this.userMutableLiveData = new MutableLiveData<>();
-//        this.userPreferencesMutableLiveData = new MutableLiveData<>();
-//        this.userFavoriteNewsMutableLiveData = new MutableLiveData<>();
+
         this.userRemoteDataSource.setUserResponseCallback(this);
         this.userDataRemoteDataSource.setUserResponseCallback(this);
-//        this.newsLocalDataSource.setNewsCallback(this);
     }
 
     @Override
@@ -53,18 +47,6 @@ public class UserRepository implements IUserRepository, UserResponseCallback
         signInWithGoogle(idToken);
         return userMutableLiveData;
     }
-
-//    @Override
-//    public MutableLiveData<Result> getUserFavoriteNews(String idToken) {
-//        userDataRemoteDataSource.getUserFavoriteNews(idToken);
-//        return userFavoriteNewsMutableLiveData;
-//    }
-//
-//    @Override
-//    public MutableLiveData<Result> getUserPreferences(String idToken) {
-//        userDataRemoteDataSource.getUserPreferences(idToken);
-//        return userPreferencesMutableLiveData;
-//    }
 
     @Override
     public User getLoggedUser() {
@@ -92,15 +74,9 @@ public class UserRepository implements IUserRepository, UserResponseCallback
         userRemoteDataSource.signInWithGoogle(token);
     }
 
-//    @Override
-//    public void saveUserPreferences(String favoriteCountry, Set<String> favoriteTopics, String idToken) {
-//        userDataRemoteDataSource.saveUserPreferences(favoriteCountry, favoriteTopics, idToken);
-//    }
-
     @Override
     public void onSuccessFromAuthentication(User user) {
         if (user != null) {
-//            userDataRemoteDataSource.saveUserData(user);
             Result.UserResponseSuccess result = new Result.UserResponseSuccess(user);
             userMutableLiveData.postValue(result);
         }
@@ -118,16 +94,6 @@ public class UserRepository implements IUserRepository, UserResponseCallback
         userMutableLiveData.postValue(result);
     }
 
-//    @Override
-//    public void onSuccessFromRemoteDatabase(List<News> newsList) {
-//        newsLocalDataSource.insertNews(newsList);
-//    }
-//
-//    @Override
-//    public void onSuccessFromGettingUserPreferences() {
-//        userPreferencesMutableLiveData.postValue(new Result.UserResponseSuccess(null));
-//    }
-
     @Override
     public void onFailureFromRemoteDatabase(String message) {
         Result.Error result = new Result.Error(message);
@@ -136,69 +102,6 @@ public class UserRepository implements IUserRepository, UserResponseCallback
 
     @Override
     public void onSuccessLogout() {
-//        newsLocalDataSource.deleteAll();
     }
-
-//    @Override
-//    public void onSuccessFromLocal(NewsApiResponse newsApiResponse) {
-//        Result.NewsResponseSuccess result = new Result.NewsResponseSuccess(newsApiResponse);
-//        userFavoriteNewsMutableLiveData.postValue(result);
-//    }
-
-//    @Override
-//    public void onSuccessDeletion() {
-//        Result.UserResponseSuccess result = new Result.UserResponseSuccess(null);
-//        userMutableLiveData.postValue(result);
-//    }
-
-//    @Override
-//    public void onSuccessSynchronization() {
-//        userFavoriteNewsMutableLiveData.postValue(new Result.NewsResponseSuccess(null));
-//    }
-//
-//    @Override
-//    public void onSuccessFromRemote(NewsApiResponse newsApiResponse, long lastUpdate) {
-//
-//    }
-
-//    @Override
-//    public void onFailureFromRemote(Exception exception) {
-//
-//    }
-//
-//    @Override
-//    public void onFailureFromLocal(Exception exception) {
-//
-//    }
-
-//    @Override
-//    public void onNewsFavoriteStatusChanged(News news, List<News> favoriteNews) {
-//
-//    }
-//
-//    @Override
-//    public void onNewsFavoriteStatusChanged(List<News> news) {
-//
-//    }
-//
-//    @Override
-//    public void onDeleteFavoriteNewsSuccess(List<News> favoriteNews) {
-//
-//    }
-//
-//    @Override
-//    public void onSuccessFromCloudReading(List<News> newsList) {
-//
-//    }
-//
-//    @Override
-//    public void onSuccessFromCloudWriting(News news) {
-//
-//    }
-//
-//    @Override
-//    public void onFailureFromCloud(Exception exception) {
-//
-//    }
 }
 

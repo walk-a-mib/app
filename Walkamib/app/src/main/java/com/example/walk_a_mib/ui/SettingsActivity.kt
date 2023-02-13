@@ -8,12 +8,17 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.walk_a_mib.MainActivity
+import androidx.navigation.Navigation
 import com.example.walk_a_mib.R
 import com.google.android.material.snackbar.Snackbar
+import com.example.walk_a_mib.repository.user.IUserRepository
+import com.example.walk_a_mib.util.ServiceLocator
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 
 class SettingsActivity : AppCompatActivity() {
+
+    private var userRepository: IUserRepository? = null
 
     private fun darkMode(boolean: Boolean) {
         when (boolean) {
@@ -28,6 +33,9 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        userRepository = ServiceLocator.getInstance()!!
+            .getUserRepository(this.application)
 
         val sharedPreferences = getSharedPreferences("save", MODE_PRIVATE)
         val darkModeSwitch = findViewById<SwitchMaterial>(R.id.darkModeSwitch)
@@ -72,6 +80,7 @@ class SettingsActivity : AppCompatActivity() {
         val signOutContainer = findViewById<ConstraintLayout>(R.id.signOut)
 
         signOutContainer.setOnClickListener {
+            userRepository!!.logout()
             startActivity(Intent(applicationContext, SignInActivity::class.java))
             finish()
         }
