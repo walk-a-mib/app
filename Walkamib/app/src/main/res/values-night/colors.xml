@@ -30,7 +30,7 @@
     <color name="zoomArrowDeactivated">#4D5664</color>
     <color name="routeBackgroundColor">#85a7d6</color>
     <color name="routeColor">#061a40</color>
-    <color name="colorTitleSignInUp">#A3BDE1</color>
+    <color name="colorTitleSignInUpAndForgotPassword">#A3BDE1</color>
     <color name="colorForgotPassword">#8CA9D0</color>
     <color name="colorSignUpLink">#8CA9D0</color>
     <color name="colorSignInUpBtn">#153969</color>

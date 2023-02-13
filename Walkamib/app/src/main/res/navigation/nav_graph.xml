@@ -20,6 +20,13 @@
         <action
             android:id="@+id/action_signInFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
 
     </fragment>
@@ -41,4 +48,9 @@
         android:name="com.example.walk_a_mib.MainActivity"
         android:label="MainActivity"
         tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.example.walk_a_mib.ui.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
 </navigation>

@@ -114,7 +114,7 @@
     <color name="colorSwitchTrackOff">#dfece7</color>
     <color name="colorSwitchThumbOn">#c0d8ce</color>
     <color name="colorSwitchThumbOff">#061A40</color>
-    <color name="colorTitleSignInUp">#183367</color>
+    <color name="colorTitleSignInUpAndForgotPassword">#183367</color>
     <color name="colorForgotPassword">#2C3C53</color>
     <color name="colorTextSignInUpBtn">#dfece7</color>
     <color name="colorSignUpLink">#2C3C53</color>

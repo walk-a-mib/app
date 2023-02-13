@@ -139,7 +139,7 @@ class LoginFragment : Fragment() {
         val forgotPassword = view.findViewById<TextView>(R.id.forgotPassword)
 
         forgotPassword.setOnClickListener {
-            
+            Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_forgotPasswordFragment)
         }
 
         // Function to validate email

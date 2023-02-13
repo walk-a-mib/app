@@ -31,5 +31,6 @@
     <string name="sign_out_from_the_account">Sign out</string>
     <string name="error_no_google_account_found_message">No Google accounts have been found</string>
     <string name="missing_user_position">Double-click on a point of interest to set your current position before starting the navigation</string>
+    <string name="resetPassword">Change password</string>
 
 </resources>
