@@ -17,8 +17,12 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.Navigation
 import com.example.walk_a_mib.R
+import com.example.walk_a_mib.model.Result
 import com.example.walk_a_mib.model.user.User
 import com.example.walk_a_mib.repository.user.IUserRepository
+import com.example.walk_a_mib.ui.Utility.isValidEmail
+import com.example.walk_a_mib.ui.Utility.isValidPasswordFormat
+import com.example.walk_a_mib.ui.Utility.showSnackbarError
 import com.example.walk_a_mib.util.ServiceLocator.getInstance
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.BeginSignInResult
@@ -62,6 +66,7 @@ class LoginFragment : Fragment() {
             .getUserRepository(requireActivity().application)
 
         oneTapClient = Identity.getSignInClient(requireActivity());
+
         signInRequest = BeginSignInRequest.builder()
             .setPasswordRequestOptions(
                 BeginSignInRequest.PasswordRequestOptions.builder()
@@ -87,7 +92,6 @@ class LoginFragment : Fragment() {
             startIntentSenderForResult!!
         ) { activityResult: ActivityResult ->
             if (activityResult.resultCode == Activity.RESULT_OK) {
-//                Log.d("SIGN-IN", "result.getResultCode() == Activity.RESULT_OK")
                 try {
                     val credential =
                         oneTapClient!!.getSignInCredentialFromIntent(activityResult.data)
@@ -95,17 +99,19 @@ class LoginFragment : Fragment() {
                     if (idToken != null) {
 
                         userRepository!!.getGoogleUser(idToken)
-                            .observe(viewLifecycleOwner) { authenticationResult ->
-                                if (authenticationResult.isSuccess) {
-                                    val user: User =
-                                        (authenticationResult as com.example.walk_a_mib.model.Result.UserResponseSuccess).data
-                                } else {
-                                    showSnackbarError("Authentication error!")
+                            ?.observe(viewLifecycleOwner) { authenticationResult ->
+                                if (authenticationResult != null) {
+                                    if (authenticationResult.isSuccess) {
+                                        val user: User =
+                                            (authenticationResult as com.example.walk_a_mib.model.Result.UserResponseSuccess).data
+                                    } else {
+                                        showSnackbarError(requireActivity(),requireActivity().getString(R.string.error_general_auth))
+                                    }
                                 }
                             }
                     }
                 } catch (e: ApiException) {
-                    showSnackbarError("Authentication error!")
+                    showSnackbarError(requireActivity(),requireActivity().getString(R.string.error_general_auth))
                 }
             }
         }
@@ -114,14 +120,6 @@ class LoginFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-    }
-
-    fun showSnackbarError(message: String) {
-        return Snackbar.make(
-            requireActivity().findViewById(android.R.id.content),
-            message,
-            Snackbar.LENGTH_SHORT
-        ).show()
     }
 
     override fun onCreateView(
@@ -142,25 +140,6 @@ class LoginFragment : Fragment() {
             Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_forgotPasswordFragment)
         }
 
-        // Function to validate email
-        fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
-
-        // Function to validate password
-        fun isValidPasswordFormat(password: CharSequence): Boolean {
-            val passwordREGEX = Pattern.compile("^" +
-//                    "(?=.*[0-9])" +         //at least 1 digit
-//                    "(?=.*[a-z])" +         //at least 1 lower case letter
-//                    "(?=.*[A-Z])" +         //at least 1 upper case letter
-//                    "(?=.*[a-zA-Z])" +      //any letter
-//                    "(?=.*[@#$%^&+=])" +    //at least 1 special character
-                    "(?=\\S+$)" +           //no white spaces
-                    ".{8,}" +               //at least 8 characters
-                    "$");
-            return passwordREGEX.matcher(password).matches()
-        }
-
-//        userRepository?.logout()
-
         if (userRepository?.loggedUser != null) {
             Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_mainActivity)
             activity?.finish()
@@ -179,22 +158,23 @@ class LoginFragment : Fragment() {
 
             if(emailValue.isValidEmail() and isValidPasswordFormat(passwordValue)) {
                 userRepository!!.getUser(emailValue.toString(), passwordValue.toString(), true)
-                    .observe(
+                    ?.observe(
                         viewLifecycleOwner
-                    ) { result: com.example.walk_a_mib.model.Result ->
-                        Log.d("SIGN-IN", "${result.isSuccess}")
-                        if (result.isSuccess) {
-                            val user: User =
-                                (result as com.example.walk_a_mib.model.Result.UserResponseSuccess).data
+                    ) { result: Result? ->
+                        if (result != null) {
+                            if (result.isSuccess) {
+                                val user: User =
+                                    (result as com.example.walk_a_mib.model.Result.UserResponseSuccess).data
 
-                            Log.d("SIGN-IN", "USER ${user.toString()}")
-                            Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_mainActivity)
-                        } else {
-                            showSnackbarError("Authentication error!")
+                                Log.d("SIGN-IN", "USER ${user.toString()}")
+                                Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_mainActivity)
+                            } else {
+                                showSnackbarError(requireActivity(),requireActivity().getString(R.string.error_general_auth))
+                            }
                         }
                     }
             } else {
-                showSnackbarError("Email or Password are not valid!")
+                showSnackbarError(requireActivity(), requireActivity().getString(R.string.error_email_or_password_not_valid))
             }
 //            activity?.finish()
         }
@@ -218,12 +198,8 @@ class LoginFragment : Fragment() {
                     .addOnFailureListener(requireActivity(),
                         OnFailureListener { e -> // No saved credentials found. Launch the One Tap sign-up flow, or
                             // do nothing and continue presenting the signed-out UI.
-                            Log.d(TAG, e.localizedMessage)
-                            Snackbar.make(
-                                requireActivity().findViewById(android.R.id.content),
-                                requireActivity().getString(R.string.error_no_google_account_found_message),
-                                Snackbar.LENGTH_SHORT
-                            ).show()
+                            showSnackbarError(requireActivity(),
+                                requireActivity().getString(R.string.error_no_google_account_found_message))
                         })
             }
         }

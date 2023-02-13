@@ -25,9 +25,7 @@ import com.example.walk_a_mib.source.placesNearby.BasePlacesNearbyRemoteDataSour
 import com.example.walk_a_mib.source.placesNearby.PlacesNearbyLocalDataSource
 import com.example.walk_a_mib.source.placesNearby.PlacesNearbyRemoteDataSource
 import com.example.walk_a_mib.source.user.BaseUserAuthenticationRemoteDataSource
-import com.example.walk_a_mib.source.user.BaseUserDataRemoteDataSource
 import com.example.walk_a_mib.source.user.UserAuthenticationRemoteDataSource
-import com.example.walk_a_mib.source.user.UserDataRemoteDataSource
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -104,19 +102,7 @@ object ServiceLocator {
 //        val sharedPreferencesUtil = SharedPreferencesUtil(application)
         val userRemoteAuthenticationDataSource: BaseUserAuthenticationRemoteDataSource =
             UserAuthenticationRemoteDataSource()
-        val userDataRemoteDataSource: BaseUserDataRemoteDataSource =
-            UserDataRemoteDataSource(
-//                sharedPreferencesUtil
-            )
-//        val dataEncryptionUtil = DataEncryptionUtil(application)
-//        val newsLocalDataSource: BaseNewsLocalDataSource = NewsLocalDataSource(
-//            getNewsDao(application), sharedPreferencesUtil,
-//            dataEncryptionUtil
-//        )
-        return UserRepository(
-            userRemoteAuthenticationDataSource,
-            userDataRemoteDataSource,
-//            newsLocalDataSource
-        )
+
+        return UserRepository(userRemoteAuthenticationDataSource)
     }
 }

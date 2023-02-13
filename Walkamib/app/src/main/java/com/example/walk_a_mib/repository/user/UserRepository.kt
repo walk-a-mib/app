@@ -1,124 +1,104 @@
-package com.example.walk_a_mib.repository.user;
+package com.example.walk_a_mib.repository.user
 
-import androidx.lifecycle.MutableLiveData;
-
-import com.example.walk_a_mib.model.Result;
-import com.example.walk_a_mib.model.user.User;
-import com.example.walk_a_mib.source.user.BaseUserAuthenticationRemoteDataSource;
-import com.example.walk_a_mib.source.user.BaseUserDataRemoteDataSource;
+import com.example.walk_a_mib.source.user.BaseUserAuthenticationRemoteDataSource
+import androidx.lifecycle.MutableLiveData
+import com.example.walk_a_mib.model.Result
+import com.example.walk_a_mib.model.Result.UserResponseSuccess
+import com.example.walk_a_mib.model.user.User
 
 /**
  * Repository class to get the user information.
  */
-public class UserRepository implements IUserRepository, UserResponseCallback
-{
+class UserRepository(
+    private val userRemoteDataSource: BaseUserAuthenticationRemoteDataSource,
+) : IUserRepository, UserResponseCallback {
+    private val userMutableLiveData: MutableLiveData<Result?>
 
-    private static final String TAG = UserRepository.class.getSimpleName();
-
-    private final BaseUserAuthenticationRemoteDataSource userRemoteDataSource;
-    private final BaseUserDataRemoteDataSource userDataRemoteDataSource;
-
-    private final MutableLiveData<Result> userMutableLiveData;
-
-    public UserRepository(BaseUserAuthenticationRemoteDataSource userRemoteDataSource,
-                          BaseUserDataRemoteDataSource userDataRemoteDataSource
-    ) {
-        this.userRemoteDataSource = userRemoteDataSource;
-        this.userDataRemoteDataSource = userDataRemoteDataSource;
-
-        this.userMutableLiveData = new MutableLiveData<>();
-
-        this.userRemoteDataSource.setUserResponseCallback(this);
-        this.userDataRemoteDataSource.setUserResponseCallback(this);
+    init {
+        userMutableLiveData = MutableLiveData()
+        userRemoteDataSource.setUserResponseCallback(this)
     }
 
-    @Override
-    public MutableLiveData<Result> getUser(String email, String password, boolean isUserRegistered) {
+    override fun getUser(
+        email: String?,
+        password: String?,
+        isUserRegistered: Boolean
+    ): MutableLiveData<Result?>? {
         if (isUserRegistered) {
-            signIn(email, password);
+            signIn(email, password)
         } else {
-            signUp(email, password);
+            signUp(email, password)
         }
-        return userMutableLiveData;
+        return userMutableLiveData
     }
 
-    @Override
-    public MutableLiveData<Result> getGoogleUser(String idToken) {
-        signInWithGoogle(idToken);
-        return userMutableLiveData;
+    override fun getGoogleUser(idToken: String?): MutableLiveData<Result?>? {
+        signInWithGoogle(idToken)
+        return userMutableLiveData
     }
 
-    @Override
-    public User getLoggedUser() {
-        return userRemoteDataSource.getLoggedUser();
+    override val loggedUser: User?
+        get() = userRemoteDataSource.getLoggedUser()
+
+    override fun logout(): MutableLiveData<Result?>? {
+        userRemoteDataSource.logout()
+        return userMutableLiveData
     }
 
-    @Override
-    public MutableLiveData<Result> logout() {
-        userRemoteDataSource.logout();
-        return userMutableLiveData;
+    override fun signUp(email: String?, password: String?) {
+        userRemoteDataSource.signUp(email, password)
     }
 
-    @Override
-    public void signUp(String email, String password) {
-        userRemoteDataSource.signUp(email, password);
+    override fun signIn(email: String?, password: String?) {
+        userRemoteDataSource.signIn(email, password)
     }
 
-    @Override
-    public void signIn(String email, String password) {
-        userRemoteDataSource.signIn(email, password);
+    override fun signInWithGoogle(token: String?) {
+        userRemoteDataSource.signInWithGoogle(token)
     }
 
-    @Override
-    public void signInWithGoogle(String token) {
-        userRemoteDataSource.signInWithGoogle(token);
+    override fun sendPasswordResetEmail(email: String?) {
+        userRemoteDataSource.sendPasswordResetEmail(email)
     }
 
-    @Override
-    public void sendPasswordResetEmail(String email) {
-        userRemoteDataSource.sendPasswordResetEmail(email);
-    }
-
-    @Override
-    public void onSuccessFromAuthentication(User user) {
+    override fun onSuccessFromAuthentication(user: User?) {
         if (user != null) {
-            Result.UserResponseSuccess result = new Result.UserResponseSuccess(user);
-            userMutableLiveData.postValue(result);
+            val result = UserResponseSuccess(user)
+            userMutableLiveData.postValue(result)
         }
     }
 
-    @Override
-    public void onFailureFromAuthentication(String message) {
-        Result.Error result = new Result.Error(message);
-        userMutableLiveData.postValue(result);
+    override fun onFailureFromAuthentication(message: String?) {
+        if (message != null){
+            val result = Result.Error(message)
+            userMutableLiveData.postValue(result)
+        }
     }
 
-    @Override
-    public void onSuccessFromRemoteDatabase(User user) {
-        Result.UserResponseSuccess result = new Result.UserResponseSuccess(user);
-        userMutableLiveData.postValue(result);
+    override fun onSuccessFromRemoteDatabase(user: User?) {
+        if (user != null) {
+            val result = UserResponseSuccess(user)
+            userMutableLiveData.postValue(result)
+        }
     }
 
-    @Override
-    public void onFailureFromRemoteDatabase(String message) {
-        Result.Error result = new Result.Error(message);
-        userMutableLiveData.postValue(result);
+    override fun onFailureFromRemoteDatabase(message: String?) {
+        if (message != null) {
+            val result = Result.Error(message)
+            userMutableLiveData.postValue(result)
+        }
     }
 
-    @Override
-    public void onSuccessLogout() {
+    override fun onSuccessLogout() {}
+    override fun onSuccessFromPasswordReset() {}
+    override fun onFailureFromPasswordReset(message: String?) {
+        if (message != null) {
+            val result = Result.Error(message)
+            userMutableLiveData.postValue(result)
+        }
     }
 
-    @Override
-    public void onSuccessFromPasswordReset() {
-
+    companion object {
+        private val TAG = UserRepository::class.java.simpleName
     }
-
-    @Override
-    public void onFailureFromPasswordReset(String message) {
-        Result.Error result = new Result.Error(message);
-        userMutableLiveData.postValue(result);
-    }
-
 }
-
