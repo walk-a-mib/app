@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,7 @@ import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
 import com.example.walk_a_mib.toPx
 import com.example.walk_a_mib.util.ServiceLocator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -262,6 +264,28 @@ class NavigationFragment : Fragment() {
         exitNavigationMode.setOnClickListener {
             Navigation.findNavController(requireView()).navigate(R.id.action_navigationFragment_to_mainFragment)
         }
+
+
+//        // onPageFinished
+//        webview.webViewClient = object : WebViewClient() {
+//            override fun onPageFinished(webView: WebView, url: String) {
+//                Snackbar.make(rootContainer, "onpagefinished", Snackbar.LENGTH_SHORT).show()
+//
+//                val allPlacesObserver = Observer<CallResult> { result ->
+//                    if (result.isSuccess()) {
+//                        val res = (result as CallResult.SuccessAllPlaces).allPlaces.places
+//                        JSBridge.showIcons(webView, res)
+//                        JSBridge.showIcons(webView, res)
+//                        Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! ${res.toString()}")
+//
+//                    } else {
+//                        Log.d("MAIN", "FUCK NO ALL PLACES")
+//                    }
+//                }
+//
+//                mapsViewModel.fetchAllPlaces(1000).observe(requireActivity(), allPlacesObserver)
+//            }
+//        }
     }
 
 

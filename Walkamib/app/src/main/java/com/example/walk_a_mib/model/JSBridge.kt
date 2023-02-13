@@ -3,6 +3,7 @@ package com.example.walk_a_mib.model
 import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
+import androidx.lifecycle.MutableLiveData
 import com.example.walk_a_mib.logic_layer.domain.Node
 
 //  CARISSIMI COLLEGHI CE L'ABBIAMO FATTA
@@ -13,7 +14,10 @@ import com.example.walk_a_mib.logic_layer.domain.Node
 
 object JSBridge{
 
-        //callback per evento su mappa
+    var callbackValue: MutableLiveData<String> = MutableLiveData<String>().apply {postValue(null)}
+
+
+    //callback per evento su mappa
         @JavascriptInterface
         fun showPointInfo(id:String){
             // restituisce l'id del punto di interesse toccato sulla mappa
@@ -35,8 +39,8 @@ object JSBridge{
 
     //callback per quando è stata ricevuta la posizione che l'utente ha settato sulla mappa
         @JavascriptInterface
-            fun setUserPosition(id: Int){
-            // ????
+        fun setUserPosition(id: String){
+            callbackValue.postValue(id)
         }
 
 

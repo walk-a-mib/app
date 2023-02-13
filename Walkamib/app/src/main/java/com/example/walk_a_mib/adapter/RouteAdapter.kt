@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.walk_a_mib.R
 import com.example.walk_a_mib.Route
 
-class RouteAdapter(private val routeList : ArrayList<Route>) :
+class RouteAdapter(private val routeList : MutableList<Route>) :
     RecyclerView.Adapter<RouteAdapter.MyViewHolder>() {
 
-    inner class MyViewHolder(itemView : View, routeList: ArrayList<Route>) : RecyclerView.ViewHolder(itemView) {
+    inner class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val titleSvg : ImageView
         val textViewDescription : TextView
         val textViewDistance : TextView
@@ -42,7 +42,7 @@ class RouteAdapter(private val routeList : ArrayList<Route>) :
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.list_item, parent, false)
 
-        return MyViewHolder(itemView, routeList)
+        return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {

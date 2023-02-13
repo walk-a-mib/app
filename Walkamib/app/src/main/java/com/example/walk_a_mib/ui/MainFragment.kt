@@ -1,34 +1,30 @@
 package com.example.walk_a_mib.ui
 
 
-import android.content.res.Resources
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.*
-import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doBeforeTextChanged
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.webkit.WebViewAssetLoader
 import com.example.walk_a_mib.LocalContentWebViewClient
 import com.example.walk_a_mib.R
+import com.example.walk_a_mib.Route
+import com.example.walk_a_mib.adapter.RouteAdapter
 import com.example.walk_a_mib.logic_layer.domain.NodeType
 import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.model.JSBridge
@@ -39,6 +35,7 @@ import com.example.walk_a_mib.toPx
 import com.example.walk_a_mib.util.ServiceLocator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +56,10 @@ class MainFragment : Fragment() {
     private var param2: String? = null
 
     val BOTTOMSHEET_HEIGHT = 65.toPx()
+    private lateinit var routeList : MutableList<Route>
+    private lateinit var svgId : MutableList<Int>
+    private lateinit var description : MutableList<String>
+    private lateinit var distance : MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,6 +97,7 @@ class MainFragment : Fragment() {
         val autoCompleteTextView = view.findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView)
         val sharedPreferences = this.activity?.getSharedPreferences("save", AppCompatActivity.MODE_PRIVATE)
         val webview = view.findViewById<WebView>(R.id.webview)
+        val submitText = view.findViewById<ImageButton>(R.id.submit_text)
 
 //        darkMode(sharedPreferences.getBoolean("darkModeSwitch", false))
 //        val layers = view.findViewById<ConstraintLayout>(R.id.layers)
@@ -118,12 +120,12 @@ class MainFragment : Fragment() {
 
         BottomSheetBehavior.from(sheet).apply {
             this.isHideable = true
-            this.state = BottomSheetBehavior.STATE_HIDDEN
-            bottomsheetMaterialCardView.layoutParams.height = BOTTOMSHEET_HEIGHT
-//            this.state = BottomSheetBehavior.STATE_COLLAPSED
-//            this.peekHeight = BOTTOMSHEET_HEIGHT
-//            param.bottomMargin = BOTTOMSHEET_HEIGHT
-//            webview.layoutParams = param
+//            this.state = BottomSheetBehavior.STATE_HIDDEN
+//            bottomsheetMaterialCardView.layoutParams.height = BOTTOMSHEET_HEIGHT
+            this.state = BottomSheetBehavior.STATE_COLLAPSED
+            this.peekHeight = BOTTOMSHEET_HEIGHT
+            param.bottomMargin = BOTTOMSHEET_HEIGHT
+            webview.layoutParams = param
         }
 
 
@@ -170,8 +172,10 @@ class MainFragment : Fragment() {
         val poiDescription = view.findViewById<TextView>(R.id.poiDescription)
         val otherInfoContainer = view.findViewById<LinearLayout>(R.id.otherInfoContainer)
 
-        //set info
 
+
+
+        // set PoI info
         val observePlace = Observer<CallResult> { result ->
             if (result.isSuccess()) {
                 val res = (result as CallResult.SuccessPlace).placeResponse.place
@@ -207,6 +211,8 @@ class MainFragment : Fragment() {
         // andre
         mapsViewModel.fetchPlace("3", 1000).observe(requireActivity(), observePlace)
 
+
+        // filter creation
         val horizontalScrollView = view.findViewById<HorizontalScrollView>(R.id.horizontalScrollView)
 
         val observePlacesNearby = Observer<CallResult> { result ->
@@ -221,132 +227,6 @@ class MainFragment : Fragment() {
 
                 val filterHandler = FilterHandler(requireContext(), places, poiContainer, webview)
                 filterHandler.handlePlace()
-
-//                var i = 0
-//
-//                do {
-//                    var stop = false
-//                    var pos = 0 // used to cycle over isFirstElementArrayList
-//
-//                    while(!stop && pos < isFirstElementArrayList.size) {
-//                        if(isFirstElementArrayList[pos]) {
-//                            stop = true
-//                        }
-//                        pos++
-//                    }
-//
-//                    when(places[i].place.label) {
-//                        "door_normal" -> {
-//                            if(isFirstElementArrayList[0]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_door_open_solid
-//                                )
-//                                imgMap["door_normal"] = img
-//                                isFirstElementArrayList[0] = false
-//                            }
-//                        }
-//                        "door_exit" -> {
-//                            if(isFirstElementArrayList[1]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_person_walking_arrow_right_solid
-//                                )
-//                                imgMap["door_exit"] = img
-//                                isFirstElementArrayList[1] = false
-//                            }
-//                        }
-//                        "stairs" -> {
-//                            if(isFirstElementArrayList[2]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_stairs
-//                                )
-//                                imgMap["stairs"] = img
-//                                isFirstElementArrayList[2] = false
-//                            }
-//                        }
-//                        "restroom_H" -> {
-//                            if(isFirstElementArrayList[3]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_accessible_icon
-//                                )
-//                                imgMap["restroom_H"] = img
-//                                isFirstElementArrayList[3] = false
-//                            }
-//                        }
-//                        "restroom_M" -> {
-//                            if(isFirstElementArrayList[4]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_person
-//                                )
-//                                imgMap["restroom_M"] = img
-//                                isFirstElementArrayList[4] = false
-//                            }
-//                        }
-//                        "restroom_F" -> {
-//                            if(isFirstElementArrayList[5]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_person_dress
-//                                )
-//                                imgMap["restroom_F"] = img
-//                                isFirstElementArrayList[5] = false
-//                            }
-//                        }
-//                        "classroom" -> {
-//                            if(isFirstElementArrayList[6]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_chalkboard_user
-//                                )
-//                                imgMap["classroom"] = img
-//                                isFirstElementArrayList[6] = false
-//                            }
-//                        }
-//                        "vending_machine_hotdrinks" -> {
-//                            if(isFirstElementArrayList[7]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_mug_hot
-//                                )
-//                                imgMap["vending_machine_hotdrinks"] = img
-//                                isFirstElementArrayList[7] = false
-//                            }
-//                        }
-//                        "vending_machine_colddrinks" -> {
-//                            if (isFirstElementArrayList[8]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_bottle_water
-//                                )
-//                                imgMap["vending_machine_colddrinks"] = img
-//                                isFirstElementArrayList[8] = false
-//                            }
-//                        }
-//                        else -> {
-//                            Log.d("manca", places[i].place.label)
-//                        }
-//                    }
-//
-//                    var imgAlreadyClicked = false
-//                    var type: String? = null
-//                    imgMap.forEach { entry ->
-//                        entry.value.setOnClickListener {
-//                            if(imgAlreadyClicked && type != null) {
-//                                val element = imgMap[type] // get the last clicked element before this
-//                                Utility.changeBgColorAndColor(requireContext(), element!!, R.color.backgroundColorPoI, R.color.colorPoI) // reset old filter color
-//                                JSBridge.resetFilters(webview) // reset old map filter
-//                                if(entry.key != type) { // clicked different filter
-//                                    JSBridge.filterByType(webview, entry.key)
-//                                    Utility.changeBgColorAndColor(requireContext(), entry.value, R.color.colorPoI, R.color.backgroundColorPoI)
-//                                } else {
-//                                    imgAlreadyClicked = false
-//                                }
-//                            } else {
-//                                JSBridge.filterByType(webview, entry.key)
-//                                imgAlreadyClicked = true
-//                                Utility.changeBgColorAndColor(requireContext(), entry.value, R.color.colorPoI, R.color.backgroundColorPoI)
-//                            }
-//                            type = entry.key
-//                        }
-//                    }
-//
-//                    i++
-//                } while(stop && i < places.size)
             }
         }
 
@@ -354,6 +234,7 @@ class MainFragment : Fragment() {
             .observe(requireActivity(), observePlacesNearby)
 
 
+        // zoom listeners
         val zoomIn = view.findViewById<ImageButton>(R.id.zoomIn)
         val zoomOut = view.findViewById<ImageButton>(R.id.zoomOut)
 
@@ -403,6 +284,44 @@ class MainFragment : Fragment() {
                 JSBridge.setFloor(webview, floor)
             }
         }
+
+        val callbackObserver = Observer<String> { id ->
+
+            if(id != "-1") {
+                Snackbar.make(rootContainer, id, Snackbar.LENGTH_LONG).show()
+                // inizia navigazione usando: id, idDestinazione (dove id = posizione dell'utente)
+//                mapsViewModel.fetchPath(id, "44", 1000).observe(requireActivity(), navObserver)
+            } else {
+                Snackbar.make(rootContainer, R.string.missing_user_position, Snackbar.LENGTH_LONG).show()
+            }
+        }
+
+        submitText.setOnClickListener {
+            JSBridge.getUserPosition(webview)
+            JSBridge.callbackValue.observe(requireActivity(), callbackObserver)
+        }
+
+//        // onPageFinished
+//        webview.webViewClient = object : WebViewClient() {
+//            override fun onPageFinished(webView: WebView, url: String) {
+//                Snackbar.make(rootContainer, "onpagefinished", Snackbar.LENGTH_SHORT).show()
+//
+//                val allPlacesObserver = Observer<CallResult> { result ->
+//                    if (result.isSuccess()) {
+//                        val res = (result as CallResult.SuccessAllPlaces).allPlaces.places
+//                        JSBridge.showIcons(webView, res)
+//                        JSBridge.showIcons(webView, res)
+//                        Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! ${res.toString()}")
+//
+//                    } else {
+//                        Log.d("MAIN", "FUCK NO ALL PLACES")
+//                    }
+//                }
+//
+//                mapsViewModel.fetchAllPlaces(1000).observe(requireActivity(), allPlacesObserver)
+//            }
+//        }
+
     }
 
     private fun createWebView(webView: WebView){
@@ -436,10 +355,7 @@ class MainFragment : Fragment() {
             this,
             MapsViewModelFactory(placeRepository, placesNearbyRepository, pathRepository)
         )[MapsViewModel::class.java]
-
-
-
-
+        
 
         val allPlacesObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
@@ -460,9 +376,61 @@ class MainFragment : Fragment() {
                 val textIndications = res.getTextIndications()
                 JSBridge.showPath(webView, res.nodeList)
 
+                val indications = res.getTextIndications()
+                val iterator = indications.iterator()
+
+                svgId = mutableListOf()
+                description = mutableListOf()
+                distance = mutableListOf()
+                routeList = mutableListOf()
+
+                while(iterator.hasNext()) {
+                    val element = iterator.next()
+                    Log.d("indications", "${element[0]} ${element[1]} ${element[2]} ${element[3]}")
+
+                    when(element[1]) {
+                        "0" -> {
+                            svgId.add(R.drawable.ic_round_straight_24)
+                        }
+                        "1" -> {
+                            svgId.add(R.drawable.ic_arrow_slightly_right_24)
+                        }
+                        "2" -> {
+                            svgId.add(R.drawable.ic_arrow_backwards_24)
+                        }
+                        "3" -> {
+                            svgId.add(R.drawable.ic_round_turn_right_24)
+                        }
+                        "4" -> {
+                            svgId.add(R.drawable.ic_arrow_backwards_24)
+                        }
+                        "5" -> {
+                            svgId.add(R.drawable.ic_round_turn_left_24)
+                        }
+                        "6" -> {
+                            svgId.add(R.drawable.ic_round_turn_left_24)
+                        }
+                        "7" -> {
+                            svgId.add(R.drawable.ic_round_arrow_slightly_left_24)
+                        }
+                    }
+
+                    description.add(element[2])
+                    distance.add("${element[3].toInt()/100} mt")
+                }
+
+                val recyclerView = requireView().findViewById<RecyclerView>(R.id.recyclerView)
+
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                recyclerView.setHasFixedSize(true)
+
+                getUserdata(recyclerView)
 
                 val n = res.nodeList.iterator()
-                JSBridge.showUserLocation(webView, n.next().position.lon, n.next().position.lat)
+
+                val iteratore = n.next()
+                Log.d("iteratore", iteratore.toString())
+                JSBridge.showUserLocation(webView, iteratore.position.lon, n.next().position.lat)
                 val timer = object: CountDownTimer(10000, 2000) {
 
                     override fun onTick(millisUntilFinished: Long) {
@@ -514,6 +482,15 @@ class MainFragment : Fragment() {
         }
         timer.start()
 
+    }
+
+    private fun getUserdata(recyclerView: RecyclerView) {
+        for(i in svgId.indices) {
+            val route = Route(svgId[i], description[i], distance[i])
+            routeList.add(route)
+        }
+
+        recyclerView.adapter = RouteAdapter(routeList)
     }
 
     companion object {
