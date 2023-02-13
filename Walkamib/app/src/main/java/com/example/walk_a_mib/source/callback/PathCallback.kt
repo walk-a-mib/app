@@ -1,6 +1,6 @@
 
 
-package com.example.walk_a_mib.source.callbacks
+package com.example.walk_a_mib.source.callback
 
 import com.example.walk_a_mib.logic_layer.domain.Node
 import com.example.walk_a_mib.model.GenericApiResponse

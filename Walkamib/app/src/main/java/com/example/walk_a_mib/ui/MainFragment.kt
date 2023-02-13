@@ -29,7 +29,7 @@ import com.example.walk_a_mib.logic_layer.domain.NodeType
 import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.model.JSBridge
 import com.example.walk_a_mib.repository.path.IPathRepository
-import com.example.walk_a_mib.repository.place.IPlaceRepository
+import com.example.walk_a_mib.repository.node.INodeRepository
 import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
 import com.example.walk_a_mib.toPx
 import com.example.walk_a_mib.util.ServiceLocator
@@ -336,7 +336,7 @@ class MainFragment : Fragment() {
         webView.addJavascriptInterface(JSBridge,"JSBridge")
         webView.loadUrl("https://appassets.androidplatform.net/assets/index.html")
 
-        val placeRepository: IPlaceRepository =
+        val placeRepository: INodeRepository =
             ServiceLocator.getPlaceRepository(
                 requireActivity().application
             )
@@ -359,7 +359,7 @@ class MainFragment : Fragment() {
 
         val allPlacesObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
-                val res = (result as CallResult.SuccessAllPlaces).allPlaces.places
+                val res = (result as CallResult.SuccessAllPlaces).allPlaces.nodes
                 JSBridge.showIcons(webView, res);
                 Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! ${res.toString()}")
 

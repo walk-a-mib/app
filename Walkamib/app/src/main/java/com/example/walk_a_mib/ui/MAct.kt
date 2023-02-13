@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.walk_a_mib.R
 import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.repository.path.IPathRepository
-import com.example.walk_a_mib.repository.place.IPlaceRepository
+import com.example.walk_a_mib.repository.node.INodeRepository
 import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
 import com.example.walk_a_mib.util.ServiceLocator
 
@@ -20,7 +20,7 @@ class MAct : AppCompatActivity() {
         setContentView(R.layout.activity_mact)
 
 
-        val placeRepository: IPlaceRepository =
+        val placeRepository: INodeRepository =
             ServiceLocator.getPlaceRepository(
                 this.application
             )
@@ -43,7 +43,7 @@ class MAct : AppCompatActivity() {
 
         val allPlacesObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
-                val res = (result as CallResult.SuccessAllPlaces).allPlaces.places.toString()
+                val res = (result as CallResult.SuccessAllPlaces).allPlaces.nodes.toString()
                 Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! " + res)
 
             } else {

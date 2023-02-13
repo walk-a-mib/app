@@ -3,7 +3,7 @@ package com.example.walk_a_mib.source.path
 import com.example.walk_a_mib.database.EdgeDao
 import com.example.walk_a_mib.database.MapsRoomDatabase
 import com.example.walk_a_mib.database.PathDao
-import com.example.walk_a_mib.database.PlaceDao
+import com.example.walk_a_mib.database.NodeDao
 import com.example.walk_a_mib.database.relationship.Pathway
 import com.example.walk_a_mib.logic_layer.domain.Edge
 import com.example.walk_a_mib.logic_layer.domain.Node
@@ -11,7 +11,7 @@ import com.example.walk_a_mib.model.path.Step
 
 class PathLocalDataSource(val mapsRoomDatabase: MapsRoomDatabase) : BasePathLocalDataSource() {
     val pathDao: PathDao = mapsRoomDatabase.pathDao()
-    val placeDao : PlaceDao = mapsRoomDatabase.placeDao()
+    val placeDao : NodeDao = mapsRoomDatabase.nodeDao()
     val edgeDao : EdgeDao = mapsRoomDatabase.edgeDao()
 
     override fun getPath(referenceId: String, destinationId: String) {

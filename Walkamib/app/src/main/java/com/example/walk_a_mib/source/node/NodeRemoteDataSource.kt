@@ -1,8 +1,8 @@
-package com.example.walk_a_mib.source.place
+package com.example.walk_a_mib.source.node
 
 import com.example.walk_a_mib.model.GenericApiResponse
-import com.example.walk_a_mib.model.place.AllPlacesBodyResponse
-import com.example.walk_a_mib.model.place.PlaceBodyResponse
+import com.example.walk_a_mib.model.node.AllNodesBodyResponse
+import com.example.walk_a_mib.model.node.PlaceBodyResponse
 import com.example.walk_a_mib.service.MapsApiService
 import com.example.walk_a_mib.util.Constants.RETROFIT_ERROR
 import com.example.walk_a_mib.util.ServiceLocator
@@ -10,11 +10,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PlaceRemoteDataSource(val apiKey: String) : BasePlaceRemoteDataSource() {
-    private val placeApiService : MapsApiService = ServiceLocator.getPlaceApiService()
+class NodeRemoteDataSource(val apiKey: String) : BaseNodeRemoteDataSource() {
+    private val nodeApiService : MapsApiService = ServiceLocator.getPlaceApiService()
 
     override fun getPlace(placeId: String) {
-        val placeResponseCall : Call<GenericApiResponse<PlaceBodyResponse>> = placeApiService.getPlace(placeId, apiKey)
+        val placeResponseCall : Call<GenericApiResponse<PlaceBodyResponse>> = nodeApiService.getPlace(placeId, apiKey)
 
         placeResponseCall.enqueue(object : Callback<GenericApiResponse<PlaceBodyResponse>> {
             override fun onResponse(call: Call<GenericApiResponse<PlaceBodyResponse>>, response: Response<GenericApiResponse<PlaceBodyResponse>>) {
@@ -36,24 +36,24 @@ class PlaceRemoteDataSource(val apiKey: String) : BasePlaceRemoteDataSource() {
 
     }
 
-    override fun getAllPlaces() {
-        val allPlacesResponseCall : Call<GenericApiResponse<AllPlacesBodyResponse>> = placeApiService.getAllPlaces(apiKey)
+    override fun getAllNodes() {
+        val allPlacesResponseCall : Call<GenericApiResponse<AllNodesBodyResponse>> = nodeApiService.getAllNodes(apiKey)
 
-        allPlacesResponseCall.enqueue(object : Callback<GenericApiResponse<AllPlacesBodyResponse>> {
-            override fun onResponse(call: Call<GenericApiResponse<AllPlacesBodyResponse>>, response: Response<GenericApiResponse<AllPlacesBodyResponse>>) {
+        allPlacesResponseCall.enqueue(object : Callback<GenericApiResponse<AllNodesBodyResponse>> {
+            override fun onResponse(call: Call<GenericApiResponse<AllNodesBodyResponse>>, response: Response<GenericApiResponse<AllNodesBodyResponse>>) {
 
                 if (response.isSuccessful &&
                     !(response.body()?.status.equals("error"))
                 ) {
-                    allPlacesCallback?.onSuccessFromRemoteAllPlaces(
+                    allNodesCallback?.onSuccessFromRemoteAllNodes(
                         response.body()!!,
                         System.currentTimeMillis()
                     )
                 }
             }   //response.body()
 
-            override fun onFailure(call: Call<GenericApiResponse<AllPlacesBodyResponse>>, t: Throwable) {
-                allPlacesCallback?.onFailureFromRemote(Exception(RETROFIT_ERROR));
+            override fun onFailure(call: Call<GenericApiResponse<AllNodesBodyResponse>>, t: Throwable) {
+                allNodesCallback?.onFailureFromRemote(Exception(RETROFIT_ERROR));
             }
 
         })

@@ -4,11 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.repository.path.IPathRepository
-import com.example.walk_a_mib.repository.place.IPlaceRepository
+import com.example.walk_a_mib.repository.node.INodeRepository
 import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
 
 
-class MapsViewModel(var placeRepository: IPlaceRepository,
+class MapsViewModel(var placeRepository: INodeRepository,
                     var placesNearbyRepository: IPlacesNearbyRepository,
                     var pathRepository: IPathRepository
 ) : ViewModel() {
@@ -33,7 +33,7 @@ class MapsViewModel(var placeRepository: IPlaceRepository,
     }
 
     fun fetchAllPlaces(lastUpdate: Long): MutableLiveData<CallResult> {
-        allPlaces = placeRepository.fetchAllPlaces()!!
+        allPlaces = placeRepository.fetchAllNodes()!!
         return allPlaces
     }
 

@@ -13,7 +13,7 @@ import java.util.concurrent.Executors
 @Database(entities = [Proximity::class, Node::class, Pathway::class, Edge::class], version = 1)
 abstract class MapsRoomDatabase: RoomDatabase() {
 
-    abstract fun placeDao(): PlaceDao
+    abstract fun nodeDao(): NodeDao
     abstract fun placeNearbyDao(): PlaceNearbyDao
     abstract fun pathDao(): PathDao
     abstract fun edgeDao(): EdgeDao

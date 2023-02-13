@@ -6,8 +6,8 @@ import com.example.walk_a_mib.database.MapsRoomDatabase
 import com.example.walk_a_mib.repository.path.IPathRepository
 import com.example.walk_a_mib.repository.path.PathRepository
 import com.example.walk_a_mib.repository.path.PlacesNearbyRepository
-import com.example.walk_a_mib.repository.place.IPlaceRepository
-import com.example.walk_a_mib.repository.place.PlaceRepository
+import com.example.walk_a_mib.repository.node.INodeRepository
+import com.example.walk_a_mib.repository.node.NodeRepository
 import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
 import com.example.walk_a_mib.repository.user.IUserRepository
 import com.example.walk_a_mib.repository.user.UserRepository
@@ -16,10 +16,10 @@ import com.example.walk_a_mib.source.path.BasePathLocalDataSource
 import com.example.walk_a_mib.source.path.BasePathRemoteDataSource
 import com.example.walk_a_mib.source.path.PathLocalDataSource
 import com.example.walk_a_mib.source.path.PathRemoteDataSource
-import com.example.walk_a_mib.source.place.BasePlaceLocalDataSource
-import com.example.walk_a_mib.source.place.BasePlaceRemoteDataSource
-import com.example.walk_a_mib.source.place.PlaceLocalDataSource
-import com.example.walk_a_mib.source.place.PlaceRemoteDataSource
+import com.example.walk_a_mib.source.node.BaseNodeLocalDataSource
+import com.example.walk_a_mib.source.node.BaseNodeRemoteDataSource
+import com.example.walk_a_mib.source.node.NodeLocalDataSource
+import com.example.walk_a_mib.source.node.NodeRemoteDataSource
 import com.example.walk_a_mib.source.placesNearby.BasePlacesNearbyLocalDataSource
 import com.example.walk_a_mib.source.placesNearby.BasePlacesNearbyRemoteDataSource
 import com.example.walk_a_mib.source.placesNearby.PlacesNearbyLocalDataSource
@@ -32,6 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object ServiceLocator {
+
     @Volatile
     private var INSTANCE: ServiceLocator? = null
 
@@ -52,6 +53,7 @@ object ServiceLocator {
         return INSTANCE
     }
 
+
     fun getPlaceApiService(): MapsApiService {
         //TODO SISTEMARE
         val gson = GsonBuilder()
@@ -70,12 +72,12 @@ object ServiceLocator {
         return MapsRoomDatabase.getDatabase(application)
     }
 
-    fun getPlaceRepository(application: Application): IPlaceRepository {
-        val placeRemoteDataSource: BasePlaceRemoteDataSource = PlaceRemoteDataSource(application.getString(
+    fun getPlaceRepository(application: Application): INodeRepository {
+        val placeRemoteDataSource: BaseNodeRemoteDataSource = NodeRemoteDataSource(application.getString(
             R.string.maps_api_key))
-        val placeLocalDataSource: BasePlaceLocalDataSource = PlaceLocalDataSource(getDao(application))
+        val placeLocalDataSource: BaseNodeLocalDataSource = NodeLocalDataSource(getDao(application))
 
-        return PlaceRepository(placeRemoteDataSource, placeLocalDataSource)
+        return NodeRepository(placeRemoteDataSource, placeLocalDataSource)
     }
 
     fun getPlacesNearbyRepository(application: Application): IPlacesNearbyRepository {

@@ -1,6 +1,5 @@
 package com.example.walk_a_mib.repository.path
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.walk_a_mib.logic_layer.domain.Edge
 import com.example.walk_a_mib.logic_layer.domain.Node
@@ -9,7 +8,7 @@ import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.model.GenericApiResponse
 import com.example.walk_a_mib.model.path.PathBodyResponse
 import com.example.walk_a_mib.model.path.Step
-import com.example.walk_a_mib.source.callbacks.PathCallback
+import com.example.walk_a_mib.source.callback.PathCallback
 import com.example.walk_a_mib.source.path.BasePathLocalDataSource
 import com.example.walk_a_mib.source.path.BasePathRemoteDataSource
 

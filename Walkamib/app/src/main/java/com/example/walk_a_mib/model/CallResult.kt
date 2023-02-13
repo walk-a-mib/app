@@ -1,8 +1,8 @@
 package com.example.walk_a_mib.model
 
 import com.example.walk_a_mib.logic_layer.domain.Path
-import com.example.walk_a_mib.model.place.AllPlacesBodyResponse
-import com.example.walk_a_mib.model.place.PlaceBodyResponse
+import com.example.walk_a_mib.model.node.AllNodesBodyResponse
+import com.example.walk_a_mib.model.node.PlaceBodyResponse
 import com.example.walk_a_mib.model.placesNearby.PlacesNearbyBodyResponse
 
 open class CallResult {
@@ -19,7 +19,7 @@ open class CallResult {
 
     class SuccessPath(val pathResponse: Path) : CallResult()
 
-    class SuccessAllPlaces(val allPlaces: AllPlacesBodyResponse) : CallResult()
+    class SuccessAllPlaces(val allPlaces: AllNodesBodyResponse) : CallResult()
 
     class Error(val message: String?) : CallResult()
 

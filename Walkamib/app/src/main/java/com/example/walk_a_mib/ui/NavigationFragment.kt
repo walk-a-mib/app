@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -27,12 +26,11 @@ import com.example.walk_a_mib.logic_layer.domain.NodeType
 import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.model.JSBridge
 import com.example.walk_a_mib.repository.path.IPathRepository
-import com.example.walk_a_mib.repository.place.IPlaceRepository
+import com.example.walk_a_mib.repository.node.INodeRepository
 import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
 import com.example.walk_a_mib.toPx
 import com.example.walk_a_mib.util.ServiceLocator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.snackbar.Snackbar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -302,7 +300,7 @@ class NavigationFragment : Fragment() {
         webView.addJavascriptInterface(JSBridge,"JSBridge")
         webView.loadUrl("https://appassets.androidplatform.net/assets/index.html")
 
-        val placeRepository: IPlaceRepository =
+        val placeRepository: INodeRepository =
             ServiceLocator.getPlaceRepository(
                 requireActivity().application
             )
@@ -328,7 +326,7 @@ class NavigationFragment : Fragment() {
 
         val allPlacesObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
-                val res = (result as CallResult.SuccessAllPlaces).allPlaces.places
+                val res = (result as CallResult.SuccessAllPlaces).allPlaces.nodes
                 JSBridge.showIcons(webView, res);
                 Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! ${res.toString()}")
 

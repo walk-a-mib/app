@@ -1,21 +1,11 @@
 package com.example.walk_a_mib
 
-import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
-import android.view.View
-import android.view.ViewGroup
 import android.webkit.WebView
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
-import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,13 +15,10 @@ import com.example.walk_a_mib.adapter.RouteAdapter
 import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.repository.path.IPathRepository
 import com.example.walk_a_mib.util.ServiceLocator
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.example.walk_a_mib.logic_layer.domain.NodeType
 import com.example.walk_a_mib.model.JSBridge
-import com.example.walk_a_mib.repository.place.IPlaceRepository
+import com.example.walk_a_mib.repository.node.INodeRepository
 import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
 import com.example.walk_a_mib.ui.*
-import com.google.android.material.snackbar.Snackbar
 
 // allows us to convert px in dp and vice versa
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
@@ -391,7 +378,7 @@ class MainActivity : AppCompatActivity() {
 
         val instance = this
 
-        val placeRepository: IPlaceRepository =
+        val placeRepository: INodeRepository =
             ServiceLocator.getPlaceRepository(
                 this.application
             )
@@ -417,7 +404,7 @@ class MainActivity : AppCompatActivity() {
 
         val allPlacesObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
-                val res = (result as CallResult.SuccessAllPlaces).allPlaces.places
+                val res = (result as CallResult.SuccessAllPlaces).allPlaces.nodes
                 JSBridge.showIcons(webView, res);
                 Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! ${res.toString()}")
 

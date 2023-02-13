@@ -6,7 +6,7 @@ import com.example.walk_a_mib.model.GenericApiResponse
 import com.example.walk_a_mib.model.placesNearby.Neighbour
 import com.example.walk_a_mib.model.placesNearby.PlacesNearbyBodyResponse
 import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
-import com.example.walk_a_mib.source.callbacks.PlacesNearbyCallback
+import com.example.walk_a_mib.source.callback.PlacesNearbyCallback
 import com.example.walk_a_mib.source.placesNearby.BasePlacesNearbyLocalDataSource
 import com.example.walk_a_mib.source.placesNearby.BasePlacesNearbyRemoteDataSource
 
