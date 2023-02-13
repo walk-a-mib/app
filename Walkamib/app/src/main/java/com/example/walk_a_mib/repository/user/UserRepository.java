@@ -75,6 +75,11 @@ public class UserRepository implements IUserRepository, UserResponseCallback
     }
 
     @Override
+    public void sendPasswordResetEmail(String email) {
+        userRemoteDataSource.sendPasswordResetEmail(email);
+    }
+
+    @Override
     public void onSuccessFromAuthentication(User user) {
         if (user != null) {
             Result.UserResponseSuccess result = new Result.UserResponseSuccess(user);
@@ -103,5 +108,17 @@ public class UserRepository implements IUserRepository, UserResponseCallback
     @Override
     public void onSuccessLogout() {
     }
+
+    @Override
+    public void onSuccessFromPasswordReset() {
+
+    }
+
+    @Override
+    public void onFailureFromPasswordReset(String message) {
+        Result.Error result = new Result.Error(message);
+        userMutableLiveData.postValue(result);
+    }
+
 }
 
