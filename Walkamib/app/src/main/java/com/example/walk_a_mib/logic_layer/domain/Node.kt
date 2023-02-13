@@ -45,8 +45,7 @@ class Node(@ColumnInfo(name = "node_id") @PrimaryKey(autoGenerate = false) var i
         val angle1 = origin.getHeading(this)
         val angle2 = this.getHeading(destination)
         val angle3 = ((angle2 - angle1) + 360) % 360
-        val direction = (angle3 * 7 / 360).roundToInt()
-        return direction
+        return (angle3 * 7 / 360).roundToInt()
     }
 
     // Takes a destination node,

@@ -2,7 +2,7 @@ package com.example.walk_a_mib.logic_layer.domain
 
 object EdgeType : Type {
     private var table = arrayOf(
-        arrayOf("elevator_step","l' ","ascensore", "prendi", "prendi"),
+        arrayOf("elevator_step","l'","ascensore", "prendi", "prendi"),
         arrayOf("stairs_step","le ","scale", "sali", "scendi"),
         arrayOf("stairs_automated_step","le ", "scale", "sali", "scendi"),
         arrayOf("corridor","il ", "corridoio", "percorri", "percorri"),
@@ -16,6 +16,10 @@ object EdgeType : Type {
             e.printStackTrace()
             "indefinite"
         }
+    }
+
+    fun getTypeName(type: String): String {
+        return table[getTypeInt(type)][2]
     }
 
     fun getTypeName(id: Int): String {

@@ -57,4 +57,8 @@ object NodeType : Type {
         for (i in table.indices) if (table[i][0] == type) return i
         return -1
     }
+
+    fun getTypeName(type: String): String {
+        return table[getTypeInt(type)][2]
+    }
 }

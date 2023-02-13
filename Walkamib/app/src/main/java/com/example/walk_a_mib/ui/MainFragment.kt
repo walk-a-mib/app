@@ -166,6 +166,8 @@ class MainFragment : Fragment() {
         val poiDescription = view.findViewById<TextView>(R.id.poiDescription)
         val otherInfoContainer = view.findViewById<LinearLayout>(R.id.otherInfoContainer)
 
+        //set info
+
         val observePlace = Observer<CallResult> { result ->
             if (result.isSuccess()) {
                 val res = (result as CallResult.SuccessPlace).placeResponse.place
@@ -198,7 +200,8 @@ class MainFragment : Fragment() {
             }
         }
 
-        mapsViewModel.fetchPlace("idSelezionato", 1000).observe(requireActivity(), observePlace)
+        // andre
+        mapsViewModel.fetchPlace("3", 1000).observe(requireActivity(), observePlace)
 
         val observePlacesNearby = Observer<CallResult> { result ->
             val isFirstElementArrayList = arrayListOf(true, true, true, true, true, true, true, true, true)
@@ -456,8 +459,9 @@ class MainFragment : Fragment() {
         val fpObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
                 val res = (result as CallResult.SuccessPath).pathResponse
+                val textIndications = res.getTextIndications()
+                JSBridge.showPath(webView, res.nodeList)
 
-//                JSBridge.showPath(webView, res.nodeList)
 
                 val n = res.nodeList.iterator()
                 JSBridge.showUserLocation(webView, n.next().position.lon, n.next().position.lat)
@@ -506,7 +510,8 @@ class MainFragment : Fragment() {
 
             override fun onFinish() {
                 mapsViewModel.fetchAllPlaces(1000).observe(requireActivity(), allPlacesObserver)
-                mapsViewModel.fetchPath("3", "30", 1000).observe(requireActivity(), fpObserver)
+                //se si mettono id a cazzo si incazza, occhio, verificare sempre
+                mapsViewModel.fetchPath("3", "44", 1000).observe(requireActivity(), fpObserver)
             }
         }
         timer.start()

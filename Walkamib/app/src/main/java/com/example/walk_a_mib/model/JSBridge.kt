@@ -33,6 +33,12 @@ object JSBridge{
 
         }
 
+    //callback per quando è stata ricevuta la posizione che l'utente ha settato sulla mappa
+        @JavascriptInterface
+            fun setUserPosition(id: Int){
+            // ????
+        }
+
 
 
         // Da chiamare quando si vuole cambiare piano sulla mappa
@@ -119,7 +125,6 @@ object JSBridge{
             }
         s += "]"
         webview.evaluateJavascript("javascript:initializeNavigation(${s})", null)
-        webview.evaluateJavascript("javascript:stepNavigation(4)", null)
         Log.d("rip", s)
         Log.d("rip", s)
         }
@@ -145,6 +150,11 @@ object JSBridge{
         showUserLocation(webview, lon, lat)
     }
 
+    // chiamala per sapere dove l'utente ha detto di trovarsi, la callback è la javainterface
+    // "setUserPosition" sopra sopra
+    fun getUserPosition(webview: WebView){
+        webview.evaluateJavascript("javascript:getUserPosition()", null)
+    }
 
     }
 
