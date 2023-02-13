@@ -268,7 +268,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/layers"
-                        android:layout_width="30dp"
+                        android:layout_width="33dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="15dp"
                         android:layout_marginBottom="20dp"

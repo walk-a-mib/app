@@ -44,7 +44,7 @@
         <!-- inactive track color (30% transparency) -->
         <item name="android:colorForeground">#8798AA</item>
     </style>
-
+    
 <!--    <style name="TextAppearance.AppCompat.Widget.ActionBar.Title" parent="@android:style/TextAppearance">-->
 <!--        <item name="android:textSize">26sp</item>-->
 <!--        <item name="android:textColor">#D7D7D7</item>-->

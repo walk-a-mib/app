@@ -1,9 +1,15 @@
 package com.example.walk_a_mib.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.walk_a_mib.MainActivity
 import com.example.walk_a_mib.R
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 
@@ -25,6 +31,7 @@ class SettingsActivity : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("save", MODE_PRIVATE)
         val darkModeSwitch = findViewById<SwitchMaterial>(R.id.darkModeSwitch)
+
         darkModeSwitch.isChecked = sharedPreferences.getBoolean("darkModeSwitch", false)
 
         darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -41,10 +48,33 @@ class SettingsActivity : AppCompatActivity() {
             }
 
             darkMode(darkModeSwitch.isChecked)
-
         }
 
+        val darkMode = findViewById<ConstraintLayout>(R.id.darkMode)
 
+        darkMode.setOnClickListener {
+            darkModeSwitch.isChecked = !darkModeSwitch.isChecked
+        }
+
+        val accessiblePath = findViewById<ConstraintLayout>(R.id.accessiblePath)
+        val accessiblePathSwitch = findViewById<SwitchMaterial>(R.id.accessibleSwitch)
+
+        accessiblePath.setOnClickListener {
+            accessiblePathSwitch.isChecked = !accessiblePathSwitch.isChecked
+        }
+
+        val updateMap = findViewById<ConstraintLayout>(R.id.updateMap)
+
+        updateMap.setOnClickListener {
+            // TODO(Do something)
+        }
+
+        val signOutContainer = findViewById<ConstraintLayout>(R.id.signOut)
+
+        signOutContainer.setOnClickListener {
+            startActivity(Intent(applicationContext, SignInActivity::class.java))
+            finish()
+        }
     }
 
     override fun finish() {

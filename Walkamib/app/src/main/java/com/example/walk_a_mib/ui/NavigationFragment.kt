@@ -11,9 +11,12 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.webkit.WebViewAssetLoader
 import com.example.walk_a_mib.LocalContentWebViewClient
@@ -84,6 +87,7 @@ class NavigationFragment : Fragment() {
         val param = mapLayout.layoutParams as ViewGroup.MarginLayoutParams
         val rootContainer = view.findViewById<FrameLayout>(R.id.rootContainer)
         val poiContainer = view.findViewById<LinearLayout>(R.id.poi_container)
+        val exitNavigationMode = view.findViewById<ImageButton>(R.id.exitNavigationMode)
         val sharedPreferences = this.activity?.getSharedPreferences("save", AppCompatActivity.MODE_PRIVATE)
 //        darkMode(sharedPreferences.getBoolean("darkModeSwitch", false))
 //        val layers = view.findViewById<ConstraintLayout>(R.id.layers)
@@ -153,12 +157,12 @@ class NavigationFragment : Fragment() {
 
         BottomSheetBehavior.from(sheet).apply {
             this.isHideable = true
-//            this.state = BottomSheetBehavior.STATE_HIDDEN
-//            bottomsheetMaterialCardView.layoutParams.height = BOTTOMSHEET_HEIGHT
-            this.state = BottomSheetBehavior.STATE_COLLAPSED
-            this.peekHeight = BOTTOMSHEET_HEIGHT
-            param.bottomMargin = BOTTOMSHEET_HEIGHT
-            webview.layoutParams = param
+            this.state = BottomSheetBehavior.STATE_HIDDEN
+            bottomsheetMaterialCardView.layoutParams.height = BOTTOMSHEET_HEIGHT
+//            this.state = BottomSheetBehavior.STATE_COLLAPSED
+//            this.peekHeight = BOTTOMSHEET_HEIGHT
+//            param.bottomMargin = BOTTOMSHEET_HEIGHT
+//            webview.layoutParams = param
         }
 
 
@@ -195,195 +199,68 @@ class NavigationFragment : Fragment() {
 //                Log.d("MAIN", "ACTUALLY FUCKING WORKS PN! RP = " + res.referencePlace + " --- PN = " + res.placesNearby)
 //
 //                val places = res.placesNearby
-//                var i = 0
 //
-//                do {
-//                    var stop = false
-//                    var pos = 0 // used to cycle over isFirstElementArrayList
-//
-//                    while(!stop && pos < isFirstElementArrayList.size) {
-//                        if(isFirstElementArrayList[pos]) {
-//                            stop = true
-//                        }
-//                        pos++
-//                    }
-//
-//                    when(places[i].place.label) {
-//                        "door_normal" -> {
-//                            if(isFirstElementArrayList[0]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_door_open_solid
-//                                )
-//                                imgMap["door_normal"] = img
-////                                img.setOnClickListener {
-////                                    isClicked[0] = Utility.toggleClick(this, webview, isClicked[0], "door_normal", img)
-////                                }
-//                                isFirstElementArrayList[0] = false
-//                            }
-//                        }
-//                        "door_exit" -> {
-//                            if(isFirstElementArrayList[1]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_person_walking_arrow_right_solid
-//                                )
-//                                imgMap["door_exit"] = img
-////                                img.setOnClickListener {
-////                                    isClicked[1] = Utility.toggleClick(this, webview, isClicked[1], "door_exit", img)
-////                                }
-//                                isFirstElementArrayList[1] = false
-//                            }
-//                        }
-//                        "stairs" -> {
-//                            if(isFirstElementArrayList[2]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_stairs
-//                                )
-//                                imgMap["stairs"] = img
-////                                img.setOnClickListener {
-////                                    isClicked[2] = Utility.toggleClick(this, webview, isClicked[2], "stairs", img)
-////                                }
-//                                isFirstElementArrayList[2] = false
-//                            }
-//                        }
-//                        "restroom_H" -> {
-//                            if(isFirstElementArrayList[3]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_accessible_icon
-//                                )
-//                                imgMap["restroom_H"] = img
-////                                img.setOnClickListener {
-////                                    isClicked[3] = Utility.toggleClick(this, webview, isClicked[3], "restroom_H", img)
-////                                }
-//                                isFirstElementArrayList[3] = false
-//                            }
-//                        }
-//                        "restroom_M" -> {
-//                            if(isFirstElementArrayList[4]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_person
-//                                )
-//                                imgMap["restroom_M"] = img
-////                                img.setOnClickListener {
-////                                    isClicked[4] = Utility.toggleClick(this, webview, isClicked[4], "restroom_M", img)
-////                                }
-//                                isFirstElementArrayList[4] = false
-//                            }
-//                        }
-//                        "restroom_F" -> {
-//                            if(isFirstElementArrayList[5]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_person_dress
-//                                )
-//                                imgMap["restroom_F"] = img
-////                                img.setOnClickListener {
-////                                    isClicked[5] = Utility.toggleClick(this, webview, isClicked[5], "restroom_F", img)
-////                                }
-//                                isFirstElementArrayList[5] = false
-//                            }
-//                        }
-//                        "classroom" -> {
-//                            if(isFirstElementArrayList[6]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_chalkboard_user
-//                                )
-//                                imgMap["classroom"] = img
-////                                img.setOnClickListener {
-////                                    isClicked[6] = Utility.toggleClick(this, webview, isClicked[6], "classroom", img)
-////                                }
-//                                isFirstElementArrayList[6] = false
-//                            }
-//                        }
-//
-//                        "vending_machine_hotdrinks" -> {
-//                            if(isFirstElementArrayList[7]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_mug_hot
-//                                )
-//                                imgMap["vending_machine_hotdrinks"] = img
-////                                img.setOnClickListener {
-////                                    isClicked[7] = Utility.toggleClick(this, webview, isClicked[7], "vending_machine_hotdrinks", img)
-////                                }
-//                                isFirstElementArrayList[7] = false
-//                            }
-//                        }
-//
-//                        "vending_machine_colddrinks" -> {
-//                            if (isFirstElementArrayList[8]) {
-//                                val img = Utility.inflateAndAddIcon(
-//                                    requireContext(), poiContainer, R.drawable.ic_bottle_water
-//                                )
-//                                imgMap["vending_machine_colddrinks"] = img
-////                                img.setOnClickListener {
-////                                    isClicked[8] = Utility.toggleClick(this, webview, isClicked[8], "vending_machine_colddrinks", img)
-////                                }
-//                                isFirstElementArrayList[8] = false
-//                            }
-//                        }
-//                        else -> {
-//                            Log.d("manca", places[i].place.label)
-//                        }
-//                    }
-//
-////                    imgMap.forEachIndexed { index, element ->
-////                        element.setOnClickListener {
-////                            isClicked[index] = Utility.toggleClick(this, webview, isClicked[index], , element)
-////                        }
-////                    }
-//
-//                    var imgAlreadyClicked = false
-//                    var type: String? = null
-//                    imgMap.forEach { entry ->
-//                        entry.value.setOnClickListener {
-//                            if(imgAlreadyClicked && type != null) {
-//                                val element = imgMap[type] // get the last clicked element before this
-//                                Utility.changeBgColorAndColor(requireContext(), element!!, R.color.backgroundColorPoI, R.color.colorPoI) // reset old filter color
-//                                JSBridge.resetFilters(webview) // reset old map filter
-//                                if(entry.key != type) { // clicked different filter
-//                                    JSBridge.filterByType(webview, entry.key)
-//                                    Utility.changeBgColorAndColor(requireContext(), entry.value, R.color.colorPrimaryDark, R.color.backgroundColorPoI)
-//                                } else {
-//                                    imgAlreadyClicked = false
-//                                }
-//                            } else {
-//                                JSBridge.filterByType(webview, entry.key)
-//                                imgAlreadyClicked = true
-//                                Utility.changeBgColorAndColor(requireContext(), entry.value, R.color.colorPrimaryDark, R.color.backgroundColorPoI)
-//                            }
-//                            type = entry.key
-//                        }
-//                    }
-//
-//                    i++
-//                } while(stop && i < places.size)
+//                val filterHandler = FilterHandler(requireContext(), places, poiContainer, webview)
+//                filterHandler.handlePlace()
 //            }
 //        }
 
 //        mapsViewModel.fetchPlacesNearby("20", 3000, 1000)
 //            .observe(requireActivity(), observePlacesNearby)
 
-        var floor = 0
-        layerNumber.text = "T"
 
         val zoomIn = view.findViewById<ImageButton>(R.id.zoomIn)
+        val zoomOut = view.findViewById<ImageButton>(R.id.zoomOut)
+
+        var floor = 0
+        layerNumber.text = "T"
+        DrawableCompat.setTint(
+            DrawableCompat.wrap(zoomOut.drawable),
+            ContextCompat.getColor(requireContext(), R.color.zoomArrowDeactivated)
+        )
+        DrawableCompat.setTint(
+            DrawableCompat.wrap(zoomIn.drawable),
+            ContextCompat.getColor(requireContext(), R.color.zoomArrowAndText)
+        )
+
         zoomIn.setOnClickListener {
             if(floor < 1) {
                 floor++
                 layerNumber.text = floor.toString()
                 JSBridge.setFloor(webview, floor)
+                DrawableCompat.setTint(
+                    DrawableCompat.wrap(zoomIn.drawable),
+                    ContextCompat.getColor(requireContext(), R.color.zoomArrowDeactivated)
+                )
+                DrawableCompat.setTint(
+                    DrawableCompat.wrap(zoomOut.drawable),
+                    ContextCompat.getColor(requireContext(), R.color.zoomArrowAndText)
+                )
             }
         }
 
-        val zoomOut = view.findViewById<ImageButton>(R.id.zoomOut)
         zoomOut.setOnClickListener {
             if(floor > 0) {
                 floor--
                 if(floor == 0) {
                     layerNumber.text = "T"
+                    DrawableCompat.setTint(
+                        DrawableCompat.wrap(zoomOut.drawable),
+                        ContextCompat.getColor(requireContext(), R.color.zoomArrowDeactivated)
+                    )
+                    DrawableCompat.setTint(
+                        DrawableCompat.wrap(zoomIn.drawable),
+                        ContextCompat.getColor(requireContext(), R.color.zoomArrowAndText)
+                    )
                 } else {
                     layerNumber.text = floor.toString()
                 }
                 JSBridge.setFloor(webview, floor)
             }
+        }
+
+        exitNavigationMode.setOnClickListener {
+            Navigation.findNavController(requireView()).navigate(R.id.action_navigationFragment_to_mainFragment)
         }
     }
 
