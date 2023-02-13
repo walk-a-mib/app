@@ -34,4 +34,5 @@
     <string name="accessible_paths_only">Solo percorsi accessibili</string>
     <string name="update_map_data">Aggiorna dati mappa</string>
     <string name="sign_out_from_the_account">Esci</string>
+    <string name="missing_user_position">Clicca due volte su un punto di interesse per impostare la tua posizione attuale prima di cominciare la navigazione</string>
 </resources>
