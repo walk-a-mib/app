@@ -1,0 +1,110 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.demoapiarch"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+8-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="32" />
+9-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:5:22-64
+12
+13    <application
+13-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:7:5-30:19
+14        android:allowBackup="true"
+14-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:8:9-35
+15        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+15-->[androidx.core:core:1.8.0] C:\Users\Chris\.gradle\caches\transforms-3\c8447b065dcc7232cc0948048f045f03\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
+16        android:dataExtractionRules="@xml/data_extraction_rules"
+16-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:9:9-65
+17        android:debuggable="true"
+18        android:extractNativeLibs="false"
+19        android:fullBackupContent="@xml/backup_rules"
+19-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:10:9-54
+20        android:icon="@mipmap/ic_launcher"
+20-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:11:9-43
+21        android:label="@string/app_name"
+21-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:12:9-41
+22        android:roundIcon="@mipmap/ic_launcher_round"
+22-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:13:9-54
+23        android:supportsRtl="true"
+23-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:14:9-35
+24        android:testOnly="true"
+25        android:theme="@style/Theme.DemoAPIArch" >
+25-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:15:9-49
+26        <activity
+26-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:17:9-29:20
+27            android:name="com.example.demoapiarch.ui.MAct"
+27-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:18:13-36
+28            android:exported="true" >
+28-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:19:13-36
+29            <intent-filter>
+29-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:20:13-24:29
+30                <action android:name="android.intent.action.MAIN" />
+30-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:21:17-69
+30-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:21:25-66
+31
+32                <category android:name="android.intent.category.LAUNCHER" />
+32-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:23:17-77
+32-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:23:27-74
+33            </intent-filter>
+34
+35            <meta-data
+35-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:26:13-28:36
+36                android:name="android.app.lib_name"
+36-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:27:17-52
+37                android:value="" />
+37-->C:\Users\Chris\Desktop\PDM\app\app\src\main\AndroidManifest.xml:28:17-33
+38        </activity>
+39
+40        <uses-library
+40-->[androidx.window:window:1.0.0] C:\Users\Chris\.gradle\caches\transforms-3\bcef94bf6d4e72a016828a3dcde297e0\transformed\window-1.0.0\AndroidManifest.xml:25:9-27:40
+41            android:name="androidx.window.extensions"
+41-->[androidx.window:window:1.0.0] C:\Users\Chris\.gradle\caches\transforms-3\bcef94bf6d4e72a016828a3dcde297e0\transformed\window-1.0.0\AndroidManifest.xml:26:13-54
+42            android:required="false" />
+42-->[androidx.window:window:1.0.0] C:\Users\Chris\.gradle\caches\transforms-3\bcef94bf6d4e72a016828a3dcde297e0\transformed\window-1.0.0\AndroidManifest.xml:27:13-37
+43        <uses-library
+43-->[androidx.window:window:1.0.0] C:\Users\Chris\.gradle\caches\transforms-3\bcef94bf6d4e72a016828a3dcde297e0\transformed\window-1.0.0\AndroidManifest.xml:28:9-30:40
+44            android:name="androidx.window.sidecar"
+44-->[androidx.window:window:1.0.0] C:\Users\Chris\.gradle\caches\transforms-3\bcef94bf6d4e72a016828a3dcde297e0\transformed\window-1.0.0\AndroidManifest.xml:29:13-51
+45            android:required="false" />
+45-->[androidx.window:window:1.0.0] C:\Users\Chris\.gradle\caches\transforms-3\bcef94bf6d4e72a016828a3dcde297e0\transformed\window-1.0.0\AndroidManifest.xml:30:13-37
+46
+47        <provider
+47-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Chris\.gradle\caches\transforms-3\14a02d0dad6280dc18f0868550d488ff\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+48            android:name="androidx.startup.InitializationProvider"
+48-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Chris\.gradle\caches\transforms-3\14a02d0dad6280dc18f0868550d488ff\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+49            android:authorities="com.example.demoapiarch.androidx-startup"
+49-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Chris\.gradle\caches\transforms-3\14a02d0dad6280dc18f0868550d488ff\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+50            android:exported="false" >
+50-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Chris\.gradle\caches\transforms-3\14a02d0dad6280dc18f0868550d488ff\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+51            <meta-data
+51-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Chris\.gradle\caches\transforms-3\14a02d0dad6280dc18f0868550d488ff\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+52                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+52-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Chris\.gradle\caches\transforms-3\14a02d0dad6280dc18f0868550d488ff\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+53                android:value="androidx.startup" />
+53-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Chris\.gradle\caches\transforms-3\14a02d0dad6280dc18f0868550d488ff\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+54            <meta-data
+54-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Chris\.gradle\caches\transforms-3\14536dd523b7802d8e660cbb1ac04950\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+55                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+55-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Chris\.gradle\caches\transforms-3\14536dd523b7802d8e660cbb1ac04950\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+56                android:value="androidx.startup" />
+56-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Chris\.gradle\caches\transforms-3\14536dd523b7802d8e660cbb1ac04950\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+57        </provider>
+58
+59        <service
+59-->[androidx.room:room-runtime:2.4.3] C:\Users\Chris\.gradle\caches\transforms-3\fc0a0874c023ea7413c889aed41f1684\transformed\room-runtime-2.4.3\AndroidManifest.xml:25:9-28:40
+60            android:name="androidx.room.MultiInstanceInvalidationService"
+60-->[androidx.room:room-runtime:2.4.3] C:\Users\Chris\.gradle\caches\transforms-3\fc0a0874c023ea7413c889aed41f1684\transformed\room-runtime-2.4.3\AndroidManifest.xml:26:13-74
+61            android:directBootAware="true"
+61-->[androidx.room:room-runtime:2.4.3] C:\Users\Chris\.gradle\caches\transforms-3\fc0a0874c023ea7413c889aed41f1684\transformed\room-runtime-2.4.3\AndroidManifest.xml:27:13-43
+62            android:exported="false" />
+62-->[androidx.room:room-runtime:2.4.3] C:\Users\Chris\.gradle\caches\transforms-3\fc0a0874c023ea7413c889aed41f1684\transformed\room-runtime-2.4.3\AndroidManifest.xml:28:13-37
+63    </application>
+64
+65</manifest>
