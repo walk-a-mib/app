@@ -276,20 +276,20 @@ class MainFragment : Fragment() {
                 val res = (result as CallResult.SuccessPath).pathResponse
                 Snackbar.make(rootContainer, res.nodeList.toString(), Snackbar.LENGTH_SHORT).show()
             } else {
-                Snackbar.make(rootContainer, "errore", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(rootContainer, "porcocazzo", Snackbar.LENGTH_SHORT).show()
             }
         }
 
-        var nodeId = "30"
+        val nodeId = "30"
         val callbackObserver = Observer<String> { id ->
             if(id != "-1" && id != null) {
 
                 val bundle = bundleOf("idStart" to id, "idEnd" to nodeId)
                 Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_navigationFragment, bundle)
 
-                Snackbar.make(rootContainer, id, Snackbar.LENGTH_LONG).show()
+                // debugggggg Snackbar.make(rootContainer, id, Snackbar.LENGTH_LONG).show()
                 // inizia navigazione usando: id, idDestinazione (dove id = posizione dell'utente)
-                mapsViewModel.fetchPath(id, nodeId, 1000).observe(requireActivity(), navObserver)
+                // mapsViewModel.fetchPath(id, nodeId, 1000).observe(requireActivity(), navObserver)
             } else {
                 Snackbar.make(rootContainer, R.string.missing_user_position, Snackbar.LENGTH_LONG).show()
             }
@@ -297,7 +297,7 @@ class MainFragment : Fragment() {
 
         submitText.setOnClickListener {
             if(autoCompleteTextView.text != null) {
-                nodeId = autoCompleteTextView.text.toString()
+                //nodeId = autoCompleteTextView.text.toString()
             }
             JSBridge.getUserPosition(webview)
             JSBridge.callbackValue.observe(requireActivity(), callbackObserver)
@@ -367,14 +367,15 @@ class MainFragment : Fragment() {
             this,
             MapsViewModelFactory(placeRepository, placesNearbyRepository, pathRepository)
         )[MapsViewModel::class.java]
-        
+
+
 
         val allPlacesObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
                 val res = (result as CallResult.SuccessAllPlaces).allPlaces.places
                 JSBridge.showIcons(webView, res);
                 Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! ${res.toString()}")
-
+                JSBridge.showIcons(webView, res);
             } else {
                 Log.d("MAIN", "FUCK NO ALL PLACES")
             }
@@ -489,7 +490,7 @@ class MainFragment : Fragment() {
             override fun onFinish() {
                 mapsViewModel.fetchAllPlaces(1000).observe(requireActivity(), allPlacesObserver)
                 //se si mettono id a cazzo si incazza, occhio, verificare sempre
-                mapsViewModel.fetchPath("3", "44", 1000).observe(requireActivity(), fpObserver)
+                //mapsViewModel.fetchPath("3", "44", 1000).observe(requireActivity(), fpObserver)
             }
         }
         timer.start()

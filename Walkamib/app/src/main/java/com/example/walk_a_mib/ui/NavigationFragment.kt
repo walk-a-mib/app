@@ -96,7 +96,7 @@ class NavigationFragment : Fragment() {
         val webview = view.findViewById<WebView>(R.id.webview)
         createWebView(webview)
 
-        Snackbar.make(rootContainer, arguments?.getString("idStart").toString(), Snackbar.LENGTH_SHORT).show()
+        //Snackbar.make(rootContainer, arguments?.getString("idStart").toString(), Snackbar.LENGTH_SHORT).show()
 
 //        onBackPressedDispatcher.addCallback(this) {
 //            if (webview.canGoBack()) {
@@ -126,38 +126,6 @@ class NavigationFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback(callback)
 
-        val observePlace = Observer<CallResult> { result ->
-            if (result.isSuccess()) {
-                val res = (result as CallResult.SuccessPlace).placeResponse.place
-                Log.d("observer", res.toString())
-                val name = res.name
-                val descr = res.description
-                val ga = res.ga
-                val textType = NodeType.getTypeString(res.type);
-                //Log.d("cribbio", "insertIcon(\"${res.id}\", \"${res.name}\", [${res.position.lon}, ${res.position.lat}], 24, ${res.ga.floor}, \"${textType}\"))")
-                //webview.evaluateJavascript("javascript:insertIcon(\"eheeeh\", \"nome\", [9.221144, 45.523829], 24, 0, \"vending_machine_colddrinks\");", null)
-                //webview.evaluateJavascript("javascript:initializeIcons()", null)// adding the name
-
-                infoTitle.text = resources.getString(R.string.poi_info, name)
-
-                // adding the description
-                if (descr != "") {
-                    poiDescription.text = descr
-                } else {
-                    poiDescription.text = getString(R.string.missing_poi_description)
-                }
-
-                // adding other information
-                val otherInfo = OtherInfo(requireContext())
-
-                otherInfo.addOtherInformation(otherInfoContainer, "available", ga.available.toString())
-                otherInfo.addOtherInformation(otherInfoContainer, "accessible", ga.accessible.toString())
-                otherInfo.addOtherInformation(otherInfoContainer, "indoor", ga.indoor.toString())
-                otherInfo.addOtherInformation(otherInfoContainer, "building", ga.building.toString())
-                otherInfo.addOtherInformation(otherInfoContainer, "floor", ga.floor.toString())
-            }
-        }
-
         BottomSheetBehavior.from(sheet).apply {
             this.isHideable = true
             this.state = BottomSheetBehavior.STATE_HIDDEN
@@ -167,7 +135,6 @@ class NavigationFragment : Fragment() {
 //            param.bottomMargin = BOTTOMSHEET_HEIGHT
 //            webview.layoutParams = param
         }
-
 
         BottomSheetBehavior.from(sheet).addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -191,25 +158,6 @@ class NavigationFragment : Fragment() {
                 }
             }
         })
-
-
-//        val observePlacesNearby = Observer<CallResult> { result ->
-//            val isFirstElementArrayList = arrayListOf(true, true, true, true, true, true, true, true, true)
-//            val imgMap = mutableMapOf<String, ImageButton>()
-//
-//            if (result.isSuccess()) {
-//                val res = (result as CallResult.SuccessPlacesNearby).placesNearbyResponse
-//                Log.d("MAIN", "ACTUALLY FUCKING WORKS PN! RP = " + res.referencePlace + " --- PN = " + res.placesNearby)
-//
-//                val places = res.placesNearby
-//
-//                val filterHandler = FilterHandler(requireContext(), places, poiContainer, webview)
-//                filterHandler.handlePlace()
-//            }
-//        }
-
-//        mapsViewModel.fetchPlacesNearby("20", 3000, 1000)
-//            .observe(requireActivity(), observePlacesNearby)
 
 
         val zoomIn = view.findViewById<ImageButton>(R.id.zoomIn)
@@ -265,28 +213,6 @@ class NavigationFragment : Fragment() {
         exitNavigationMode.setOnClickListener {
             Navigation.findNavController(requireView()).navigate(R.id.action_navigationFragment_to_mainFragment)
         }
-
-
-//        // onPageFinished
-//        webview.webViewClient = object : WebViewClient() {
-//            override fun onPageFinished(webView: WebView, url: String) {
-//                Snackbar.make(rootContainer, "onpagefinished", Snackbar.LENGTH_SHORT).show()
-//
-//                val allPlacesObserver = Observer<CallResult> { result ->
-//                    if (result.isSuccess()) {
-//                        val res = (result as CallResult.SuccessAllPlaces).allPlaces.places
-//                        JSBridge.showIcons(webView, res)
-//                        JSBridge.showIcons(webView, res)
-//                        Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! ${res.toString()}")
-//
-//                    } else {
-//                        Log.d("MAIN", "FUCK NO ALL PLACES")
-//                    }
-//                }
-//
-//                mapsViewModel.fetchAllPlaces(1000).observe(requireActivity(), allPlacesObserver)
-//            }
-//        }
     }
 
 
@@ -323,9 +249,8 @@ class NavigationFragment : Fragment() {
             MapsViewModelFactory(placeRepository, placesNearbyRepository, pathRepository)
         )[MapsViewModel::class.java]
 
-
-
-
+        Log.d("fucincoming", arguments?.getString("idStart").toString())
+        Log.d("fucincoming", arguments?.getString("idEnd").toString())
 
         val allPlacesObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
@@ -340,27 +265,11 @@ class NavigationFragment : Fragment() {
 
         mapsViewModel.fetchAllPlaces(1000).observe(requireActivity(), allPlacesObserver)
 
+
         val fpObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
                 val res = (result as CallResult.SuccessPath).pathResponse
-
                 JSBridge.showPath(webView, res.nodeList)
-
-                val n = res.nodeList.iterator()
-                JSBridge.showUserLocation(webView, n.next().position.lon, n.next().position.lat)
-                val timer = object: CountDownTimer(10000, 2000) {
-
-                    override fun onTick(millisUntilFinished: Long) {
-                        //if(n.hasNext()){
-                        //    JSBridge.updateUserLocation(webView, n.next().position.lon, n.next().position.lat)
-                        //}
-                        //Log.d("sono un rompicazzo", "certificato!")
-                    }
-
-                    override fun onFinish() {
-                    }
-                }
-                timer.start()
 
                 Log.d("MAIN",
                     "ACTUALLY FUCKING WORKS FIND PATH: " + res.pathLength + " --- "
@@ -372,32 +281,19 @@ class NavigationFragment : Fragment() {
             }
         }
 
-        val nameObserver = Observer<CallResult> { result ->
-            if (result.isSuccess()) {
-                val res = (result as CallResult.SuccessPlace).placeResponse.place.toString()
-                Log.d("MAIN", "ACTUALLY FUCKING WORKS " + res)
-
-            } else {
-                Log.d("MAIN", "FUCK NO")
-            }
-        }
-        // non mettere id a cazzo
-        mapsViewModel.fetchPlace("3", 1000).observe(requireActivity(), nameObserver)
-
-
 
         val timer = object: CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                Log.d("sono un rompicazzo", "certificato!")
             }
 
             override fun onFinish() {
+                Log.d("fucincoming", arguments?.getString("idStart").toString())
+                Log.d("fucincoming", arguments?.getString("idEnd").toString())
                 mapsViewModel.fetchAllPlaces(1000).observe(requireActivity(), allPlacesObserver)
-                mapsViewModel.fetchPath("3", "30", 1000).observe(requireActivity(), fpObserver)
+                mapsViewModel.fetchPath(arguments?.getString("idStart").toString(), arguments?.getString("idEnd").toString(), 1000).observe(requireActivity(), fpObserver)
             }
         }
         timer.start()
-
     }
 
     companion object {

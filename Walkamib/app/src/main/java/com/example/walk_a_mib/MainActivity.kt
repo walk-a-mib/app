@@ -472,7 +472,7 @@ class MainActivity : AppCompatActivity() {
         // non mettere id a cazzo
         mapsViewModel.fetchPlace("3", 1000).observe(this, nameObserver)
 
-
+        mapsViewModel.fetchAllPlaces(1000).observe(instance, allPlacesObserver)
 
         val timer = object: CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -481,7 +481,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 mapsViewModel.fetchAllPlaces(1000).observe(instance, allPlacesObserver)
-                mapsViewModel.fetchPath("3", "30", 1000).observe(instance, fpObserver)
+                //mapsViewModel.fetchPath("3", "30", 1000).observe(instance, fpObserver)
             }
         }
         timer.start()

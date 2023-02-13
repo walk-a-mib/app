@@ -48185,7 +48185,7 @@ var buildings = new Array(2);
 var iconLayers = new Array(2);
 var multiFloorPaths = new Array();
 var currentFloor = 0;
-var currentUserPosition = -1;
+var currentUserPosition = "-1";
 var navigationArray = new Array();
 var iconStyles = new Map();
 
@@ -48272,7 +48272,7 @@ window.getGeoImage = function (url) {
 window.initializeIcons = function () {
   //initializeIconLayers(array);
   setFloor(currentFloor);
-  showUserLocation([undefined, undefined]);
+  showUserLocation([undefined, undefined], currentFloor);
 }
 
 window.initializeStyles = function () {
@@ -48796,12 +48796,14 @@ map.on('dblclick', function (evt) {
     });
     return;
   }
-  if (feature.get('floor') != undefined){
-  var t = feature.get('geometry').getCoordinates();
-  if (typeof t !== "undefined") {
-    currentUserPosition = feature.get('id');
-    showUserLocation((0,ol_proj_js__WEBPACK_IMPORTED_MODULE_2__.transform)([t[0], t[1]], 'EPSG:3857', 'EPSG:4326'), currentFloor);
-  }}
+  if (feature.get('floor') != undefined) {
+    var t = feature.get('geometry').getCoordinates();
+    if (typeof t !== "undefined") {
+      currentUserPosition = feature.get('id');
+      console.log(currentUserPosition)
+      showUserLocation((0,ol_proj_js__WEBPACK_IMPORTED_MODULE_2__.transform)([t[0], t[1]], 'EPSG:3857', 'EPSG:4326'), currentFloor);
+    }
+  }
 });
 
 addEventListener('DOMContentLoaded', (event) => {
@@ -48812,7 +48814,40 @@ window.getUserPosition = function () {
   JSBridge.setUserPosition(currentUserPosition);
 }
 
+//id stringa
+window.centerByIdAndShowInfo = function (id) {
+  var a;
+  iconLayers.forEach((floorsMap, floorNumber) => {
+    for (const [key, floorLayer] of floorsMap) {
+      if (typeof floorLayer !== 'undefined') {
+        var s = floorNumber + "_" + key;
+        var l = map.getLayers().getArray().find(layer => layer.get('name') == s);
+        if (typeof l == 'undefined') {
+          map.addLayer(floorLayer);
+          l = map.getLayers().getArray().find(layer => layer.get('name') == s);
+        }
+        console.log(a)
 
+        a = l.getSource().getFeatures()
+
+        if (a != []) {
+          a.forEach(element => {
+            if (element.get('id') == id){
+                        
+              var t = element.get('geometry').getCoordinates();
+              if (typeof t !== "undefined") {
+              setFloor(parseInt(element.get('floor')));
+              currentFloor = parseInt(element.get('floor'));
+              centerOnCoordinates((0,ol_proj_js__WEBPACK_IMPORTED_MODULE_2__.transform)([t[0], t[1]], 'EPSG:3857', 'EPSG:4326'));
+
+              JSBridge.showPointInfo(id);
+              return;
+            }}
+          });
+        }
+      }
+}});
+}
 
 
 
