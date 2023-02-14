@@ -17,7 +17,7 @@ class PathRepository(val pathRemoteDataSource: BasePathRemoteDataSource,
 ) : IPathRepository, PathCallback {
 
     val TAG: String = PathRepository::class.java.simpleName
-    val allPaths: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
+    val path: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
         CallResult()
     )}
 
@@ -28,16 +28,12 @@ class PathRepository(val pathRemoteDataSource: BasePathRemoteDataSource,
         pathLocalDataSource.pathCallback = this
     }
 
-<<<<<<< HEAD
     override fun findPath(
         referencePlaceId: String,
         destinationPlaceId: String,
         accessibility: Boolean,
         lastUpdate: Long
     ): MutableLiveData<CallResult> {
-=======
-    override fun findPath(referencePlaceId: String, destinationPlaceId: String, lastUpdate: Long): MutableLiveData<CallResult> {
->>>>>>> parent of 4f9128be (aggiunto filtro)
         val currentTime = System.currentTimeMillis()
 
         //if (choice) { //(currentTime - lastUpdate > Constants.FRESH_TIMEOUT)
@@ -47,13 +43,8 @@ class PathRepository(val pathRemoteDataSource: BasePathRemoteDataSource,
         //else
         //    placeLocalDataSource.getPlace(placeId)
         //TODO: condizione se non è passato troppo tempo
-<<<<<<< HEAD
         pathLocalDataSource.getPath(referencePlaceId, destinationPlaceId, accessibility)
         return path
-=======
-        pathLocalDataSource.getPath(referencePlaceId, destinationPlaceId)
-        return allPaths
->>>>>>> parent of 4f9128be (aggiunto filtro)
     }
 
     private fun fetchFromRemote(
@@ -79,7 +70,7 @@ class PathRepository(val pathRemoteDataSource: BasePathRemoteDataSource,
 
     override fun onFailureFromRemote(exception: Exception) {
         val result: CallResult.Error = CallResult.Error(exception.message)
-        allPaths.postValue(result)
+        path.postValue(result)
     }
 
     override fun onSuccessFromLocal(
@@ -92,7 +83,7 @@ class PathRepository(val pathRemoteDataSource: BasePathRemoteDataSource,
     ) {
         if (referencePlace != null && steps?.size!! > 0) {
             var result = CallResult.SuccessPath(buildPath(distance, referencePlace!!, steps!!))
-            allPaths.postValue(result!!)
+            path.postValue(result!!)
         } else {
             fetchFromRemote(referenceId, destinationId, accessibility)
         }
@@ -100,7 +91,7 @@ class PathRepository(val pathRemoteDataSource: BasePathRemoteDataSource,
 
     override fun onFailureFromLocal(exception: Exception) {
         val resultError: CallResult.Error = CallResult.Error(exception.message)
-        allPaths.postValue(resultError)
+        path.postValue(resultError)
     }
 
     private fun buildPath(distance: Int, referencePlace: Node, steps: List<Step>): Path {

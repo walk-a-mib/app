@@ -4,14 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import com.example.walk_a_mib.model.CallResult
 
 interface IPathRepository {
-<<<<<<< HEAD
     fun findPath(
         referencePlaceId: String,
         destinationPlaceId: String,
         accessibility: Boolean,
         lastUpdate: Long
     ): MutableLiveData<CallResult>?
-=======
-    fun findPath(referencePlaceId: String, destinationPlaceId: String, lastUpdate: Long): MutableLiveData<CallResult>?
->>>>>>> parent of 4f9128be (aggiunto filtro)
 }

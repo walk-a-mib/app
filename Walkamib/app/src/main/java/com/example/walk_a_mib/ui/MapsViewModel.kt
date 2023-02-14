@@ -17,7 +17,10 @@ class MapsViewModel(var placeRepository: INodeRepository,
     var place: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
         CallResult()
     )}
-    var allPlaces: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
+    var nodes: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
+        CallResult()
+    )}
+    var nodesFromNameKeyword: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
         CallResult()
     )}
     var placesNearby: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
@@ -33,8 +36,13 @@ class MapsViewModel(var placeRepository: INodeRepository,
     }
 
     fun fetchAllPlaces(lastUpdate: Long): MutableLiveData<CallResult> {
-        allPlaces = placeRepository.fetchAllNodes()!!
-        return allPlaces
+        nodes = placeRepository.fetchAllNodes(lastUpdate)!!
+        return nodes
+    }
+
+    fun searchPlaceFromNameKeyword(keyword: String, lastUpdate: Long): MutableLiveData<CallResult>  {
+        nodesFromNameKeyword = placeRepository.searchPlaceFromNameKeyword(lastUpdate, keyword)!!
+        return nodesFromNameKeyword
     }
 
     fun fetchPlacesNearby(referencePlaceId: String, maxDistance: Int, lastUpdate: Long): MutableLiveData<CallResult> {
@@ -42,13 +50,8 @@ class MapsViewModel(var placeRepository: INodeRepository,
         return placesNearby
     }
 
-<<<<<<< HEAD
     fun fetchPath(referencePlaceId: String, destinationPlaceId: String, accessibility: Boolean, lastUpdate: Long) : MutableLiveData<CallResult> {
         paths = pathRepository.findPath(referencePlaceId, destinationPlaceId, accessibility, lastUpdate)!!
-=======
-    fun fetchPath(referencePlaceId: String, destinationPlaceId: String, lastUpdate: Long) : MutableLiveData<CallResult> {
-        paths = pathRepository.findPath(referencePlaceId, destinationPlaceId, lastUpdate)!!
->>>>>>> parent of 4f9128be (aggiunto filtro)
         return paths
     }
 

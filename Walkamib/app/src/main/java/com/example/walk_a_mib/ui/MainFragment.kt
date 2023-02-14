@@ -359,7 +359,7 @@ class MainFragment : Fragment() {
 
         val allPlacesObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
-                val res = (result as CallResult.SuccessAllPlaces).allPlaces.nodes
+                val res = (result as CallResult.SuccessAllNodes).allNodes.nodes
                 JSBridge.showIcons(webView, res);
                 Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! ${res.toString()}")
 
