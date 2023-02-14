@@ -14,7 +14,7 @@ interface NodeDao: MapsDao<Node> {
     @Query("SELECT * FROM node WHERE node_id = :id")
     fun getPlace(id: String): Node?
 
-    @Query("SELECT * FROM node WHERE name LIKE '%' || :nameKeyword || '%'")
+    @Query("SELECT * FROM node WHERE UPPER(name) LIKE UPPER('%' || :nameKeyword || '%')")
     fun getPlacesFromNameKeyword(nameKeyword: String): List<Node>?
 
 }

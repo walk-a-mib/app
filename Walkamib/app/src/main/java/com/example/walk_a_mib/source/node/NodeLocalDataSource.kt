@@ -9,7 +9,7 @@ class NodeLocalDataSource(val mapsRoomDatabase: MapsRoomDatabase) : BaseNodeLoca
 
     override fun getPlace(id: String) {
             MapsRoomDatabase.databaseWriteExecutor.execute {
-                placeCallback?.onSuccessFromLocal(
+                placeCallback?.onSuccessFromLocalPlace(
                     id, nodeDao.getPlace(id)
                 )
 
@@ -19,7 +19,7 @@ class NodeLocalDataSource(val mapsRoomDatabase: MapsRoomDatabase) : BaseNodeLoca
     override fun getAllNodes() {
         MapsRoomDatabase.databaseWriteExecutor.execute {
                 var r = nodeDao.getAllNodes()
-                allNodesCallback?.onSuccessFromLocal(
+                allNodesCallback?.onSuccessFromLocalAllNodes(
                     nodeDao.getAllNodes()
                 )
         }
@@ -28,7 +28,7 @@ class NodeLocalDataSource(val mapsRoomDatabase: MapsRoomDatabase) : BaseNodeLoca
     override fun insertPlace(place: Node) {
         MapsRoomDatabase.databaseWriteExecutor.execute {
             nodeDao?.insert(place!!)
-            placeCallback?.onSuccessFromLocal(place.id, place)
+            placeCallback?.onSuccessFromLocalPlace(place.id, place)
         }
 
     }
@@ -36,14 +36,14 @@ class NodeLocalDataSource(val mapsRoomDatabase: MapsRoomDatabase) : BaseNodeLoca
     override fun insertNodes(nodes: List<Node>) {
         MapsRoomDatabase.databaseWriteExecutor.execute {
             nodeDao?.insert(nodes!!)
-            allNodesCallback?.onSuccessFromLocal(nodes)
+            allNodesCallback?.onSuccessFromLocalAllNodes(nodes)
         }
     }
 
     override fun getPlacesFromNameKeyword(nameKeyword: String) {
         MapsRoomDatabase.databaseWriteExecutor.execute {
             var r = nodeDao?.getPlacesFromNameKeyword(nameKeyword)
-            allNodesCallback?.onSuccessFromLocal(r)
+            allNodesCallback?.onSuccessFromLocalNodesFromKeyword(r)
         }
     }
 

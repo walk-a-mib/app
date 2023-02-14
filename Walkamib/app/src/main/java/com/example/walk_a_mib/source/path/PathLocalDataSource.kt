@@ -7,6 +7,7 @@ import com.example.walk_a_mib.database.NodeDao
 import com.example.walk_a_mib.database.relationship.Pathway
 import com.example.walk_a_mib.logic_layer.domain.Edge
 import com.example.walk_a_mib.logic_layer.domain.Node
+import com.example.walk_a_mib.model.path.PathOptionalFilters
 import com.example.walk_a_mib.model.path.Step
 
 class PathLocalDataSource(val mapsRoomDatabase: MapsRoomDatabase) : BasePathLocalDataSource() {
@@ -14,7 +15,11 @@ class PathLocalDataSource(val mapsRoomDatabase: MapsRoomDatabase) : BasePathLoca
     val placeDao : NodeDao = mapsRoomDatabase.nodeDao()
     val edgeDao : EdgeDao = mapsRoomDatabase.edgeDao()
 
-    override fun getPath(referenceId: String, destinationId: String) {
+    override fun getPath(
+        referenceId: String,
+        destinationId: String,
+        optionalFilters: PathOptionalFilters
+    ) {
         MapsRoomDatabase.databaseWriteExecutor.execute {
             var res : List<Step> = pathDao.getPath(referenceId, destinationId)!!
             pathCallback?.onSuccessFromLocal(

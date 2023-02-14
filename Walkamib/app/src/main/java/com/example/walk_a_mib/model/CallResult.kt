@@ -10,7 +10,7 @@ open class CallResult {
         return this is SuccessPlace
                 || this is SuccessPlacesNearby
                 || this is SuccessPath
-                || this is SuccessAllPlaces
+                || this is SuccessAllNodes
     }
 
     class SuccessPlace(val placeResponse: PlaceBodyResponse) : CallResult()
@@ -19,7 +19,7 @@ open class CallResult {
 
     class SuccessPath(val pathResponse: Path) : CallResult()
 
-    class SuccessAllPlaces(val allPlaces: AllNodesBodyResponse) : CallResult()
+    class SuccessAllNodes(val allNodes: AllNodesBodyResponse) : CallResult()
 
     class Error(val message: String?) : CallResult()
 

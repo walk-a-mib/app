@@ -19,6 +19,8 @@
         android:theme="@style/Theme.Walkamib"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <!--
         <activity
             android:name=".ui.SignInActivity"
             android:exported="true"
@@ -49,6 +51,17 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        -->
+
+        <activity android:name=".ui.MAct"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
 
         <meta-data
             android:name="preloaded_fonts"

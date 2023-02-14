@@ -16,7 +16,15 @@ class NodeRepository(val nodeRemoteDataSource: BaseNodeRemoteDataSource,
 ) : INodeRepository, PlaceCallback, AllNodesCallback {
     val TAG: String = NodeRepository::class.java.simpleName
 
-    val fetchedPlaces: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
+    val place: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
+        CallResult()
+    )}
+
+    val nodes: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
+        CallResult()
+    )}
+
+    val nodesFromNameKeyword: MutableLiveData<CallResult> = MutableLiveData<CallResult>().apply { postValue(
         CallResult()
     )}
 
@@ -40,20 +48,20 @@ class NodeRepository(val nodeRemoteDataSource: BaseNodeRemoteDataSource,
         //    placeLocalDataSource.getPlace(placeId)
         //TODO: condizione se non è passato troppo tempo
         nodeLocalDataSource.getPlace(placeId)
-        return fetchedPlaces
+        return place
     }
 
-    override fun fetchAllNodes(): MutableLiveData<CallResult>? {
+    override fun fetchAllNodes(lastUpdate: Long): MutableLiveData<CallResult>? {
         val currentTime = System.currentTimeMillis()
 
         nodeLocalDataSource.getAllNodes()
-        return fetchedPlaces
+        return nodes
     }
 
-    override fun searchForPlace(keyword: String): MutableLiveData<CallResult>? {
+    override fun searchPlaceFromNameKeyword(lastUpdate: Long, keyword: String): MutableLiveData<CallResult>? {
         nodeLocalDataSource.getPlacesFromNameKeyword(keyword)
 
-        return fetchedPlaces
+        return nodesFromNameKeyword
     }
 
     private fun fetchAllPlacesFromRemote() {
@@ -69,10 +77,10 @@ class NodeRepository(val nodeRemoteDataSource: BaseNodeRemoteDataSource,
         nodeLocalDataSource.insertPlace(apiResponse.responseBody.place)
     }
 
-    override fun onSuccessFromLocal(nodes: List<Node>?) {
+    override fun onSuccessFromLocalAllNodes(nodes: List<Node>?) {
         if (nodes != null && nodes.isNotEmpty()) {
-            var result = CallResult.SuccessAllPlaces(AllNodesBodyResponse(nodes!!))
-            this.fetchedPlaces.postValue(result!!)
+            var result = CallResult.SuccessAllNodes(AllNodesBodyResponse(nodes!!))
+            this.nodes.postValue(result!!)
         }
         else
             fetchAllPlacesFromRemote()
@@ -85,15 +93,21 @@ class NodeRepository(val nodeRemoteDataSource: BaseNodeRemoteDataSource,
         nodeLocalDataSource.insertNodes(apiResponse.responseBody.nodes)
     }
 
-    override fun onFailureFromRemote(exception: Exception) {
-        val result: CallResult.Error = CallResult.Error(exception.message)
-        fetchedPlaces.postValue(result)
+    override fun onSuccessFromLocalNodesFromKeyword(nodes: List<Node>?) {
+        var result = CallResult.SuccessAllNodes(AllNodesBodyResponse(nodes!!))
+        this.nodesFromNameKeyword.postValue(result!!)
     }
 
-    override fun onSuccessFromLocal(reqId: String, place: Node?) {
+    override fun onFailureFromRemote(exception: Exception) {
+        val result: CallResult.Error = CallResult.Error(exception.message)
+        place.postValue(result)
+        nodes.postValue(result)
+    }
+
+    override fun onSuccessFromLocalPlace(reqId: String, place: Node?) {
         if (place != null) {
             var result = CallResult.SuccessPlace(PlaceBodyResponse(place!!))
-            this.fetchedPlaces.postValue(result!!)
+            this.place.postValue(result!!)
         }
         else
             fetchPlaceFromRemote(reqId)
@@ -101,7 +115,8 @@ class NodeRepository(val nodeRemoteDataSource: BaseNodeRemoteDataSource,
 
     override fun onFailureFromLocal(exception: Exception) {
         val resultError: CallResult.Error = CallResult.Error(exception.message)
-        fetchedPlaces.postValue(resultError)
+        place.postValue(resultError)
+        nodes.postValue(resultError)
     }
 
 }
