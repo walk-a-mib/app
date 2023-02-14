@@ -390,7 +390,7 @@ class NavigationFragment : Fragment() {
 
             override fun onFinish() {
                 mapsViewModel.fetchAllPlaces(1000).observe(requireActivity(), allPlacesObserver)
-                mapsViewModel.fetchPath("3", "30", 1000).observe(requireActivity(), fpObserver)
+                mapsViewModel.fetchPath("3", "30", false, 1000).observe(requireActivity(), fpObserver)
             }
         }
         timer.start()

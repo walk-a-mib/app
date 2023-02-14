@@ -468,7 +468,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 mapsViewModel.fetchAllPlaces(1000).observe(instance, allPlacesObserver)
-                mapsViewModel.fetchPath("3", "30", 1000).observe(instance, fpObserver)
+                mapsViewModel.fetchPath("3", "30", true, 1000).observe(instance, fpObserver)
             }
         }
         timer.start()

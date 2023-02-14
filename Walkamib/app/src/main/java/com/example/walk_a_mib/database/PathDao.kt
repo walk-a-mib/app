@@ -11,8 +11,8 @@ interface PathDao: MapsDao<Pathway> {
     @Query("SELECT e.*, n.* FROM pathway " +
             "INNER JOIN node AS n ON intermediate_id = n.node_id " +
             "INNER JOIN edge AS e ON connecting_edge_id = e.edge_id " +
-            "WHERE reference_id = :referenceId AND destination_id = :destinationId " +
+            "WHERE reference_id = :referenceId AND destination_id = :destinationId AND e.edgeaccessible = :accessibility " +
             "ORDER BY order_number ASC")
-    fun getPath(referenceId: String, destinationId: String): List<Step>?
+    fun getPath(referenceId: String, destinationId: String, accessibility: Boolean): List<Step>?
 
 }
