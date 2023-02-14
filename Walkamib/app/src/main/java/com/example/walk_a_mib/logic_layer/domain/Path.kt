@@ -77,7 +77,7 @@ class Path(val pathLength: Int,
         val n2 = getTypeName(end.label)
 
         //val e = EdgeType.getTypeName(way.type)
-        val e = EdgeType.getTypeName(EdgeType.getTypeInt(way.label))
+        val e = EdgeType.getTypeName(way.label)
         val ePrep = EdgeType.getTypePreposition(EdgeType.getTypeInt(way.label))
         var eVerb = EdgeType.getTypeVerb(EdgeType.getTypeInt(way.label), true)
         if(start.ga.floor > end.ga.floor)

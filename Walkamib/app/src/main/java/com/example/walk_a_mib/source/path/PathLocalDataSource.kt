@@ -14,11 +14,15 @@ class PathLocalDataSource(val mapsRoomDatabase: MapsRoomDatabase) : BasePathLoca
     val placeDao : NodeDao = mapsRoomDatabase.nodeDao()
     val edgeDao : EdgeDao = mapsRoomDatabase.edgeDao()
 
+<<<<<<< HEAD
     override fun getPath(
         referenceId: String,
         destinationId: String,
         accessibility: Boolean
     ) {
+=======
+    override fun getPath(referenceId: String, destinationId: String) {
+>>>>>>> parent of 4f9128be (aggiunto filtro)
         MapsRoomDatabase.databaseWriteExecutor.execute {
             var res : List<Step> = pathDao.getPath(referenceId, destinationId, accessibility)!!
             pathCallback?.onSuccessFromLocal(

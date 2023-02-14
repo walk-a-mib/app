@@ -41,10 +41,9 @@ class MAct : AppCompatActivity() {
         )[MapsViewModel::class.java]
 
 
-
         val allPlacesObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
-                val res = (result as CallResult.SuccessAllNodes).allNodes.nodes.toString()
+                val res = (result as CallResult.SuccessAllPlaces).allPlaces.nodes.toString()
                 Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! " + res)
 
             } else {
@@ -53,7 +52,7 @@ class MAct : AppCompatActivity() {
         }
         mapsViewModel.fetchAllPlaces(1000).observe(this, allPlacesObserver)
 
-        /*
+
 
 
         val btn = findViewById<Button>(R.id.gobtn)
@@ -124,30 +123,6 @@ class MAct : AppCompatActivity() {
 
             }
         }
-
-         */
-
-
-        val searchPlaceObserver = Observer<CallResult> { result ->
-            if (result.isSuccess() && result is CallResult.SuccessAllNodes) {
-                val res = result.allNodes
-                if (res != null)
-                    Log.d("MAIN", "ACTUALLY FUCKING WORKS SEARCH PLACE FROM NAME KEYWORD! " + res.nodes.toString())
-                else
-                    Log.d("MAIN", "NO LUCK BRO")
-            } else {
-                Log.d("MAIN", "FUCK NO PN")
-            }
-        }
-
-        val srcKeyBtn = findViewById<Button>(R.id.gobtn)
-
-
-        srcKeyBtn.setOnClickListener {
-            mapsViewModel.searchPlaceFromNameKeyword("x", 1000).observe(this, searchPlaceObserver)
-
-        }
-
 
 
 

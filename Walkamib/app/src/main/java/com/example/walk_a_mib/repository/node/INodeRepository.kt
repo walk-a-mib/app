@@ -7,7 +7,7 @@ import com.example.walk_a_mib.model.CallResult
 interface INodeRepository {
     fun fetchPlace(placeId: String, lastUpdate: Long): MutableLiveData<CallResult>?
 
-    fun fetchAllNodes(lastUpdate: Long): MutableLiveData<CallResult>?
+    fun fetchAllNodes(): MutableLiveData<CallResult>?
 
-    fun searchPlaceFromNameKeyword(lastUpdate: Long, keyword: String): MutableLiveData<CallResult>?
+    fun searchForPlace(keyword: String): MutableLiveData<CallResult>?
 }
