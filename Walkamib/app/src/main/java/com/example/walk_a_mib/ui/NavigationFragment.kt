@@ -7,30 +7,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.webkit.WebViewAssetLoader
 import com.example.walk_a_mib.LocalContentWebViewClient
 import com.example.walk_a_mib.R
 import com.example.walk_a_mib.Route
+import com.example.walk_a_mib.adapter.RouteAdapter
 import com.example.walk_a_mib.logic_layer.domain.NodeType
 import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.model.JSBridge
-import com.example.walk_a_mib.repository.path.IPathRepository
 import com.example.walk_a_mib.repository.node.INodeRepository
+import com.example.walk_a_mib.repository.path.IPathRepository
 import com.example.walk_a_mib.repository.placesNearby.IPlacesNearbyRepository
 import com.example.walk_a_mib.toPx
 import com.example.walk_a_mib.util.ServiceLocator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,10 +60,11 @@ class NavigationFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var newArrayList : ArrayList<Route>
-    private lateinit var svgId : Array<Int>
-    private lateinit var description: Array<String>
-    private lateinit var distance: Array<String>
+    private lateinit var routeList : MutableList<Route>
+    private lateinit var svgId : MutableList<Int>
+    private lateinit var description : MutableList<String>
+    private lateinit var distance : MutableList<String>
+
 
     val BOTTOMSHEET_HEIGHT = 65.toPx()
 
@@ -94,6 +102,7 @@ class NavigationFragment : Fragment() {
         val webview = view.findViewById<WebView>(R.id.webview)
         createWebView(webview)
 
+        //Snackbar.make(rootContainer, arguments?.getString("idStart").toString(), Snackbar.LENGTH_SHORT).show()
 
 //        onBackPressedDispatcher.addCallback(this) {
 //            if (webview.canGoBack()) {
@@ -110,11 +119,6 @@ class NavigationFragment : Fragment() {
             MapsViewModelFactory(placeRepository, placesNearby, pathRepository)
         )[MapsViewModel::class.java]
 
-        val infoTitle = view.findViewById<TextView>(R.id.infoTitle)
-
-        val poiDescription = view.findViewById<TextView>(R.id.poiDescription)
-        val otherInfoContainer = view.findViewById<LinearLayout>(R.id.otherInfoContainer)
-
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 findNavController().navigate(R.id.action_navigationFragment_to_mainFragment)
@@ -123,48 +127,15 @@ class NavigationFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback(callback)
 
-        val observePlace = Observer<CallResult> { result ->
-            if (result.isSuccess()) {
-                val res = (result as CallResult.SuccessPlace).placeResponse.place
-                Log.d("observer", res.toString())
-                val name = res.name
-                val descr = res.description
-                val ga = res.ga
-                val textType = NodeType.getTypeString(res.type);
-                //Log.d("cribbio", "insertIcon(\"${res.id}\", \"${res.name}\", [${res.position.lon}, ${res.position.lat}], 24, ${res.ga.floor}, \"${textType}\"))")
-                //webview.evaluateJavascript("javascript:insertIcon(\"eheeeh\", \"nome\", [9.221144, 45.523829], 24, 0, \"vending_machine_colddrinks\");", null)
-                //webview.evaluateJavascript("javascript:initializeIcons()", null)// adding the name
-
-                infoTitle.text = resources.getString(R.string.poi_info, name)
-
-                // adding the description
-                if (descr != "") {
-                    poiDescription.text = descr
-                } else {
-                    poiDescription.text = getString(R.string.missing_poi_description)
-                }
-
-                // adding other information
-                val otherInfo = OtherInfo(requireContext())
-
-                otherInfo.addOtherInformation(otherInfoContainer, "available", ga.available.toString())
-                otherInfo.addOtherInformation(otherInfoContainer, "accessible", ga.accessible.toString())
-                otherInfo.addOtherInformation(otherInfoContainer, "indoor", ga.indoor.toString())
-                otherInfo.addOtherInformation(otherInfoContainer, "building", ga.building.toString())
-                otherInfo.addOtherInformation(otherInfoContainer, "floor", ga.floor.toString())
-            }
-        }
-
         BottomSheetBehavior.from(sheet).apply {
-            this.isHideable = true
-            this.state = BottomSheetBehavior.STATE_HIDDEN
-            bottomsheetMaterialCardView.layoutParams.height = BOTTOMSHEET_HEIGHT
-//            this.state = BottomSheetBehavior.STATE_COLLAPSED
-//            this.peekHeight = BOTTOMSHEET_HEIGHT
-//            param.bottomMargin = BOTTOMSHEET_HEIGHT
-//            webview.layoutParams = param
+//            this.isHideable = true
+//            this.state = BottomSheetBehavior.STATE_HIDDEN
+//            bottomsheetMaterialCardView.layoutParams.height = BOTTOMSHEET_HEIGHT
+            this.state = BottomSheetBehavior.STATE_COLLAPSED
+            this.peekHeight = BOTTOMSHEET_HEIGHT
+            param.bottomMargin = BOTTOMSHEET_HEIGHT
+            webview.layoutParams = param
         }
-
 
         BottomSheetBehavior.from(sheet).addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -188,25 +159,6 @@ class NavigationFragment : Fragment() {
                 }
             }
         })
-
-
-//        val observePlacesNearby = Observer<CallResult> { result ->
-//            val isFirstElementArrayList = arrayListOf(true, true, true, true, true, true, true, true, true)
-//            val imgMap = mutableMapOf<String, ImageButton>()
-//
-//            if (result.isSuccess()) {
-//                val res = (result as CallResult.SuccessPlacesNearby).placesNearbyResponse
-//                Log.d("MAIN", "ACTUALLY FUCKING WORKS PN! RP = " + res.referencePlace + " --- PN = " + res.placesNearby)
-//
-//                val places = res.placesNearby
-//
-//                val filterHandler = FilterHandler(requireContext(), places, poiContainer, webview)
-//                filterHandler.handlePlace()
-//            }
-//        }
-
-//        mapsViewModel.fetchPlacesNearby("20", 3000, 1000)
-//            .observe(requireActivity(), observePlacesNearby)
 
 
         val zoomIn = view.findViewById<ImageButton>(R.id.zoomIn)
@@ -263,27 +215,6 @@ class NavigationFragment : Fragment() {
             Navigation.findNavController(requireView()).navigate(R.id.action_navigationFragment_to_mainFragment)
         }
 
-
-//        // onPageFinished
-//        webview.webViewClient = object : WebViewClient() {
-//            override fun onPageFinished(webView: WebView, url: String) {
-//                Snackbar.make(rootContainer, "onpagefinished", Snackbar.LENGTH_SHORT).show()
-//
-//                val allPlacesObserver = Observer<CallResult> { result ->
-//                    if (result.isSuccess()) {
-//                        val res = (result as CallResult.SuccessAllPlaces).allPlaces.places
-//                        JSBridge.showIcons(webView, res)
-//                        JSBridge.showIcons(webView, res)
-//                        Log.d("MAIN", "ACTUALLY FUCKING WORKS ALL PLACES! ${res.toString()}")
-//
-//                    } else {
-//                        Log.d("MAIN", "FUCK NO ALL PLACES")
-//                    }
-//                }
-//
-//                mapsViewModel.fetchAllPlaces(1000).observe(requireActivity(), allPlacesObserver)
-//            }
-//        }
     }
 
 
@@ -320,9 +251,8 @@ class NavigationFragment : Fragment() {
             MapsViewModelFactory(placeRepository, placesNearbyRepository, pathRepository)
         )[MapsViewModel::class.java]
 
-
-
-
+        Log.d("fucincoming", arguments?.getString("idStart").toString())
+        Log.d("fucincoming", arguments?.getString("idEnd").toString())
 
         val allPlacesObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
@@ -340,24 +270,91 @@ class NavigationFragment : Fragment() {
         val fpObserver = Observer<CallResult> { result ->
             if (result.isSuccess()) {
                 val res = (result as CallResult.SuccessPath).pathResponse
-
+                val textIndications = res.getTextIndications()
                 JSBridge.showPath(webView, res.nodeList)
 
-                val n = res.nodeList.iterator()
-                JSBridge.showUserLocation(webView, n.next().position.lon, n.next().position.lat)
-                val timer = object: CountDownTimer(10000, 2000) {
+                val arrayTextIndications = res.getTextIndications()
+                val indications = arrayTextIndications
+                val iterator = indications.iterator()
 
-                    override fun onTick(millisUntilFinished: Long) {
-                        //if(n.hasNext()){
-                        //    JSBridge.updateUserLocation(webView, n.next().position.lon, n.next().position.lat)
-                        //}
-                        //Log.d("sono un rompicazzo", "certificato!")
+                svgId = mutableListOf()
+                description = mutableListOf()
+                distance = mutableListOf()
+                routeList = mutableListOf()
+
+                while(iterator.hasNext()) {
+                    val element = iterator.next()
+                    Log.d("indications", "${element[0]} ${element[1]} ${element[2]} ${element[3]}")
+
+                    when(element[1]) {
+                        "0" -> {
+                            svgId.add(R.drawable.ic_round_straight_24)
+                        }
+                        "1" -> {
+                            svgId.add(R.drawable.ic_arrow_slightly_right_24)
+                        }
+                        "2" -> {
+                            svgId.add(R.drawable.ic_round_turn_right_24)
+                        }
+                        "3" -> {
+                            svgId.add(R.drawable.ic_round_turn_right_24)
+                        }
+                        "4" -> {
+                            svgId.add(R.drawable.ic_round_backwards_24)
+                        }
+                        "5" -> {
+                            svgId.add(R.drawable.ic_round_turn_left_24)
+                        }
+                        "6" -> {
+                            svgId.add(R.drawable.ic_round_turn_left_24)
+                        }
+                        "7" -> {
+                            svgId.add(R.drawable.ic_round_arrow_slightly_left_24)
+                        }
                     }
 
-                    override fun onFinish() {
-                    }
+                    description.add(element[2])
+                    distance.add("${element[3].toInt()/100} mt")
                 }
-                timer.start()
+
+                val recyclerView = requireView().findViewById<RecyclerView>(R.id.recyclerView)
+
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                recyclerView.setHasFixedSize(true)
+
+                getUserdata(recyclerView)
+
+                val n = res.nodeList.iterator()
+
+                val iteratore = n.next()
+                Log.d("iteratore", iteratore.toString())
+                JSBridge.showUserLocation(webView, iteratore.position.lon, n.next().position.lat)
+
+                val posObserver = Observer<Int> { pos ->
+                    if(pos != null) {
+                        webView.evaluateJavascript(
+                            "javascript:stepNavigation(${arrayTextIndications[pos][0]});",
+                            null
+                        )
+                    }
+//            BottomSheetBehavior.from(sheet).state = BottomSheetBehavior.STATE_COLLAPSED
+                }
+
+                pos.observe(requireActivity(), posObserver)
+
+//                val timer = object: CountDownTimer(10000, 2000) {
+//
+//                    override fun onTick(millisUntilFinished: Long) {
+//                        //if(n.hasNext()){
+//                        //    JSBridge.updateUserLocation(webView, n.next().position.lon, n.next().position.lat)
+//                        //}
+//                        //Log.d("sono un rompicazzo", "certificato!")
+//                    }
+//
+//                    override fun onFinish() {
+//                    }
+//                }
+//                timer.start()
 
                 Log.d("MAIN",
                     "ACTUALLY FUCKING WORKS FIND PATH: " + res.pathLength + " --- "
@@ -369,35 +366,30 @@ class NavigationFragment : Fragment() {
             }
         }
 
-        val nameObserver = Observer<CallResult> { result ->
-            if (result.isSuccess()) {
-                val res = (result as CallResult.SuccessPlace).placeResponse.place.toString()
-                Log.d("MAIN", "ACTUALLY FUCKING WORKS " + res)
-
-            } else {
-                Log.d("MAIN", "FUCK NO")
-            }
-        }
-        // non mettere id a cazzo
-        mapsViewModel.fetchPlace("3", 1000).observe(requireActivity(), nameObserver)
-
-
-
-        val timer = object: CountDownTimer(3000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                Log.d("sono un rompicazzo", "certificato!")
-            }
-
-            override fun onFinish() {
+        val readyObserver = Observer<Boolean> { bool ->
+            if(bool) {
+                Log.d("fucincoming", arguments?.getString("idStart").toString())
+                Log.d("fucincoming", arguments?.getString("idEnd").toString())
                 mapsViewModel.fetchAllPlaces(1000).observe(requireActivity(), allPlacesObserver)
-                mapsViewModel.fetchPath("3", "30", false, 1000).observe(requireActivity(), fpObserver)
+                mapsViewModel.fetchPath(arguments?.getString("idStart").toString(), arguments?.getString("idEnd").toString(), false, 1000).observe(requireActivity(), fpObserver)
             }
         }
-        timer.start()
+
+        JSBridge.readyValue.observe(requireActivity(), readyObserver)
 
     }
 
+    private fun getUserdata(recyclerView: RecyclerView) {
+        for(i in svgId.indices) {
+            val route = Route(svgId[i], description[i], distance[i])
+            routeList.add(route)
+        }
+
+        recyclerView.adapter = RouteAdapter(routeList)
+    }
+
     companion object {
+        var pos: MutableLiveData<Int> = MutableLiveData<Int>().apply {postValue(null)}
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

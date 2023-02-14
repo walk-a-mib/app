@@ -6,108 +6,96 @@ import android.webkit.WebView
 import androidx.lifecycle.MutableLiveData
 import com.example.walk_a_mib.logic_layer.domain.Node
 
-//  CARISSIMI COLLEGHI CE L'ABBIAMO FATTA
-//  ciao squiddi questa classe è per te
-//
-//  sono stata fino alle 3 ad ottimizzare la funzione per cambiare piano e ora va che
-//  è una meraviglia, non "flasha" più la mappa, è istantaneo il caricamento
 
 object JSBridge{
 
     var callbackValue: MutableLiveData<String> = MutableLiveData<String>().apply {postValue(null)}
-
+    var readyValue: MutableLiveData<Boolean> = MutableLiveData<Boolean>().apply {postValue(null)}
+    var idValue: MutableLiveData<String> = MutableLiveData<String>().apply {postValue(null)}
 
     //callback per evento su mappa
-        @JavascriptInterface
-        fun showPointInfo(id:String){
-            // restituisce l'id del punto di interesse toccato sulla mappa
-            Log.d("MESSAGE FROM WEBVIEW", id)
-            // mettere qui tutto il codice che bisogna eseguire quando viene
-            // toccato un punto della mappa, per esempio una chiamata al controller
-            // che setta tutto quanto per vedere le info del punto.
-            // Se serve oltre all'id posso ritornare, in formato stringa, anche:
-            // nome, edificio, piano, tipo, coordinate.
+    @JavascriptInterface
+    fun showPointInfo(id:String){
+        idValue.postValue(id)
+    }
 
-
-        }
-
-        //chiamata quando la mappa è pronta a fare il load delle icone. Chris un observer?
-        @JavascriptInterface
-        fun onMapReady(){
-
-        }
+    //chiamata quando la mappa è pronta a fare il load delle icone. Chris un observer?
+    @JavascriptInterface
+    fun onMapReady(){
+        readyValue.postValue(true)
+    }
 
     //callback per quando è stata ricevuta la posizione che l'utente ha settato sulla mappa
-        @JavascriptInterface
-        fun setUserPosition(id: String){
-            callbackValue.postValue(id)
-        }
+    @JavascriptInterface
+    fun setUserPosition(id: String){
+        callbackValue.postValue(id)
+    }
 
 
 
-        // Da chiamare quando si vuole cambiare piano sulla mappa
-        fun setFloor(webview: WebView, floor: Int){
-            webview.evaluateJavascript("javascript:setFloor(${floor})", null)
-        }
+    // Da chiamare quando si vuole cambiare piano sulla mappa
+    fun setFloor(webview: WebView, floor: Int){
+        webview.evaluateJavascript("javascript:setFloor(${floor})", null)
+    }
 
-        // Da chiamare per centrare la vista della mappa su certe coordinate
-        fun centerView(webview: WebView, lon:Double, lat:Double){
-            webview.evaluateJavascript("javascript:centerOnCoordinates([${lon}, ${lat}])", null)
-        }
+    // Da chiamare per centrare la vista della mappa su certe coordinate
+    fun centerView(webview: WebView, lon:Double, lat:Double){
+        webview.evaluateJavascript("javascript:centerOnCoordinates([${lon}, ${lat}])", null)
+    }
 
-        // Da chiamare per centrare la vista della mappa su certe coordinate e ruotarla affinché
-        // abbia un angolo di n radianti rispetto alla direzione nord (è assoluto, non relativo)
-        // 0 per esempio te la fa ruotare mettendo il nord a nord, mentre pi greco la mette col
-        // nord a sud indipendentemente dall'angolo precedente
-        fun centerTurnView(webview: WebView, lon:Double, lat:Double, n:Double){
-            webview.evaluateJavascript("javascript:centerAndTurn([${lon}, ${lat}], ${n})", null)
-        }
+    // Da chiamare per centrare la vista della mappa su certe coordinate e ruotarla affinché
+    // abbia un angolo di n radianti rispetto alla direzione nord (è assoluto, non relativo)
+    // 0 per esempio te la fa ruotare mettendo il nord a nord, mentre pi greco la mette col
+    // nord a sud indipendentemente dall'angolo precedente
+    fun centerTurnView(webview: WebView, lon:Double, lat:Double, n:Double){
+        webview.evaluateJavascript("javascript:centerAndTurn([${lon}, ${lat}], ${n})", null)
+    }
 
-        // per avere il nord a nord
-        fun resetRotation(webview: WebView){
-            webview.evaluateJavascript("javascript:resetRotation()", null)
-        }
+    // per avere il nord a nord
+    fun resetRotation(webview: WebView){
+        webview.evaluateJavascript("javascript:resetRotation()", null)
+    }
 
-        // Da chiamare per far vedere tutte le icone che sono presenti nella lista List<Nodes>
-        fun showIcons(webview: WebView, nodes: List<Node>){
-            val allowed_nodes = arrayOf(
-                "restroom_M",
-                "restroom_F",
-                "restroom_H",
-                "stairs",
-                "classroom",
-                "vending_machine_hotdrinks",
-                "vending_machine_colddrinks",
-                "door_exit",
-                "door_normal"
-            )
-            for(node in nodes){
-                if(allowed_nodes.contains(node.label)){
-                    val id = node.id
-                    val name = node.name
-                    val coord = "[${node.position.lon}, ${node.position.lat}]"
-                    val floor = node.ga.floor;
-                    val type = node.label;
+    // Da chiamare per far vedere tutte le icone che sono presenti nella lista List<Nodes>
+    fun showIcons(webview: WebView, nodes: List<Node>){
+        val allowed_nodes = arrayOf(
+            "restroom_M",
+            "restroom_F",
+            "restroom_H",
+            "stairs",
+            "classroom",
+            "vending_machine_hotdrinks",
+            "vending_machine_colddrinks",
+            "door_exit",
+            "door_normal"
+        )
+        for(node in nodes){
+            if(allowed_nodes.contains(node.label)){
+                val id = node.id
+                val name = node.name
+                val coord = "[${node.position.lon}, ${node.position.lat}]"
+                val floor = node.ga.floor;
+                val type = node.label;
 
-                    val param = "\"${id}\", \"${name}\", ${coord}, 24, ${floor}, \"${type}\""
-                    webview.evaluateJavascript("javascript:insertIcon(${param})", null)
-                }
+                val param = "\"${id}\", \"${name}\", ${coord}, 24, ${floor}, \"${type}\""
+                webview.evaluateJavascript("javascript:insertIcon(${param})", null)
             }
-
-            webview.evaluateJavascript("javascript:initializeIcons()", null)
         }
 
-        // da chiamare per filtrare le icone sulla mappa alle sole icone del tipo "label".
-        // notare che filtra solo quelle di un piano, quindi se si cambia piano vanno ri-filtrate.
-        // Non causa lag visibile filtrarle subito dopo al cambio piano, quindi gestisciti come vuoi
-        fun filterByType(webview: WebView, label: String){
-            webview.evaluateJavascript("javascript:filterByType(\"${label}\")", null)
-        }
+        webview.evaluateJavascript("javascript:initializeIcons()", null)
+    }
 
-        // si autodescrive
-        fun resetFilters(webview: WebView){
-            webview.evaluateJavascript("javascript:resetFilters()", null)
-        }
+    // da chiamare per filtrare le icone sulla mappa alle sole icone del tipo "label".
+    // notare che filtra solo quelle di un piano, quindi se si cambia piano vanno ri-filtrate.
+    // Non causa lag visibile filtrarle subito dopo al cambio piano, quindi gestisciti come vuoi
+    fun filterByType(webview: WebView, label: String){
+        webview.evaluateJavascript("javascript:filterByType(\"${label}\")", null)
+    }
+
+    // si autodescrive
+    fun resetFilters(webview: WebView){
+        webview.evaluateJavascript("javascript:resetFilters()", null)
+    }
 
     // Fa la print del path da una lista di nodi ordinata.
     // Dovremo gestire da qui il fatto che bisogna stampare solo i path su uno stesso piano.
@@ -126,12 +114,12 @@ object JSBridge{
         var s = "["
         for(node in nodes){
             s += "[[${node.position.lon}, ${node.position.lat}], ${node.ga.floor}],"
-            }
+        }
         s += "]"
         webview.evaluateJavascript("javascript:initializeNavigation(${s})", null)
         Log.d("rip", s)
         Log.d("rip", s)
-        }
+    }
 
     //si autocommenta????
     fun resetPath(webview: WebView){
@@ -160,5 +148,5 @@ object JSBridge{
         webview.evaluateJavascript("javascript:getUserPosition()", null)
     }
 
-    }
+}
 

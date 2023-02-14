@@ -7,7 +7,6 @@ interface IPathRepository {
     fun findPath(
         referencePlaceId: String,
         destinationPlaceId: String,
-        accessibility: Boolean,
         lastUpdate: Long
     ): MutableLiveData<CallResult>?
 }

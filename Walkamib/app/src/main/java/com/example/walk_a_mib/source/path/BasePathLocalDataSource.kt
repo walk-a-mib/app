@@ -9,13 +9,7 @@ abstract class BasePathLocalDataSource() {
 
     abstract fun getPath(
         referenceId: String,
-        destinationId: String,
-        accessibility: Boolean
+        destinationId: String
     )
-    abstract fun insertPath(
-        referencePlace: Node,
-        destinationId: String,
-        accessibility: Boolean,
-        steps: List<Step>
-    )
+    abstract fun insertPath(referencePlace: Node, destinationId: String, steps: List<Step>)
 }

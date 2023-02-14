@@ -31,7 +31,6 @@ class PathRepository(val pathRemoteDataSource: BasePathRemoteDataSource,
     override fun findPath(
         referencePlaceId: String,
         destinationPlaceId: String,
-        accessibility: Boolean,
         lastUpdate: Long
     ): MutableLiveData<CallResult> {
         val currentTime = System.currentTimeMillis()
@@ -43,29 +42,21 @@ class PathRepository(val pathRemoteDataSource: BasePathRemoteDataSource,
         //else
         //    placeLocalDataSource.getPlace(placeId)
         //TODO: condizione se non è passato troppo tempo
-        pathLocalDataSource.getPath(referencePlaceId, destinationPlaceId, accessibility)
+        pathLocalDataSource.getPath(referencePlaceId, destinationPlaceId)
         return path
     }
 
-    private fun fetchFromRemote(
-        referencePlaceId: String,
-        destinationPlaceId: String,
-        accessibility: Boolean
-    ) {
-        pathRemoteDataSource.getPath(referencePlaceId, destinationPlaceId, accessibility)
+    private fun fetchFromRemote(referencePlaceId: String, destinationPlaceId: String) {
+        pathRemoteDataSource.getPath(referencePlaceId, destinationPlaceId)
     }
 
     override fun onSuccessFromRemote(
         apiResponse: GenericApiResponse<PathBodyResponse>,
-        accessibility: Boolean,
         lastUpdate: Long
     ) {
-        pathLocalDataSource.insertPath(
-            apiResponse.responseBody.referencePlace,
+        pathLocalDataSource.insertPath(apiResponse.responseBody.referencePlace,
             apiResponse.responseBody.steps.last().node.id,
-            accessibility,
-            apiResponse.responseBody.steps,
-        )
+            apiResponse.responseBody.steps)
     }
 
     override fun onFailureFromRemote(exception: Exception) {
@@ -73,19 +64,16 @@ class PathRepository(val pathRemoteDataSource: BasePathRemoteDataSource,
         path.postValue(result)
     }
 
-    override fun onSuccessFromLocal(
-        referenceId: String,
-        destinationId: String,
-        accessibility: Boolean,
-        distance: Int,
-        referencePlace: Node?,
-        steps: List<Step>?
-    ) {
+    override fun onSuccessFromLocal(referenceId: String,
+                                    destinationId: String,
+                                    distance: Int,
+                                    referencePlace: Node?,
+                                    steps: List<Step>?) {
         if (referencePlace != null && steps?.size!! > 0) {
             var result = CallResult.SuccessPath(buildPath(distance, referencePlace!!, steps!!))
             path.postValue(result!!)
         } else {
-            fetchFromRemote(referenceId, destinationId, accessibility)
+            fetchFromRemote(referenceId, destinationId)
         }
     }
 
