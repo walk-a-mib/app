@@ -50,8 +50,8 @@ class MapsViewModel(var placeRepository: INodeRepository,
         return placesNearby
     }
 
-    fun fetchPath(referencePlaceId: String, destinationPlaceId: String, accessibility: Boolean, lastUpdate: Long) : MutableLiveData<CallResult> {
-        paths = pathRepository.findPath(referencePlaceId, destinationPlaceId, accessibility, lastUpdate)!!
+    fun fetchPath(referencePlaceId: String, destinationPlaceId: String, lastUpdate: Long) : MutableLiveData<CallResult> {
+        paths = pathRepository.findPath(referencePlaceId, destinationPlaceId, lastUpdate,)!!
         return paths
     }
 

@@ -477,7 +477,7 @@ class MainFragment : Fragment() {
             override fun onFinish() {
                 mapsViewModel.fetchAllPlaces(1000).observe(requireActivity(), allPlacesObserver)
                 //se si mettono id a cazzo si incazza, occhio, verificare sempre
-                mapsViewModel.fetchPath("3", "44", true,1000).observe(requireActivity(), fpObserver)
+                mapsViewModel.fetchPath("3", "44", 1000).observe(requireActivity(), fpObserver)
             }
         }
         timer.start()

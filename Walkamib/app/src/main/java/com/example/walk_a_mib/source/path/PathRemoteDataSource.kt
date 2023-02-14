@@ -13,9 +13,9 @@ import retrofit2.Response
 class PathRemoteDataSource(val apiKey: String): BasePathRemoteDataSource() {
     private val placeApiService : MapsApiService = ServiceLocator.getPlaceApiService()
 
-    override fun getPath(referenceId: String, destinationId: String, accessibility: Boolean) {
+    override fun getPath(referenceId : String, destinationId: String) {
         val placeResponseCall : Call<GenericApiResponse<PathBodyResponse>> = placeApiService.getPath(
-            PathBodyRequest(referenceId, destinationId, accessibility), apiKey)
+            PathBodyRequest(referenceId, destinationId), apiKey)
 
         placeResponseCall.enqueue(object : Callback<GenericApiResponse<PathBodyResponse>> {
 
@@ -25,8 +25,7 @@ class PathRemoteDataSource(val apiKey: String): BasePathRemoteDataSource() {
                 ) {
                     pathCallback?.onSuccessFromRemote(
                         response.body()!!,
-                        accessibility,
-                        System.currentTimeMillis(),
+                        System.currentTimeMillis()
                     )
                 }
             }   //response.body()

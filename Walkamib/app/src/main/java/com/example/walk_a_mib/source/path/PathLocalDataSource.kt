@@ -7,6 +7,7 @@ import com.example.walk_a_mib.database.NodeDao
 import com.example.walk_a_mib.database.relationship.Pathway
 import com.example.walk_a_mib.logic_layer.domain.Edge
 import com.example.walk_a_mib.logic_layer.domain.Node
+import com.example.walk_a_mib.model.path.PathOptionalFilters
 import com.example.walk_a_mib.model.path.Step
 
 class PathLocalDataSource(val mapsRoomDatabase: MapsRoomDatabase) : BasePathLocalDataSource() {
@@ -17,27 +18,21 @@ class PathLocalDataSource(val mapsRoomDatabase: MapsRoomDatabase) : BasePathLoca
     override fun getPath(
         referenceId: String,
         destinationId: String,
-        accessibility: Boolean
+        optionalFilters: PathOptionalFilters
     ) {
         MapsRoomDatabase.databaseWriteExecutor.execute {
-            var res : List<Step> = pathDao.getPath(referenceId, destinationId, accessibility)!!
+            var res : List<Step> = pathDao.getPath(referenceId, destinationId)!!
             pathCallback?.onSuccessFromLocal(
                 referenceId,
                 destinationId,
-                accessibility,
                 getPathLength(res),
                 placeDao.getPlace(referenceId),
-                pathDao.getPath(referenceId, destinationId, accessibility)
+                pathDao.getPath(referenceId, destinationId)
             )
         }
     }
 
-    override fun insertPath(
-        referencePlace: Node,
-        destinationId: String,
-        accessibility: Boolean,
-        steps: List<Step>
-    ) {
+    override fun insertPath(referencePlace: Node, destinationId: String, steps: List<Step>) {
         var pathways = mutableListOf<Pathway>()
         var places = mutableListOf(referencePlace)
         var edges = mutableListOf<Edge>()
@@ -55,10 +50,8 @@ class PathLocalDataSource(val mapsRoomDatabase: MapsRoomDatabase) : BasePathLoca
 
                 pathCallback?.onSuccessFromLocal(
                     referencePlace.id,
-                    destinationId,
-                    accessibility,
-                    getPathLength(steps),
-                    referencePlace, steps,
+                    destinationId, getPathLength(steps),
+                    referencePlace, steps
                 )
 
         }
