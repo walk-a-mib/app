@@ -7,7 +7,6 @@ import com.example.walk_a_mib.logic_layer.domain.Path
 import com.example.walk_a_mib.model.CallResult
 import com.example.walk_a_mib.model.GenericApiResponse
 import com.example.walk_a_mib.model.path.PathBodyResponse
-import com.example.walk_a_mib.model.path.PathOptionalFilters
 import com.example.walk_a_mib.model.path.Step
 import com.example.walk_a_mib.source.callback.PathCallback
 import com.example.walk_a_mib.source.path.BasePathLocalDataSource
@@ -32,7 +31,6 @@ class PathRepository(val pathRemoteDataSource: BasePathRemoteDataSource,
     override fun findPath(
         referencePlaceId: String,
         destinationPlaceId: String,
-        optionalFilters: PathOptionalFilters,
         lastUpdate: Long
     ): MutableLiveData<CallResult> {
         val currentTime = System.currentTimeMillis()
@@ -44,7 +42,7 @@ class PathRepository(val pathRemoteDataSource: BasePathRemoteDataSource,
         //else
         //    placeLocalDataSource.getPlace(placeId)
         //TODO: condizione se non è passato troppo tempo
-        pathLocalDataSource.getPath(referencePlaceId, destinationPlaceId, optionalFilters)
+        pathLocalDataSource.getPath(referencePlaceId, destinationPlaceId)
         return path
     }
 

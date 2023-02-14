@@ -143,8 +143,30 @@ class MAct : AppCompatActivity() {
         val srcKeyBtn = findViewById<Button>(R.id.gobtn)
 
 
+
+
+        //srcKeyBtn.setOnClickListener {
+        //    mapsViewModel.searchPlaceFromNameKeyword("x", 1000).observe(this, searchPlaceObserver)
+
+        //}
+
+
+
+        val fpObserver = Observer<CallResult> { result ->
+            if (result.isSuccess()) {
+                val res = (result as CallResult.SuccessPath).pathResponse
+                Log.d("MAIN",
+                    "ACTUALLY FUCKING WORKS FIND PATH: " + res.pathLength + " --- "
+                            + res.nodeList.toString() + " --- " + res.edgeList.toString())
+
+            } else {
+                Log.d("MAIN", "FUCK NO FIND PATH")
+            }
+        }
+
+
         srcKeyBtn.setOnClickListener {
-            mapsViewModel.searchPlaceFromNameKeyword("x", 1000).observe(this, searchPlaceObserver)
+            mapsViewModel.fetchPath("3", "30", 1000).observe(this, fpObserver)
 
         }
 
