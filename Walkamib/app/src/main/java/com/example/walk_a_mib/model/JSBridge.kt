@@ -15,26 +15,19 @@ import com.example.walk_a_mib.logic_layer.domain.Node
 object JSBridge{
 
     var callbackValue: MutableLiveData<String> = MutableLiveData<String>().apply {postValue(null)}
-
+    var readyValue: MutableLiveData<Boolean> = MutableLiveData<Boolean>().apply {postValue(null)}
+    var idValue: MutableLiveData<String> = MutableLiveData<String>().apply {postValue(null)}
 
     //callback per evento su mappa
         @JavascriptInterface
         fun showPointInfo(id:String){
-            // restituisce l'id del punto di interesse toccato sulla mappa
-            Log.d("MESSAGE FROM WEBVIEW", id)
-            // mettere qui tutto il codice che bisogna eseguire quando viene
-            // toccato un punto della mappa, per esempio una chiamata al controller
-            // che setta tutto quanto per vedere le info del punto.
-            // Se serve oltre all'id posso ritornare, in formato stringa, anche:
-            // nome, edificio, piano, tipo, coordinate.
-
-
+            idValue.postValue(id)
         }
 
         //chiamata quando la mappa è pronta a fare il load delle icone. Chris un observer?
         @JavascriptInterface
         fun onMapReady(){
-
+            readyValue.postValue(true)
         }
 
     //callback per quando è stata ricevuta la posizione che l'utente ha settato sulla mappa

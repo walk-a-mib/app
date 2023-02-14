@@ -293,32 +293,6 @@
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-
-                    <TextView
-                        android:id="@+id/infoTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_marginBottom="20dp"
-                        android:text="@string/poi_info"
-                        android:textSize="34sp"
-                        android:textColor="@color/textOnNeutral" />
-
-                    <TextView
-                        android:id="@+id/poiDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="40dp" />
-
-                    <LinearLayout
-                        android:id="@+id/otherInfoContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-
-
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
