@@ -1,0 +1,1596 @@
+{
+    "buildings": [{
+        "name": "U24",
+        "vertices": [{
+                "id": "1",
+                "name": "door_normal_C1",
+                "label": "door_normal",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523828,
+                "lon": 9.221083,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "2",
+                "name": "door_normal_C1",
+                "label": "door_normal",
+                "description": "",
+                "image": null,
+
+                "lat": 45.5238,
+                "lon": 9.22116,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "3",
+                "name": "classroom_C1",
+                "label": "classroom",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523882,
+                "lon": 9.221172,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "4",
+                "name": "stairs_C1",
+                "label": "stairs",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523959,
+                "lon": 9.221182,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": false,
+                "indoor": true
+            },
+            {
+                "id": "5",
+                "name": "stairs_C1",
+                "label": "stairs",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523955,
+                "lon": 9.221193,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": false,
+                "indoor": true
+            },
+            {
+                "id": "6",
+                "name": "stairs_C1",
+                "label": "stairs",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523931,
+                "lon": 9.221258,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": false,
+                "indoor": true
+            },
+            {
+                "id": "7",
+                "name": "stairs_C1",
+                "label": "stairs",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523935,
+                "lon": 9.221246,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": false,
+                "indoor": true
+            },
+            {
+                "id": "8",
+                "name": "door_exit_C1",
+                "label": "door_exit",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523947,
+                "lon": 9.221237,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "9",
+                "name": "waypoint_C1",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.52394,
+                "lon": 9.221232,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+
+            {
+                "id": "10",
+                "name": "waypoint_corridor",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523813,
+                "lon": 9.221072,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "11",
+                "name": "waypoint_corridor",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523807,
+                "lon": 9.221086,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "12",
+                "name": "waypoint_corridor",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523801,
+                "lon": 9.221102,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "13",
+                "name": "waypoint_corridor",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523794,
+                "lon": 9.221123,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "14",
+                "name": "waypoint_corridor",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523785,
+                "lon": 9.221149,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+
+            {
+                "id": "15",
+                "name": "door_exit_building",
+                "label": "door_exit",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523808,
+                "lon": 9.221047,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "16",
+                "name": "waypoint_C1",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523802,
+                "lon": 9.221064,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+
+            {
+                "id": "17",
+                "name": "stairs_building",
+                "label": "stairs",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523796,
+                "lon": 9.221077,
+                "alt": 130,
+
+                "available": false,
+                "floor": 0,
+                "accessible": false,
+                "indoor": true
+            },
+            {
+                "id": "18",
+                "name": "stairs_building",
+                "label": "stairs",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523773,
+                "lon": 9.221059,
+                "alt": 130,
+
+                "available": false,
+                "floor": 0,
+                "accessible": false,
+                "indoor": true
+            },
+            {
+                "id": "19",
+                "name": "stairs_building",
+                "label": "stairs",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523749,
+                "lon": 9.221041,
+                "alt": 130,
+
+                "available": false,
+                "floor": 0,
+                "accessible": false,
+                "indoor": true
+            },
+
+            {
+                "id": "20",
+                "name": "?door_normal_building",
+                "label": "door_normal",
+                "description": "",
+                "image": null,
+
+                "lat": 45.52379,
+                "lon": 9.221093,
+                "alt": 130,
+
+                "available": false,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "40",
+                "name": "?door_normal_building",
+                "label": "door_normal",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523782,
+                "lon": 9.221114,
+                "alt": 130,
+
+                "available": false,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+
+            {
+                "id": "21",
+                "name": "door_exit_building",
+                "label": "door_exit",
+                "description": "",
+                "image": null,
+
+                "lat": 45.52376,
+                "lon": 9.221011,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "22",
+                "name": "waypoint_building",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523755,
+                "lon": 9.221027,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "23",
+                "name": "waypoint_building",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523742,
+                "lon": 9.221017,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "24",
+                "name": "waypoint_building",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523737,
+                "lon": 9.221033,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "25",
+                "name": "waypoint_building",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523729,
+                "lon": 9.221056,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "26",
+                "name": "waypoint_building",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523723,
+                "lon": 9.221071,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "27",
+                "name": "waypoint_building",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523712,
+                "lon": 9.221104,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+
+            {
+                "id": "28",
+                "name": "restroom_H_building",
+                "label": "restroom_H",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523741,
+                "lon": 9.221064,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "29",
+                "name": "door_normal_restroom_F",
+                "label": "door_normal",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523736,
+                "lon": 9.22108,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "30",
+                "name": "restroom_F_building",
+                "label": "restroom_F",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523751,
+                "lon": 9.221097,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "31",
+                "name": "door_normal_restroom_M",
+                "label": "door_normal",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523723,
+                "lon": 9.221113,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "32",
+                "name": "restroom_M_building",
+                "label": "restroom_M",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523742,
+                "lon": 9.221121,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+
+            {
+                "id": "33",
+                "name": "door_normal_C2",
+                "label": "door_normal",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523729,
+                "lon": 9.221009,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "34",
+                "name": "door_normal_C2",
+                "label": "door_normal",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523701,
+                "lon": 9.221084,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "35",
+                "name": "classroom_C2",
+                "label": "classroom",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523648,
+                "lon": 9.220998,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "36",
+                "name": "stairs_C2",
+                "label": "stairs",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523597,
+                "lon": 9.220909,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": false,
+                "indoor": true
+            },
+            {
+                "id": "37",
+                "name": "stairs_C2",
+                "label": "stairs",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523592,
+                "lon": 9.220926,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": false,
+                "indoor": true
+            },
+            {
+                "id": "38",
+                "name": "door_exit_C2",
+                "label": "door_exit",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523571,
+                "lon": 9.220955,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "39",
+                "name": "waypoint_C2",
+                "label": "waypoint",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523579,
+                "lon": 9.220961,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true
+            },
+            {
+                "id": "41",
+                "name": "stairs_C2",
+                "label": "stairs",
+                "description": "",
+                "image": null,
+
+                "lat": 45.52357,
+                "lon": 9.220986,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": false,
+                "indoor": true
+            },
+            {
+                "id": "42",
+                "name": "stairs_C2",
+                "label": "stairs",
+                "description": "",
+                "image": null,
+
+                "lat": 45.523576,
+                "lon": 9.220969,
+                "alt": 130,
+
+                "available": true,
+                "floor": 0,
+                "accessible": false,
+                "indoor": true
+            }
+        ],
+        "edges": [{
+                "from_id": "1",
+                "to_id": "3",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "1",
+                "to_id": "10",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "2",
+                "to_id": "3",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "2",
+                "to_id": "14",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "3",
+                "to_id": "1",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "3",
+                "to_id": "2",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "3",
+                "to_id": "4",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "3",
+                "to_id": "6",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "4",
+                "to_id": "5",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": false,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "4",
+                "to_id": "3",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "5",
+                "to_id": "4",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": false,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "5",
+                "to_id": "9",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "6",
+                "to_id": "7",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": false,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "6",
+                "to_id": "3",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "7",
+                "to_id": "6",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": false,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "7",
+                "to_id": "9",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "8",
+                "to_id": "9",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "9",
+                "to_id": "5",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "9",
+                "to_id": "7",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "9",
+                "to_id": "8",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "10",
+                "to_id": "1",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "10",
+                "to_id": "11",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "10",
+                "to_id": "16",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "10",
+                "to_id": "16",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "11",
+                "to_id": "10",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "11",
+                "to_id": "12",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "11",
+                "to_id": "17",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "12",
+                "to_id": "11",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "12",
+                "to_id": "13",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "12",
+                "to_id": "20",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "13",
+                "to_id": "12",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "13",
+                "to_id": "14",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "13",
+                "to_id": "40",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "14",
+                "to_id": "2",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "14",
+                "to_id": "13",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "15",
+                "to_id": "16",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "16",
+                "to_id": "15",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "16",
+                "to_id": "10",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "16",
+                "to_id": "22",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "17",
+                "to_id": "11",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "17",
+                "to_id": "18",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": false,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "18",
+                "to_id": "17",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": false,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "18",
+                "to_id": "19",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": false,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "19",
+                "to_id": "18",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": false,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "19",
+                "to_id": "24",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "20",
+                "to_id": "12",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "40",
+                "to_id": "13",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "21",
+                "to_id": "22",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "22",
+                "to_id": "16",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "22",
+                "to_id": "21",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "22",
+                "to_id": "23",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "23",
+                "to_id": "22",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "23",
+                "to_id": "24",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "23",
+                "to_id": "33",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "23",
+                "to_id": "24",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "24",
+                "to_id": "23",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "24",
+                "to_id": "19",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "24",
+                "to_id": "25",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "25",
+                "to_id": "28",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "25",
+                "to_id": "26",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "26",
+                "to_id": "25",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "26",
+                "to_id": "27",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "26",
+                "to_id": "29",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "27",
+                "to_id": "26",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "27",
+                "to_id": "31",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "28",
+                "to_id": "25",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "29",
+                "to_id": "30",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "29",
+                "to_id": "26",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "30",
+                "to_id": "29",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "31",
+                "to_id": "27",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "31",
+                "to_id": "32",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "32",
+                "to_id": "31",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "33",
+                "to_id": "23",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "33",
+                "to_id": "35",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "34",
+                "to_id": "35",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "35",
+                "to_id": "33",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "35",
+                "to_id": "34",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "35",
+                "to_id": "36",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "35",
+                "to_id": "41",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "36",
+                "to_id": "35",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "36",
+                "to_id": "37",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": false,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "37",
+                "to_id": "36",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": false,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "37",
+                "to_id": "39",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "38",
+                "to_id": "39",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "39",
+                "to_id": "37",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "39",
+                "to_id": "38",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "39",
+                "to_id": "42",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "41",
+                "to_id": "35",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "41",
+                "to_id": "42",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": false,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "42",
+                "to_id": "41",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": false,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "42",
+                "to_id": "39",
+                "distance": 0,
+                "properties": {
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            }
+        ]
+    }]
+}

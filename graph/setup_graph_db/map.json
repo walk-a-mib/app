@@ -1,0 +1,117 @@
+{
+    "buildings": [{
+        "name": "U24",
+        "vertices": [{
+                "id": "805eca0a-92fe-4bd0-ac04-79fde63edb8d",
+                "name": "C2",
+                "label": "classroom",
+
+                "description": "",
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true,
+                "image": null
+            },
+            {
+                "id": "169e0ee8-a70a-4214-b9a3-a2ccf9dbff93",
+                "name": "C1",
+                "label": "classroom",
+
+                "description": "",
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true,
+                "image": null
+            },
+            {
+                "id": "905eca0a-92fe-sbd0-ac04-79fde63edb8d",
+                "name": "C2",
+                "label": "classroom",
+
+                "description": "",
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true,
+                "image": null
+            },
+            {
+                "id": "105eca0a-92fe-sbd0-ac04-79fde63edb8d",
+                "name": "C2",
+                "label": "classroom",
+
+                "description": "",
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true,
+                "image": null
+            },
+            {
+                "id": "205eca0a-92fe-sbd0-ac04-79fde63edb8d",
+                "name": "C2",
+                "label": "classroom",
+
+                "description": "",
+                "available": true,
+                "floor": 0,
+                "accessible": true,
+                "indoor": true,
+                "image": null
+            }
+        ],
+        "edges": [{
+                "from_id": "805eca0a-92fe-4bd0-ac04-79fde63edb8d",
+                "to_id": "805eca0a-92fe-4bd0-ac04-79fde63edb8d",
+                "properties": {
+                    "length": 5,
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "805eca0a-92fe-4bd0-ac04-79fde63edb8d",
+                "to_id": "805eca0a-92fe-4bd0-ac04-79fde63edb8d",
+                "properties": {
+                    "length": 5,
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "105eca0a-92fe-sbd0-ac04-79fde63edb8d",
+                "to_id": "205eca0a-92fe-sbd0-ac04-79fde63edb8d",
+                "properties": {
+                    "length": 50,
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "205eca0a-92fe-sbd0-ac04-79fde63edb8d",
+                "to_id": "105eca0a-92fe-sbd0-ac04-79fde63edb8d",
+                "properties": {
+                    "length": 25,
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            },
+            {
+                "from_id": "205eca0a-92fe-sbd0-ac04-79fde63edb8d",
+                "to_id": "805eca0a-92fe-4bd0-ac04-79fde63edb8d",
+                "properties": {
+                    "length": 5,
+                    "availability": true,
+                    "accessibility": true,
+                    "indoor": true
+                }
+            }
+        ]
+    }]
+}
