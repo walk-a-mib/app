@@ -56,4 +56,4 @@ Once you've selected the location you wish to reach, the app guides you through 
 - Alex Calabrese: [GitHub](https://github.com/alexcalabrese) | [LinkedIn](https://www.linkedin.com/in/alex-calabrese)
 - Christian Ferrareis: [GitHub](https://github.com/FerraChris01) | [LinkedIn](https://www.linkedin.com/in/christian-ferrareis/)
 - Andrea Mauriello: [GitHub](https://github.com/sasmau69) | [LinkedIn](https://www.linkedin.com/in/andrea-mauriello)
-- Chiara Pagliaroli: [GitHub](https://github.com/https://github.com/Blue3141) | [LinkedIn](https://www.linkedin.com/in/?)
+- Chiara Pagliaroli: [GitHub](https://github.com/Blue3141) | [LinkedIn](https://www.linkedin.com/in/blue3141/)
